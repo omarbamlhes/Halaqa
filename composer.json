@@ -19,6 +19,10 @@
         "drupal/core-composer-scaffold": "^10.5",
         "drupal/core-project-message": "^10.5",
         "drupal/core-recommended": "^10.5",
+        "drupal/devel": "^5.4",
+        "drupal/devel_php": "^1.7",
+        "drupal/admin_toolbar": "^3.5",
+        "drupal/twig_tweak": "^3.4",
         "drush/drush": "^13.6"
     },
     "conflict": {
