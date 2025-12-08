@@ -156,8 +156,6 @@ tooling:
       - drush cr
       - drush config-import -y
       - drush config-import -y
-      - drush locale-check
-      - drush locale-update
       - drush updb -y
       - drush cr
   dejavu-hard:
