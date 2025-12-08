@@ -72,4 +72,4 @@ web.config
 config/keys/
 .htaccess
 web.config
-/config/jwt/*
+

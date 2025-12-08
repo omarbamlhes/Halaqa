@@ -16,7 +16,8 @@ services:
 tooling:
   drush:
     service: appserver
-    cmd: drush
+    cmd: vendor/bin/drush
+    dir: /app/web
   composer:
     service: appserver
     cmd: composer
