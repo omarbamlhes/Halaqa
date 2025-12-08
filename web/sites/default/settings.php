@@ -248,7 +248,6 @@ $databases = [];
 /**
  * Location of the site configuration files.
  *
- * The $settings['config_sync_directory'] specifies the location of file system
  * directory used for syncing configuration data. On install, the directory is
  * created. This is used for configuration imports.
  *
@@ -256,7 +255,6 @@ $databases = [];
  * directory in the public files path. The setting below allows you to set
  * its location.
  */
-# $settings['config_sync_directory'] = '/directory/outside/webroot';
 
 /**
  * Settings:
@@ -286,7 +284,7 @@ $databases = [];
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '939qA0KyIi9od6XLt5S50q4d0eTCJXs1Vz2uGxi3ChaUZPbageLnjloN7f2bNPBMoFtGU5oR8Q';
+#$settings['hash_salt'] = '2pZjPkIDVWbCFU_ajeJmjMAahABF4gRSLJ5dOTKst1tftDjcfFhIBqgzRfFOaGVoJFQxd7NyIQ';
 
 /**
  * Deployment identifier.
@@ -889,19 +887,6 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  * Keep this code block at the end of this file to take full effect.
  */
 #
-# if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-#   include $app_root . '/' . $site_path . '/settings.local.php';
-# }
-$databases['default']['default'] = array (
-  'database' => 'drupal10',
-  'username' => 'drupal10',
-  'password' => 'drupal10',
-  'prefix' => '',
-  'host' => 'database',
-  'port' => 3306,
-  'isolation_level' => 'READ COMMITTED',
-  'driver' => 'mysql',
-  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
-  'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
-);
-$settings['config_sync_directory'] = 'sites/default/files/config_QGp1sT3EeFZjTleXrxofLu4bcRe03ncF-BTFsX7zl6BZIr2YhSBbhOIUH4helztEGzlhMEpicw/sync';
+ if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+ include $app_root . '/' . $site_path . '/settings.local.php';
+ }
