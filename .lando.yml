@@ -2,22 +2,211 @@ name: fullstack-drupal-task
 recipe: drupal10
 config:
   webroot: web
-  database: mysql
-  php: '8.2'
-  xdebug: true
+  php: 8.2
+  database: mysql:5.7.27
+  framework: drupal
+  env: dev
+proxy:
+  appserver:
+    - local.fullstack-drupal-task.dev
+tooling:
+  install-site:
+    service: appserver
+    description: Install as per requirements.
+    cmd:
+      - mkdir -p web/sites/default/files/private
+      - mkdir -p web/sites/default/files/temp
+      - mkdir -p config/sync
+      - chmod 0777 config/sync
+      - chmod 0777 web/sites/default
+      - echo "██████ Salam! Please take a rest this process will take around 5-7 minutes ██████"
+      - composer install --ignore-platform-reqs
+      - |
+        # Create settings.local.php BEFORE installation so drush doesn't need to write to settings.php
+        cat > web/sites/default/settings.local.php << 'EOF'
+        <?php
+
+        $settings['hash_salt'] = 'HM0MBkyXuMCBuIXyqRs4yuO31M0gumm7vouEqYJvITzuukIoi2gAam-Te70yChwjXFs1CD-1iA';
+
+        $databases['default']['default'] = array (
+          'database' => 'drupal10',
+          'username' => 'drupal10',
+          'password' => 'drupal10',
+          'prefix' => '',
+          'host' => 'database',
+          'port' => 3306,
+          'isolation_level' => 'READ COMMITTED',
+          'driver' => 'mysql',
+          'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+          'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+        );
+
+        // Configuration sync directory
+        $settings['config_sync_directory'] = '../config/sync';
+
+        // Development only configuration
+        $config['system.performance']['css']['preprocess'] = FALSE;
+        $config['system.performance']['js']['preprocess'] = FALSE;
+        $settings['config_exclude_modules'] = [
+          'devel',
+          'dblog',
+         'devel_php',
+         'default_content'
+        ];
+        EOF
+      - |
+        # Delete settings.php if it exists to let Drush create it fresh with correct permissions
+        rm -f web/sites/default/settings.php 2>/dev/null || true
+        # Ensure directory is writable
+        chmod -R 0777 web/sites/default 2>/dev/null || true
+      - drush si --db-url=mysql://drupal10:drupal10@database:3306/drupal10 --site-name="Full Stack Drupal Developer – Evaluation Task" -y --account-pass=admin -y
+      - |
+        # After installation, ensure settings.local.php is included in settings.php
+        if [ -f web/sites/default/settings.php ] && ! grep -q "settings.local.php" web/sites/default/settings.php; then
+          echo "" >> web/sites/default/settings.php || true
+          echo "if (file_exists(\$app_root . '/' . \$site_path . '/settings.local.php')) {" >> web/sites/default/settings.php || true
+          echo "  include \$app_root . '/' . \$site_path . '/settings.local.php';" >> web/sites/default/settings.php || true
+          echo "}" >> web/sites/default/settings.php || true
+        fi
+      - chmod 0777 web/sites/default
+      - |
+        # Create settings.local.php with database configuration
+        cat > web/sites/default/settings.local.php << 'EOF'
+        <?php
+
+        $settings['hash_salt'] = 'HM0MBkyXuMCBuIXyqRs4yuO31M0gumm7vouEqYJvITzuukIoi2gAam-Te70yChwjXFs1CD-1iA';
+
+        $databases['default']['default'] = array (
+          'database' => 'drupal10',
+          'username' => 'drupal10',
+          'password' => 'drupal10',
+          'prefix' => '',
+          'host' => 'database',
+          'port' => 3306,
+          'isolation_level' => 'READ COMMITTED',
+          'driver' => 'mysql',
+          'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+          'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+        );
+
+        // Development only configuration
+        $config['system.performance']['css']['preprocess'] = FALSE;
+        $config['system.performance']['js']['preprocess'] = FALSE;
+        $settings['config_exclude_modules'] = [
+          'devel',
+          'dblog',
+         'devel_php',
+         'default_content'
+        ];
+
+        // Configuration sync directory
+        $settings['config_sync_directory'] = '../config/sync';
+        EOF
+      - drush cset system.site uuid a5ef2b10-ee7c-46df-8d1a-1c834cac71cd -y
+      - drush pm:enable shortcut -y
+      - drush entity:delete shortcut_set
+      - drush php:eval "\$storage = \Drupal::entityTypeManager()->getStorage('shortcut_set'); \$set = \$storage->create(['id' => 'default', 'label' => 'Default']); \$set->save();" || echo "Shortcut set creation skipped"
+      - sh -c 'if [ "$(find config/sync -name "*.yml" -type f | wc -l)" -gt 0 ]; then drush config-import -y; fi'
+      - sh -c 'if [ "$(find config/sync -name "*.yml" -type f | wc -l)" -gt 0 ]; then drush config-import -y; fi'
+      - chmod 0777 web/sites/default
+      - git config --global --add safe.directory /app
+      - sh -c 'git ls-files config/sync >/dev/null 2>&1 && git checkout config/sync || echo "config/sync not in git, skipping checkout"'
+      - sh -c 'git ls-files web/sites/default/settings.php >/dev/null 2>&1 && git checkout web/sites/default/settings.php || echo "settings.php not in git, skipping checkout"'
+      - chmod 0777 web/sites/default
+      - |
+        # Create settings.local.php with database configuration
+        cat > web/sites/default/settings.local.php << 'EOF'
+        <?php
+
+        $settings['hash_salt'] = 'HM0MBkyXuMCBuIXyqRs4yuO31M0gumm7vouEqYJvITzuukIoi2gAam-Te70yChwjXFs1CD-1iA';
+
+        $databases['default']['default'] = array (
+          'database' => 'drupal10',
+          'username' => 'drupal10',
+          'password' => 'drupal10',
+          'prefix' => '',
+          'host' => 'database',
+          'port' => 3306,
+          'isolation_level' => 'READ COMMITTED',
+          'driver' => 'mysql',
+          'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+          'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
+        );
+
+        // Development only configuration
+        $config['system.performance']['css']['preprocess'] = FALSE;
+        $config['system.performance']['js']['preprocess'] = FALSE;
+        $settings['config_exclude_modules'] = [
+          'devel',
+          'dblog',
+         'devel_php',
+         'default_content'
+        ];
+        EOF
+      - sh -c 'if [ "$(find config/sync -name "*.yml" -type f | wc -l)" -gt 0 ]; then drush config-import -y; else echo "No config files to import, skipping"; fi'
+      - drush cr
+      - echo "██████ Installation process has been finished successfully ██████"
+      - echo "██████ Use these credentials admin/admin or the following URL ██████"
+      - drush uli
+  dejavu:
+    service: appserver
+    description: Import and apply new config changes (the same automated action that happend before).
+    cmd:
+      - composer install --no-interaction --ignore-platform-reqs
+      - drush cr
+      - drush config-import -y
+      - drush config-import -y
+      - drush locale-check
+      - drush locale-update
+      - drush updb -y
+      - drush cr
+  dejavu-hard:
+    service: appserver
+    description: Revert composer JSON changes.
+    cmd:
+      - git checkout composer.json composer.lock
+      - rm -rf ./vendor
+      - composer install
+      - git status
+  xdebug-on:
+    service: appserver
+    description: Enable xdebug for Apache.
+    cmd: rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && docker-php-ext-enable xdebug && /etc/init.d/apache2 reload && echo "Xdebug enabled"
+    user: root
+  phpcs:
+    service: appserver
+    description: phpcs
+    cmd:
+      - '/app/vendor/bin/phpcs --standard=Drupal,DrupalPractice --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt,md --runtime-set installed_paths /app/vendor/drupal/coder/coder_sniffer,/app/vendor/slevomat/coding-standard'
+  phpcbf:
+    service: appserver
+    description: phpcbf
+    cmd:
+      - '/app/vendor/bin/phpcbf --standard=Drupal,DrupalPractice --extensions=php,module,inc,install,test,profile,theme,js,css,info,txt,md --runtime-set installed_paths /app/vendor/drupal/coder/coder_sniffer,/app/vendor/slevomat/coding-standard'
 services:
   appserver:
+    scanner: false
+    run_as_root:
+      - chmod -R 0777 web/sites/default
+      - chown -R www-data:www-data web/sites/default || chown -R $(whoami):$(whoami) web/sites/default || true
+    overrides:
+      environment:
+        # Support debugging CLI with XDEBUG.
+        PHP_IDE_CONFIG: "serverName=appserver"
+        XDEBUG_SESSION_START: lando
+        # Suppress Drush PHP version check (Drush requires 8.3+ but Lando Drupal10 recipe supports up to 8.2)
+        DRUSH_NO_MIN_PHP: "1"
     xdebug: true
-    config:
-      php: |
-        memory_limit = 512M
-        upload_max_filesize = 100M
-        post_max_size = 100M
-tooling:
-  drush:
-    service: appserver
-    cmd: vendor/bin/drush
-    dir: /app/web
-  composer:
-    service: appserver
-    cmd: composer
+    #    config:
+    #      php: config/php.ini
+    build_as_root:
+      - rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && /etc/init.d/apache2 reload
+  pma:
+    type: phpmyadmin
+    hosts:
+    - database
+  mymailhog:
+    type: mailhog
+    portforward: true
+    hogfrom:
+      - appserver
