@@ -1,0 +1,16 @@
+uuid: 75034e78-811d-40e7-b24b-ffcf154a67fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.halaqa
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: node.halaqa
+target_entity_type_id: node
+target_bundle: halaqa
+default_langcode: current_interface
+language_alterable: true

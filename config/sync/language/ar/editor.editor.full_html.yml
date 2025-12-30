@@ -1,0 +1,14 @@
+settings:
+  plugins:
+    ckeditor5_codeBlock:
+      languages:
+        0:
+          label: 'نص عادي'
+        5:
+          label: 'الفروقات (Diff)'
+        6:
+          label: HTML
+        8:
+          label: JavaScript
+        9:
+          label: PHP

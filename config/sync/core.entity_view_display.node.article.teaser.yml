@@ -1,4 +1,4 @@
-uuid: 35c0f28a-23d6-479e-b701-2c6b85999f62
+uuid: b6f139e9-0be7-4066-ae3c-fc5ca0a24e0c
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ dependencies:
     - image.style.medium
     - node.type.article
   module:
-    - image
+    - svg_image
     - text
     - user
 _core:
@@ -53,3 +53,4 @@ content:
     region: content
 hidden:
   comment: true
+  langcode: true

@@ -1,0 +1,24 @@
+uuid: e367c4d7-08e3-4d1e-8bcb-432a0065688e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.halaqa
+  module:
+    - text
+id: node.halaqa.body
+field_name: body
+entity_type: node
+bundle: halaqa
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

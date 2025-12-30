@@ -1,0 +1,16 @@
+settings:
+  allowed_values:
+    -
+      label: السبت
+    -
+      label: الاحد
+    -
+      label: الاثنين
+    -
+      label: الثلاثاء
+    -
+      label: الاربعاء
+    -
+      label: الخميس
+    -
+      label: الجمعة

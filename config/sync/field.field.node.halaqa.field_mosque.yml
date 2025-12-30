@@ -1,0 +1,19 @@
+uuid: 8a7b088c-ac55-4076-b702-22b28b12b68c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_mosque
+    - node.type.halaqa
+id: node.halaqa.field_mosque
+field_name: field_mosque
+entity_type: node
+bundle: halaqa
+label: Mosque
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

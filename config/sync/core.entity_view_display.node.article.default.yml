@@ -1,4 +1,4 @@
-uuid: 1a3fc23c-640b-4ad1-8a75-cb8838e29077
+uuid: deadcd1b-27c9-4bd2-8ab5-9491bcb4f570
 langcode: en
 status: true
 dependencies:
@@ -12,7 +12,7 @@ dependencies:
     - node.type.article
   module:
     - comment
-    - image
+    - svg_image
     - text
     - user
 _core:
@@ -62,4 +62,5 @@ content:
     third_party_settings: {  }
     weight: 100
     region: content
-hidden: {  }
+hidden:
+  langcode: true

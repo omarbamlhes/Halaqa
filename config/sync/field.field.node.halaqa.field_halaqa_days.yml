@@ -1,0 +1,21 @@
+uuid: 69a22d6e-9d6d-4975-9ac5-09952cf91231
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_halaqa_days
+    - node.type.halaqa
+  module:
+    - options
+id: node.halaqa.field_halaqa_days
+field_name: field_halaqa_days
+entity_type: node
+bundle: halaqa
+label: 'Halaqa days'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
