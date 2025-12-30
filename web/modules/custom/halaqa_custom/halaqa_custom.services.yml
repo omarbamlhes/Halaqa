@@ -1,0 +1,5 @@
+services:
+  halaqa_custom.helper:
+    class: Drupal\halaqa_custom\HalaqaCustomHelper
+    arguments: ['@entity_type.manager']
+

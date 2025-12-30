@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Halaqa Custom module.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function halaqa_custom_help($route_name, $route_match) {
+  switch ($route_name) {
+    case 'help.page.halaqa_custom':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Custom module for Halaqa project.') . '</p>';
+      return $output;
+  }
+}
+

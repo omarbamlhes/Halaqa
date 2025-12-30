@@ -1,0 +1,8 @@
+halaqa_custom.example:
+  path: '/halaqa-custom/example'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\HalaqaCustomController::example'
+    _title: 'Example'
+  requirements:
+    _permission: 'access content'
+

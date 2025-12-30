@@ -1,0 +1,6 @@
+name: Halaqa Custom
+type: module
+description: 'Custom module for Halaqa project'
+package: Custom
+core_version_requirement: ^10 || ^11
+

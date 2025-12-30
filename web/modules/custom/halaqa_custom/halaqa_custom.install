@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Halaqa Custom module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function halaqa_custom_install() {
+  \Drupal::messenger()->addMessage(t('Halaqa Custom module has been installed successfully.'));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function halaqa_custom_uninstall() {
+  \Drupal::messenger()->addMessage(t('Halaqa Custom module has been uninstalled.'));
+}
+
