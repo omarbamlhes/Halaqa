@@ -1,4 +1,4 @@
-name: fullstack-drupal-task
+name: Halaqa
 recipe: drupal10
 config:
   webroot: web
@@ -8,7 +8,7 @@ config:
   env: dev
 proxy:
   appserver:
-    - local.fullstack-drupal-task.dev
+    - local.halaqa-drupal-task.dev
 tooling:
   install-site:
     service: appserver
