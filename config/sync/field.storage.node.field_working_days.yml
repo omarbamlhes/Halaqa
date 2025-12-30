@@ -1,0 +1,42 @@
+uuid: e7d69bad-4c80-42f2-8b35-df27e034e9c8
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_working_days
+field_name: field_working_days
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: saturday
+      label: Saturday
+    -
+      value: sunday
+      label: Sunday
+    -
+      value: monday
+      label: Monday
+    -
+      value: tuesday
+      label: Tuesday
+    -
+      value: wednesday
+      label: Wednesday
+    -
+      value: thursday
+      label: Thursday
+    -
+      value: friday
+      label: Friday
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,21 @@
+uuid: 7a133416-0047-48a1-86c6-3b7a4b585eef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_phone
+    - node.type.teacher
+  module:
+    - telephone
+id: node.teacher.field_phone
+field_name: field_phone
+entity_type: node
+bundle: teacher
+label: 'Phone Number'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

@@ -1,0 +1,56 @@
+uuid: c9871800-3651-4b77-a779-1705284e3d6c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.teacher.body
+    - field.field.node.teacher.field_halaqa_number
+    - field.field.node.teacher.field_phone
+    - field.field.node.teacher.field_working_days
+    - node.type.teacher
+  module:
+    - options
+    - text
+    - user
+id: node.teacher.default
+targetEntityType: node
+bundle: teacher
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_halaqa_number:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_phone:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_working_days:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

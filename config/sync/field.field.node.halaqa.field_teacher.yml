@@ -4,8 +4,8 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_teacher
-    - node.type.article
     - node.type.halaqa
+    - node.type.teacher
 id: node.halaqa.field_teacher
 field_name: field_teacher
 entity_type: node
@@ -20,7 +20,7 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      article: article
+      teacher: teacher
     sort:
       field: _none
       direction: ASC

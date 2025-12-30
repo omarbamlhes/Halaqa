@@ -1,0 +1,16 @@
+uuid: 96c93a29-63e3-4919-bc1b-1023384046c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.teacher
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: node.teacher
+target_entity_type_id: node
+target_bundle: teacher
+default_langcode: current_interface
+language_alterable: true

@@ -1,0 +1,17 @@
+uuid: 18749b25-5ac9-4330-a939-2f88ae0bf00b
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Teacher
+type: teacher
+description: null
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: false

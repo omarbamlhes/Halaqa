@@ -1,0 +1,23 @@
+uuid: b8ba31eb-f8c5-4371-84ae-80661b9efe02
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_halaqa_number
+    - node.type.teacher
+id: node.teacher.field_halaqa_number
+field_name: field_halaqa_number
+entity_type: node
+bundle: teacher
+label: 'Halaqa number'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
