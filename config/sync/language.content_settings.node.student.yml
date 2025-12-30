@@ -1,0 +1,16 @@
+uuid: aed1b9d4-41e4-414c-b9f9-8717b483f025
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.student
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: node.student
+target_entity_type_id: node
+target_bundle: student
+default_langcode: current_interface
+language_alterable: true

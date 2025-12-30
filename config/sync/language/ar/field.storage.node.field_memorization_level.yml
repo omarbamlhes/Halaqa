@@ -1,0 +1,10 @@
+settings:
+  allowed_values:
+    -
+      label: مبتدئ
+    -
+      label: متوسط
+    -
+      label: متقدم
+    -
+      label: مراجعة

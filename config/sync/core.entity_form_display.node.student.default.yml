@@ -1,21 +1,21 @@
-uuid: b1fd8a45-58d9-441b-883e-a08320d68ef2
+uuid: f733a861-a223-4b81-8de7-014c3bcf1a4b
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.halaqa.body
-    - field.field.node.halaqa.field_halaqa_days
-    - field.field.node.halaqa.field_halaqa_time
-    - field.field.node.halaqa.field_location
-    - field.field.node.halaqa.field_mosque
-    - field.field.node.halaqa.field_teacher
-    - node.type.halaqa
+    - field.field.node.student.body
+    - field.field.node.student.field_age
+    - field.field.node.student.field_halaqa
+    - field.field.node.student.field_memorization_level
+    - field.field.node.student.field_phone
+    - node.type.student
   module:
     - path
+    - telephone
     - text
-id: node.halaqa.default
+id: node.student.default
 targetEntityType: node
-bundle: halaqa
+bundle: student
 mode: default
 content:
   body:
@@ -34,41 +34,35 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_halaqa_days:
-    type: options_buttons
-    weight: 124
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_halaqa_time:
-    type: string_textfield
-    weight: 125
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_location:
-    type: string_textfield
+  field_age:
+    type: number
     weight: 122
     region: content
     settings:
-      size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_mosque:
-    type: string_textfield
-    weight: 123
+  field_halaqa:
+    type: entity_reference_autocomplete
+    weight: 124
     region: content
     settings:
+      match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_teacher:
+  field_memorization_level:
     type: options_select
-    weight: 126
+    weight: 123
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_phone:
+    type: telephone_default
+    weight: 122
+    region: content
+    settings:
+      placeholder: ''
     third_party_settings: {  }
   langcode:
     type: language_select

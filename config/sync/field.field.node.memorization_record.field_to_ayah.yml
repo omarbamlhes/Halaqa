@@ -1,0 +1,23 @@
+uuid: 0fa21c35-f53c-41c9-9196-d2cee8c866e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_to_ayah
+    - node.type.memorization_record
+id: node.memorization_record.field_to_ayah
+field_name: field_to_ayah
+entity_type: node
+bundle: memorization_record
+label: 'To Ayah'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

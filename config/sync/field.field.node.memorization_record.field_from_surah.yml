@@ -1,0 +1,19 @@
+uuid: a9740363-aa23-4be4-8e57-e818ebf4ccad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_from_surah
+    - node.type.memorization_record
+id: node.memorization_record.field_from_surah
+field_name: field_from_surah
+entity_type: node
+bundle: memorization_record
+label: 'From Surah'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

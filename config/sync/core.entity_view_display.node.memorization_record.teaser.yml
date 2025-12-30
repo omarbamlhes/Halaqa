@@ -1,0 +1,47 @@
+uuid: fde05bb5-2b0e-49cd-8c25-c36d1d949ef4
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.memorization_record.body
+    - field.field.node.memorization_record.field_date
+    - field.field.node.memorization_record.field_evaluation
+    - field.field.node.memorization_record.field_from_ayah
+    - field.field.node.memorization_record.field_from_surah
+    - field.field.node.memorization_record.field_student
+    - field.field.node.memorization_record.field_teacher
+    - field.field.node.memorization_record.field_to_ayah
+    - field.field.node.memorization_record.field_to_surah
+    - node.type.memorization_record
+  module:
+    - text
+    - user
+id: node.memorization_record.teaser
+targetEntityType: node
+bundle: memorization_record
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_date: true
+  field_evaluation: true
+  field_from_ayah: true
+  field_from_surah: true
+  field_student: true
+  field_teacher: true
+  field_to_ayah: true
+  field_to_surah: true
+  langcode: true

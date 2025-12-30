@@ -1,0 +1,33 @@
+uuid: bd473bf3-6dd4-44b3-a371-65672e5c8911
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_memorization_level
+field_name: field_memorization_level
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: beginner
+      label: Beginner
+    -
+      value: intermediate
+      label: Intermediate
+    -
+      value: advanced
+      label: Advanced
+    -
+      value: review
+      label: Review
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

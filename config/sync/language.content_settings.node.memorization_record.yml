@@ -1,0 +1,16 @@
+uuid: e3f34dd1-4bbd-4249-8e0d-1b71bdb749e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.memorization_record
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: node.memorization_record
+target_entity_type_id: node
+target_bundle: memorization_record
+default_langcode: current_interface
+language_alterable: true

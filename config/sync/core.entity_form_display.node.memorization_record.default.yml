@@ -1,21 +1,25 @@
-uuid: b1fd8a45-58d9-441b-883e-a08320d68ef2
+uuid: 3b1ef13f-670b-44f1-814f-6afbeea7e9a9
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.halaqa.body
-    - field.field.node.halaqa.field_halaqa_days
-    - field.field.node.halaqa.field_halaqa_time
-    - field.field.node.halaqa.field_location
-    - field.field.node.halaqa.field_mosque
-    - field.field.node.halaqa.field_teacher
-    - node.type.halaqa
+    - field.field.node.memorization_record.body
+    - field.field.node.memorization_record.field_date
+    - field.field.node.memorization_record.field_evaluation
+    - field.field.node.memorization_record.field_from_ayah
+    - field.field.node.memorization_record.field_from_surah
+    - field.field.node.memorization_record.field_student
+    - field.field.node.memorization_record.field_teacher
+    - field.field.node.memorization_record.field_to_ayah
+    - field.field.node.memorization_record.field_to_surah
+    - node.type.memorization_record
   module:
+    - datetime
     - path
     - text
-id: node.halaqa.default
+id: node.memorization_record.default
 targetEntityType: node
-bundle: halaqa
+bundle: memorization_record
 mode: default
 content:
   body:
@@ -34,41 +38,67 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_halaqa_days:
-    type: options_buttons
-    weight: 124
+  field_date:
+    type: datetime_default
+    weight: 132
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_halaqa_time:
+  field_evaluation:
+    type: options_select
+    weight: 131
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_from_ayah:
+    type: number
+    weight: 129
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_from_surah:
     type: string_textfield
-    weight: 125
+    weight: 127
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_location:
-    type: string_textfield
+  field_student:
+    type: entity_reference_autocomplete
     weight: 122
     region: content
     settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_mosque:
-    type: string_textfield
-    weight: 123
-    region: content
-    settings:
+      match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
   field_teacher:
-    type: options_select
+    type: entity_reference_autocomplete
     weight: 126
     region: content
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_to_ayah:
+    type: number
+    weight: 130
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_to_surah:
+    type: string_textfield
+    weight: 128
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   langcode:
     type: language_select

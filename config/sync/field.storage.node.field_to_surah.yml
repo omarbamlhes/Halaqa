@@ -1,0 +1,21 @@
+uuid: ad8cb265-abcf-46b1-8cdf-ed4c916e5c75
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_to_surah
+field_name: field_to_surah
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

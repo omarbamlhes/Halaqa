@@ -1,0 +1,65 @@
+uuid: e88f10c8-f4b9-4bdf-ad40-64f10b16ce8f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.student.body
+    - field.field.node.student.field_age
+    - field.field.node.student.field_halaqa
+    - field.field.node.student.field_memorization_level
+    - field.field.node.student.field_phone
+    - node.type.student
+  module:
+    - options
+    - text
+    - user
+id: node.student.default
+targetEntityType: node
+bundle: student
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_age:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_halaqa:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_memorization_level:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  field_phone:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

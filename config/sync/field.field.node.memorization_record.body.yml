@@ -1,0 +1,24 @@
+uuid: 1193076e-f435-42a9-9d80-558ec4cb9548
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.memorization_record
+  module:
+    - text
+id: node.memorization_record.body
+field_name: body
+entity_type: node
+bundle: memorization_record
+label: Notes
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

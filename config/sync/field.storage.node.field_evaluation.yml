@@ -1,0 +1,33 @@
+uuid: 1c39f2fe-327c-4899-9b90-823490222256
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_evaluation
+field_name: field_evaluation
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: excellent
+      label: Excellent
+    -
+      value: very_good
+      label: 'Very Good'
+    -
+      value: good
+      label: Good
+    -
+      value: needs_review
+      label: 'Needs Review'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

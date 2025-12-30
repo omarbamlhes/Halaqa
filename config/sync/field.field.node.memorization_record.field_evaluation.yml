@@ -1,0 +1,21 @@
+uuid: 5a8978f1-3db2-406d-9076-b718546180cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_evaluation
+    - node.type.memorization_record
+  module:
+    - options
+id: node.memorization_record.field_evaluation
+field_name: field_evaluation
+entity_type: node
+bundle: memorization_record
+label: Evaluation
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

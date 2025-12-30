@@ -1,0 +1,17 @@
+uuid: 6260fe62-611a-4991-a419-a3c3d6b573ca
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Student
+type: student
+description: null
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: false

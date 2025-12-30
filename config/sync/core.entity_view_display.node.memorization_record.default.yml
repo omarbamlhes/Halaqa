@@ -1,0 +1,105 @@
+uuid: 1bb4c917-fbaf-4139-881c-f4154000b65e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.memorization_record.body
+    - field.field.node.memorization_record.field_date
+    - field.field.node.memorization_record.field_evaluation
+    - field.field.node.memorization_record.field_from_ayah
+    - field.field.node.memorization_record.field_from_surah
+    - field.field.node.memorization_record.field_student
+    - field.field.node.memorization_record.field_teacher
+    - field.field.node.memorization_record.field_to_ayah
+    - field.field.node.memorization_record.field_to_surah
+    - node.type.memorization_record
+  module:
+    - datetime
+    - options
+    - text
+    - user
+id: node.memorization_record.default
+targetEntityType: node
+bundle: memorization_record
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 112
+    region: content
+  field_evaluation:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 111
+    region: content
+  field_from_ayah:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 109
+    region: content
+  field_from_surah:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 107
+    region: content
+  field_student:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_teacher:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  field_to_ayah:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 110
+    region: content
+  field_to_surah:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 108
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true

@@ -1,0 +1,21 @@
+uuid: 21ad7586-deb2-45aa-818a-e48c510107a2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_memorization_level
+    - node.type.student
+  module:
+    - options
+id: node.student.field_memorization_level
+field_name: field_memorization_level
+entity_type: node
+bundle: student
+label: 'Memorization level'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

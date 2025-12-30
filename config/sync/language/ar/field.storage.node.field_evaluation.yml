@@ -1,0 +1,10 @@
+settings:
+  allowed_values:
+    -
+      label: ممتاز
+    -
+      label: ' جيد جدًا'
+    -
+      label: جيد
+    -
+      label: 'يحتاج مراجعة'

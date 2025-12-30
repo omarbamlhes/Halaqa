@@ -1,0 +1,29 @@
+uuid: 5c2f5eec-67b2-4755-8eae-c920dfaab95c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_student
+    - node.type.memorization_record
+    - node.type.student
+id: node.memorization_record.field_student
+field_name: field_student
+entity_type: node
+bundle: memorization_record
+label: Student
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      student: student
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

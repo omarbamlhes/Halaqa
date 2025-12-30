@@ -1,0 +1,19 @@
+uuid: d0c1a160-cd32-44ca-b637-ec0be15d8f6d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_to_surah
+    - node.type.memorization_record
+id: node.memorization_record.field_to_surah
+field_name: field_to_surah
+entity_type: node
+bundle: memorization_record
+label: 'To Surah'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,20 @@
+uuid: ae7006b2-b179-4509-a81b-fd6cef44e19c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_from_ayah
+field_name: field_from_ayah
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
