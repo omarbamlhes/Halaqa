@@ -3,3 +3,7 @@ administer halaqa custom:
   description: 'Manage Halaqa Custom module settings'
   restrict access: true
 
+view halaqa students:
+  title: 'View Halaqa Students'
+  description: 'Allow viewing students list for assigned Halaqas'
+

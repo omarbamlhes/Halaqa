@@ -6,3 +6,23 @@ halaqa_custom.example:
   requirements:
     _permission: 'access content'
 
+halaqa_custom.halaqa_students:
+  path: '/halaqa/{nid}/students'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\HalaqaCustomController::students'
+    _title_callback: '\Drupal\halaqa_custom\Controller\HalaqaCustomController::studentsTitle'
+  requirements:
+    _custom_access: '\Drupal\halaqa_custom\Access\HalaqaAccessCheck::access'
+    nid: '\d+'
+  options:
+    parameters:
+      nid:
+        type: 'integer'
+
+halaqa_custom.my_halaqas:
+  path: '/my-halaqas'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\HalaqaCustomController::myHalaqas'
+    _title: 'My Halaqas'
+  requirements:
+    _role: 'teacher+administrator'
