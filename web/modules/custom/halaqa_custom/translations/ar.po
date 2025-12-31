@@ -1,0 +1,289 @@
+# Arabic translation for Halaqa Custom module.
+# Copyright (C) 2024
+# This file is distributed under the same license as the Halaqa Custom module.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Halaqa Custom 1.0\n"
+"POT-Creation-Date: 2024-12-31 00:00+0000\n"
+"PO-Revision-Date: 2024-12-31 00:00+0000\n"
+"Language-Team: Arabic\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Language: ar\n"
+
+# Module info
+msgid "Custom module for Halaqa project"
+msgstr "مديول مخصص لمشروع حلقة"
+
+msgid "Custom module for Halaqa project."
+msgstr "مديول مخصص لمشروع حلقة."
+
+msgid "Halaqa Custom module has been installed successfully."
+msgstr "تم تثبيت مديول حلقة المخصص بنجاح."
+
+msgid "Halaqa Custom module has been uninstalled."
+msgstr "تم إلغاء تثبيت مديول حلقة المخصص."
+
+# Permissions
+msgid "Administer Halaqa Custom"
+msgstr "إدارة حلقة المخصص"
+
+msgid "Manage Halaqa Custom module settings"
+msgstr "إدارة إعدادات مديول حلقة المخصص"
+
+msgid "View Halaqa Students"
+msgstr "عرض طلاب الحلقة"
+
+msgid "Allow viewing students list for assigned Halaqas"
+msgstr "السماح بعرض قائمة الطلاب للحلقات المسندة"
+
+# Page titles
+msgid "Example"
+msgstr "مثال"
+
+msgid "My Halaqas"
+msgstr "حلقاتي"
+
+msgid "Teacher Dashboard"
+msgstr "لوحة تحكم المحفظ"
+
+msgid "Add Memorization Record"
+msgstr "إضافة سجل حفظ"
+
+msgid "Parent Dashboard"
+msgstr "لوحة تحكم ولي الأمر"
+
+msgid "Child Progress"
+msgstr "تقدم الابن"
+
+msgid "My Progress"
+msgstr "تقدمي"
+
+msgid "Student Progress"
+msgstr "تقدم الطالب"
+
+# General
+msgid "Welcome to Halaqa Custom module!"
+msgstr "مرحباً بك في مديول حلقة المخصص!"
+
+msgid "Students"
+msgstr "الطلاب"
+
+msgid "Students - @halaqa"
+msgstr "الطلاب - @halaqa"
+
+msgid "Progress - @name"
+msgstr "تقدم - @name"
+
+# Dashboard - Teacher
+msgid "Halaqas"
+msgstr "الحلقات"
+
+msgid "Quick Actions"
+msgstr "إجراءات سريعة"
+
+msgid "➕ Add New Student"
+msgstr "➕ إضافة طالب جديد"
+
+msgid "📝 Add Memorization Record"
+msgstr "📝 إضافة سجل حفظ"
+
+msgid "📋 View My Halaqas"
+msgstr "📋 عرض حلقاتي"
+
+msgid "View Students →"
+msgstr "عرض الطلاب ←"
+
+msgid "View Students"
+msgstr "عرض الطلاب"
+
+msgid "Recent Memorization Records"
+msgstr "آخر سجلات الحفظ"
+
+msgid "@count students"
+msgstr "@count طالب"
+
+msgid "You have no Halaqas assigned."
+msgstr "لا توجد لديك حلقات مسندة."
+
+# Dashboard - Parent
+msgid "Welcome, @parent!"
+msgstr "مرحباً، @parent!"
+
+msgid "My Children"
+msgstr "أبنائي"
+
+msgid "Total Records"
+msgstr "إجمالي السجلات"
+
+msgid "You have no registered children yet."
+msgstr "لا يوجد لديك أبناء مسجلين بعد."
+
+msgid "Please contact the administrator to register your children."
+msgstr "يرجى التواصل مع المدير لتسجيل أبنائك."
+
+msgid "@percent% Excellent"
+msgstr "@percent% ممتاز"
+
+msgid "Halaqa: @name"
+msgstr "الحلقة: @name"
+
+msgid "@count records"
+msgstr "@count سجل"
+
+msgid "@count ayahs"
+msgstr "@count آية"
+
+msgid "📊 View Progress"
+msgstr "📊 عرض التقدم"
+
+msgid "Recent Records:"
+msgstr "آخر السجلات:"
+
+# Dashboard - Student
+msgid "Welcome, @name!"
+msgstr "مرحباً، @name!"
+
+msgid "Welcome!"
+msgstr "مرحباً!"
+
+msgid "Your student profile has not been set up yet."
+msgstr "لم يتم إعداد ملفك الشخصي كطالب بعد."
+
+msgid "Please contact your teacher or administrator."
+msgstr "يرجى التواصل مع معلمك أو المدير."
+
+msgid "My Halaqa"
+msgstr "حلقتي"
+
+msgid "My Teacher"
+msgstr "معلمي"
+
+msgid "Sessions"
+msgstr "الجلسات"
+
+msgid "Ayahs"
+msgstr "الآيات"
+
+msgid "Surahs"
+msgstr "السور"
+
+msgid "My Performance"
+msgstr "أدائي"
+
+msgid "Recent Sessions"
+msgstr "آخر الجلسات"
+
+msgid "Keep up the great work! Every ayah you memorize brings you closer to Allah."
+msgstr "استمر في العمل الرائع! كل آية تحفظها تقربك من الله."
+
+# Student Progress
+msgid "Total Ayahs"
+msgstr "إجمالي الآيات"
+
+msgid "Surahs Covered"
+msgstr "السور المغطاة"
+
+msgid "Evaluation Summary"
+msgstr "ملخص التقييم"
+
+msgid "Memorization Records"
+msgstr "سجلات الحفظ"
+
+msgid "No memorization records yet."
+msgstr "لا توجد سجلات حفظ بعد."
+
+# Students Page
+msgid "No students found in this Halaqa."
+msgstr "لا يوجد طلاب في هذه الحلقة."
+
+msgid "Students (@count)"
+msgstr "الطلاب (@count)"
+
+msgid "📊 Progress"
+msgstr "📊 التقدم"
+
+msgid "View"
+msgstr "عرض"
+
+# Evaluations
+msgid "Excellent"
+msgstr "ممتاز"
+
+msgid "Very Good"
+msgstr "جيد جداً"
+
+msgid "Good"
+msgstr "جيد"
+
+msgid "Acceptable"
+msgstr "مقبول"
+
+msgid "Needs Improvement"
+msgstr "يحتاج تحسين"
+
+msgid "Needs Work"
+msgstr "يحتاج عمل"
+
+# Form
+msgid "Halaqa"
+msgstr "الحلقة"
+
+msgid "Student"
+msgstr "الطالب"
+
+msgid "- Select Student -"
+msgstr "- اختر الطالب -"
+
+msgid "No students in this Halaqa"
+msgstr "لا يوجد طلاب في هذه الحلقة"
+
+msgid "From"
+msgstr "من"
+
+msgid "To"
+msgstr "إلى"
+
+msgid "Surah"
+msgstr "السورة"
+
+msgid "Ayah"
+msgstr "الآية"
+
+msgid "Evaluation"
+msgstr "التقييم"
+
+msgid "Date"
+msgstr "التاريخ"
+
+msgid "Notes"
+msgstr "ملاحظات"
+
+msgid "Save Record"
+msgstr "حفظ السجل"
+
+msgid "Record - @date"
+msgstr "سجل - @date"
+
+msgid "Memorization record saved successfully."
+msgstr "تم حفظ سجل الحفظ بنجاح."
+
+msgid "You have no Halaqas assigned. Please create a Halaqa first."
+msgstr "لا توجد لديك حلقات مسندة. يرجى إنشاء حلقة أولاً."
+
+# Errors
+msgid "Halaqa not found."
+msgstr "الحلقة غير موجودة."
+
+msgid "You do not have access to this Halaqa."
+msgstr "ليس لديك صلاحية للوصول لهذه الحلقة."
+
+msgid "You do not have access to this student."
+msgstr "ليس لديك صلاحية للوصول لهذا الطالب."
+
+msgid "Student not found."
+msgstr "الطالب غير موجود."
+

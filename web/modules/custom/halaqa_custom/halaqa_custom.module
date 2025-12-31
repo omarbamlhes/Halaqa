@@ -5,15 +5,26 @@
  * Primary module hooks for Halaqa Custom module.
  */
 
+use Drupal\Core\Routing\RouteMatchInterface;
+
 /**
  * Implements hook_help().
  */
-function halaqa_custom_help($route_name, $route_match) {
+function halaqa_custom_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'help.page.halaqa_custom':
       $output = '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('Custom module for Halaqa project.') . '</p>';
       return $output;
   }
+}
+
+/**
+ * Implements hook_locale_translation_projects_alter().
+ */
+function halaqa_custom_locale_translation_projects_alter(&$projects) {
+  $module_handler = \Drupal::service('module_handler');
+  $path = $module_handler->getModule('halaqa_custom')->getPath();
+  $projects['halaqa_custom']['info']['interface translation server pattern'] = $path . '/translations/%language.po';
 }
 
