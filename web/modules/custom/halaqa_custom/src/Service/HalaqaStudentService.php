@@ -411,5 +411,102 @@ class HalaqaStudentService {
     return $this->userHasAccessToHalaqa($halaqa_id, $uid);
   }
 
+  /**
+   * Get children (students) for a parent user.
+   *
+   * @param int|null $uid
+   *   The parent user ID. Defaults to current user.
+   *
+   * @return \Drupal\node\NodeInterface[]
+   *   Array of student nodes.
+   */
+  public function getChildrenByParent(?int $uid = NULL): array {
+    $uid = $uid ?? $this->currentUser->id();
+
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    // First try to find students with field_parent (if exists).
+    // Otherwise, find students created by this user.
+    $query = $storage->getQuery()
+      ->condition('type', 'student')
+      ->condition('status', 1)
+      ->condition('uid', $uid)
+      ->accessCheck(TRUE)
+      ->sort('title', 'ASC');
+
+    $nids = $query->execute();
+
+    if (empty($nids)) {
+      return [];
+    }
+
+    return $storage->loadMultiple($nids);
+  }
+
+  /**
+   * Get parent dashboard statistics.
+   *
+   * @return array
+   *   Array with statistics.
+   */
+  public function getParentDashboardStats(): array {
+    $children = $this->getChildrenByParent();
+
+    $stats = [
+      'children_count' => count($children),
+      'children' => [],
+      'total_records' => 0,
+    ];
+
+    foreach ($children as $child) {
+      $progress = $this->getStudentProgress((int) $child->id());
+
+      // Get halaqa name.
+      $halaqa_name = '';
+      if ($child->hasField('field_halaqa') && !$child->get('field_halaqa')->isEmpty()) {
+        $halaqa = $child->get('field_halaqa')->entity;
+        $halaqa_name = $halaqa ? $halaqa->label() : '';
+      }
+
+      $stats['children'][] = [
+        'student' => $child,
+        'halaqa_name' => $halaqa_name,
+        'progress' => $progress,
+      ];
+
+      $stats['total_records'] += $progress['total_records'];
+    }
+
+    return $stats;
+  }
+
+  /**
+   * Check if current user is parent of a student.
+   *
+   * @param int $student_nid
+   *   The student node ID.
+   *
+   * @return bool
+   *   TRUE if user is parent.
+   */
+  public function isParentOfStudent(int $student_nid): bool {
+    $uid = $this->currentUser->id();
+
+    // Check if user is admin.
+    /** @var \Drupal\user\UserInterface|null $user */
+    $user = $this->entityTypeManager->getStorage('user')->load($uid);
+    if ($user && in_array('administrator', $user->getRoles())) {
+      return TRUE;
+    }
+
+    $student = $this->loadStudent($student_nid);
+    if (!$student) {
+      return FALSE;
+    }
+
+    // Check if student was created by this user (parent).
+    return (int) $student->getOwnerId() === $uid;
+  }
+
 }
 

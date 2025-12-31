@@ -687,4 +687,212 @@ class HalaqaCustomController extends ControllerBase {
     ];
   }
 
+  /**
+   * Parent Dashboard page.
+   *
+   * @return array
+   *   A render array.
+   */
+  public function parentDashboard(): array {
+    $stats = $this->halaqaStudentService->getParentDashboardStats();
+
+    $build = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['parent-dashboard']],
+    ];
+
+    // Welcome message.
+    $build['welcome'] = [
+      '#markup' => '<h2>' . $this->t('Welcome, @parent!', ['@parent' => $this->currentUser()->getAccountName()]) . '</h2>',
+    ];
+
+    // Statistics cards.
+    $build['stats'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['dashboard-stats']],
+    ];
+
+    $build['stats']['children'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['stat-card', 'stat-children']],
+      'count' => [
+        '#markup' => '<div class="stat-number">' . $stats['children_count'] . '</div>',
+      ],
+      'label' => [
+        '#markup' => '<div class="stat-label">' . $this->t('My Children') . '</div>',
+      ],
+    ];
+
+    $build['stats']['records'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['stat-card', 'stat-records']],
+      'count' => [
+        '#markup' => '<div class="stat-number">' . $stats['total_records'] . '</div>',
+      ],
+      'label' => [
+        '#markup' => '<div class="stat-label">' . $this->t('Total Records') . '</div>',
+      ],
+    ];
+
+    // Children list.
+    if (empty($stats['children'])) {
+      $build['no_children'] = [
+        '#markup' => '<div class="no-children-message"><p>' . $this->t('You have no registered children yet.') . '</p><p>' . $this->t('Please contact the administrator to register your children.') . '</p></div>',
+      ];
+    }
+    else {
+      $build['children'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['children-section']],
+        'title' => [
+          '#markup' => '<h3>' . $this->t('My Children') . '</h3>',
+        ],
+      ];
+
+      foreach ($stats['children'] as $index => $child_data) {
+        $child = $child_data['student'];
+        $progress = $child_data['progress'];
+        $halaqa_name = $child_data['halaqa_name'];
+
+        // Calculate evaluation summary.
+        $eval_summary = '';
+        $total_evals = array_sum($progress['evaluations']);
+        if ($total_evals > 0) {
+          $excellent_percent = round(($progress['evaluations']['excellent'] / $total_evals) * 100);
+          $eval_summary = $this->t('@percent% Excellent', ['@percent' => $excellent_percent]);
+        }
+
+        $build['children']['child_' . $index] = [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['child-card']],
+          'header' => [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['child-header']],
+            'name' => [
+              '#markup' => '<div class="child-name">' . $child->label() . '</div>',
+            ],
+            'halaqa' => [
+              '#markup' => '<div class="child-halaqa">' . ($halaqa_name ? $this->t('Halaqa: @name', ['@name' => $halaqa_name]) : '') . '</div>',
+            ],
+          ],
+          'stats' => [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['child-stats']],
+            'records' => [
+              '#markup' => '<span class="child-stat">' . $this->t('@count records', ['@count' => $progress['total_records']]) . '</span>',
+            ],
+            'ayahs' => [
+              '#markup' => '<span class="child-stat">' . $this->t('@count ayahs', ['@count' => $progress['total_ayahs']]) . '</span>',
+            ],
+            'eval' => [
+              '#markup' => $eval_summary ? '<span class="child-stat child-eval">' . $eval_summary . '</span>' : '',
+            ],
+          ],
+          'actions' => [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['child-actions']],
+            'progress' => [
+              '#type' => 'link',
+              '#title' => $this->t('📊 View Progress'),
+              '#url' => Url::fromRoute('halaqa_custom.parent_child_progress', ['student_nid' => $child->id()]),
+              '#attributes' => ['class' => ['button', 'button--primary']],
+            ],
+          ],
+        ];
+
+        // Recent records for this child.
+        if (!empty($progress['records'])) {
+          $recent = array_slice($progress['records'], 0, 3);
+          $surah_names = $this->getSurahNames();
+
+          $build['children']['child_' . $index]['recent'] = [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['child-recent']],
+            'title' => [
+              '#markup' => '<div class="recent-title">' . $this->t('Recent Records:') . '</div>',
+            ],
+          ];
+
+          foreach ($recent as $ri => $record) {
+            $date = '';
+            $from_surah = '';
+
+            if ($record->hasField('field_date') && !$record->get('field_date')->isEmpty()) {
+              $date = $record->get('field_date')->value;
+            }
+            if ($record->hasField('field_from_surah') && !$record->get('field_from_surah')->isEmpty()) {
+              $surah_num = $record->get('field_from_surah')->value;
+              $from_surah = $surah_names[$surah_num] ?? $surah_num;
+            }
+
+            $build['children']['child_' . $index]['recent']['record_' . $ri] = [
+              '#markup' => '<div class="recent-record">' . $date . ' - ' . $from_surah . '</div>',
+            ];
+          }
+        }
+      }
+    }
+
+    // Add styles.
+    $build['#attached']['html_head'][] = [
+      [
+        '#tag' => 'style',
+        '#value' => '
+          .parent-dashboard { max-width: 900px; margin: 0 auto; padding: 20px; }
+          .parent-dashboard h2 { color: #2e7d32; margin-bottom: 30px; }
+          .dashboard-stats { display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
+          .stat-card { padding: 25px; border-radius: 12px; text-align: center; min-width: 150px; color: #fff; }
+          .stat-children { background: linear-gradient(135deg, #43a047 0%, #1b5e20 100%); }
+          .stat-records { background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%); }
+          .stat-number { font-size: 2.5em; font-weight: bold; }
+          .stat-label { opacity: 0.9; margin-top: 5px; }
+          .no-children-message { background: #fff3e0; padding: 20px; border-radius: 8px; text-align: center; }
+          .children-section h3 { margin-bottom: 20px; color: #333; }
+          .child-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+          .child-header { margin-bottom: 15px; }
+          .child-name { font-size: 1.4em; font-weight: bold; color: #2e7d32; }
+          .child-halaqa { color: #666; font-size: 0.9em; margin-top: 5px; }
+          .child-stats { display: flex; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; }
+          .child-stat { background: #e8f5e9; padding: 6px 12px; border-radius: 20px; font-size: 0.9em; }
+          .child-eval { background: #fff9c4; }
+          .child-actions { margin-bottom: 15px; }
+          .child-recent { border-top: 1px solid #eee; padding-top: 15px; }
+          .recent-title { font-weight: 500; margin-bottom: 10px; color: #666; }
+          .recent-record { padding: 5px 0; color: #555; font-size: 0.9em; }
+          .button--primary { background: #2e7d32; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; display: inline-block; }
+          .button--primary:hover { background: #1b5e20; color: #fff; }
+        ',
+      ],
+      'parent_dashboard_styles',
+    ];
+
+    $build['#cache'] = [
+      'tags' => ['node_list:student', 'node_list:memorization_record'],
+      'contexts' => ['user'],
+    ];
+
+    return $build;
+  }
+
+  /**
+   * Parent view of child progress.
+   *
+   * @param string|int $student_nid
+   *   The student node ID.
+   *
+   * @return array
+   *   A render array.
+   */
+  public function parentChildProgress($student_nid): array {
+    $student_nid = (int) $student_nid;
+
+    // Check if user is parent of this student.
+    if (!$this->halaqaStudentService->isParentOfStudent($student_nid)) {
+      throw new AccessDeniedHttpException('You do not have access to this student.');
+    }
+
+    // Reuse the student progress page.
+    return $this->studentProgress($student_nid);
+  }
+
 }

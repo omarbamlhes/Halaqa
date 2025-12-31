@@ -56,3 +56,20 @@ halaqa_custom.student_progress:
   requirements:
     _role: 'teacher+administrator'
     student_nid: '\d+'
+
+halaqa_custom.parent_dashboard:
+  path: '/parent/dashboard'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\HalaqaCustomController::parentDashboard'
+    _title: 'Parent Dashboard'
+  requirements:
+    _role: 'parent+administrator'
+
+halaqa_custom.parent_child_progress:
+  path: '/parent/child/{student_nid}/progress'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\HalaqaCustomController::parentChildProgress'
+    _title: 'Child Progress'
+  requirements:
+    _role: 'parent+administrator'
+    student_nid: '\d+'
