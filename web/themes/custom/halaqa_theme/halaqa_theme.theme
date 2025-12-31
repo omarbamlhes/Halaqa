@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * @file
+ * Halaqa Theme functions and preprocess hooks.
+ */
+
+use Drupal\Core\Render\Markup;
+
+/**
+ * Implements hook_page_attachments_alter().
+ *
+ * Remove default favicon and add custom one.
+ */
+function halaqa_theme_page_attachments_alter(array &$attachments) {
+  // Remove default Drupal favicon.
+  if (isset($attachments['#attached']['html_head_link'])) {
+    foreach ($attachments['#attached']['html_head_link'] as $key => $value) {
+      if (isset($value[0]['rel']) && $value[0]['rel'] === 'icon') {
+        unset($attachments['#attached']['html_head_link'][$key]);
+      }
+      if (isset($value[0]['rel']) && $value[0]['rel'] === 'shortcut icon') {
+        unset($attachments['#attached']['html_head_link'][$key]);
+      }
+    }
+  }
+
+  // Get theme path.
+  $theme_path = \Drupal::service('extension.list.theme')->getPath('halaqa_theme');
+
+  // Add custom favicon.
+  $attachments['#attached']['html_head_link'][] = [
+    [
+      'rel' => 'icon',
+      'type' => 'image/svg+xml',
+      'href' => '/' . $theme_path . '/images/favicon.svg',
+    ],
+    TRUE,
+  ];
+  $attachments['#attached']['html_head_link'][] = [
+    [
+      'rel' => 'shortcut icon',
+      'type' => 'image/svg+xml',
+      'href' => '/' . $theme_path . '/images/favicon.svg',
+    ],
+    TRUE,
+  ];
+  $attachments['#attached']['html_head_link'][] = [
+    [
+      'rel' => 'apple-touch-icon',
+      'href' => '/' . $theme_path . '/images/favicon.svg',
+    ],
+    TRUE,
+  ];
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function halaqa_theme_preprocess_html(&$variables) {
+  // Add RTL class if needed.
+  $language = \Drupal::languageManager()->getCurrentLanguage();
+  if ($language->getDirection() === 'rtl') {
+    $variables['attributes']['class'][] = 'is-rtl';
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function halaqa_theme_preprocess_page(&$variables) {
+  // Pass site name to templates.
+  $config = \Drupal::config('system.site');
+  $variables['site_name'] = $config->get('name');
+}

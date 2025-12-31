@@ -89,3 +89,11 @@ halaqa_custom.student_dashboard:
     _title: 'My Progress'
   requirements:
     _role: 'student+administrator'
+
+halaqa_custom.charts_demo:
+  path: '/charts-demo'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\ChartsController::chartsDemo'
+    _title: 'Charts Demo'
+  requirements:
+    _permission: 'access content'

@@ -20,3 +20,13 @@ landing_page:
   dependencies:
     - core/drupal
 
+charts_demo_scripts:
+  version: 1.0
+  js:
+    js/charts-demo.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - halaqa_theme/charts
+

@@ -1,0 +1,649 @@
+/**
+ * @file
+ * Dark Mode Styles for Halaqa Theme
+ * Elegant dark theme with smooth transitions
+ */
+
+/* ==================== DARK MODE VARIABLES ==================== */
+[data-theme="dark"] {
+  /* Background Colors */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --bg-card: #1e293b;
+  --bg-header: #0f172a;
+  --bg-input: #334155;
+  --bg-hover: #334155;
+  
+  /* Text Colors */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #0f172a;
+  
+  /* Border Colors */
+  --border-color: #334155;
+  --border-light: #475569;
+  
+  /* Primary Colors (Teal - kept vibrant) */
+  --color-primary: #14b8a6;
+  --color-primary-light: #2dd4bf;
+  --color-primary-dark: #0d9488;
+  --color-primary-50: rgba(20, 184, 166, 0.1);
+  
+  /* Status Colors */
+  --color-success: #22c55e;
+  --color-success-light: rgba(34, 197, 94, 0.15);
+  --color-warning: #f59e0b;
+  --color-warning-light: rgba(245, 158, 11, 0.15);
+  --color-error: #ef4444;
+  --color-error-light: rgba(239, 68, 68, 0.15);
+  --color-info: #3b82f6;
+  --color-info-light: rgba(59, 130, 246, 0.15);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
+  
+  /* Overlay */
+  --overlay-color: rgba(0, 0, 0, 0.7);
+  
+  /* Gray Scale */
+  --color-gray-50: #1e293b;
+  --color-gray-100: #334155;
+  --color-gray-200: #475569;
+  --color-gray-300: #64748b;
+  --color-gray-400: #94a3b8;
+  --color-gray-500: #cbd5e1;
+  --color-gray-600: #e2e8f0;
+  --color-gray-700: #f1f5f9;
+  --color-gray-800: #f8fafc;
+  --color-gray-900: #ffffff;
+}
+
+/* ==================== TRANSITION FOR THEME CHANGE ==================== */
+*,
+*::before,
+*::after {
+  transition: background-color 0.3s ease, 
+              border-color 0.3s ease, 
+              color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+/* ==================== BODY & LAYOUT ==================== */
+[data-theme="dark"] body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .layout-container {
+  background-color: var(--bg-primary);
+}
+
+/* ==================== HEADER ==================== */
+[data-theme="dark"] .header,
+[data-theme="dark"] header.header {
+  background: linear-gradient(135deg, var(--bg-header) 0%, var(--bg-secondary) 100%);
+  border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .header.scrolled {
+  background: rgba(15, 23, 42, 0.98);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] .site-name a {
+  background: linear-gradient(135deg, #14b8a6 0%, #2dd4bf 50%, #14b8a6 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="dark"] .main-navigation .menu-item a {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .main-navigation .menu-item a:hover {
+  color: var(--color-primary-light);
+  background: var(--color-primary-50);
+}
+
+[data-theme="dark"] .main-navigation .menu-item a.is-active {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  color: white;
+}
+
+/* ==================== SEARCH BOX ==================== */
+[data-theme="dark"] .header-search input {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .header-search input:focus {
+  background: var(--bg-secondary);
+  border-color: var(--color-primary);
+}
+
+[data-theme="dark"] .header-search input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ==================== USER MENU ==================== */
+[data-theme="dark"] .user-dropdown-menu {
+  background: var(--bg-secondary);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .user-dropdown-menu a {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .user-dropdown-menu a:hover {
+  background: var(--bg-tertiary);
+  color: var(--color-primary-light);
+}
+
+[data-theme="dark"] .notification-bell {
+  background: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .notification-bell:hover {
+  background: var(--bg-hover);
+}
+
+/* ==================== MOBILE MENU ==================== */
+[data-theme="dark"] .mobile-menu-toggle {
+  background: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .mobile-menu-toggle span {
+  background: var(--text-secondary);
+}
+
+[data-theme="dark"] .main-navigation.is-open {
+  background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .main-navigation.is-open .menu-item a {
+  background: var(--bg-tertiary);
+}
+
+/* ==================== MAIN CONTENT ==================== */
+[data-theme="dark"] main,
+[data-theme="dark"] .region-content {
+  background-color: var(--bg-primary);
+}
+
+/* ==================== CARDS ==================== */
+[data-theme="dark"] .card,
+[data-theme="dark"] .dashboard-card,
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .testimonial-card,
+[data-theme="dark"] .step-card,
+[data-theme="dark"] .halaqa-card,
+[data-theme="dark"] .child-card,
+[data-theme="dark"] .student-card,
+[data-theme="dark"] .info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .feature-card:hover,
+[data-theme="dark"] .testimonial-card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+[data-theme="dark"] .feature-card::before {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+}
+
+/* ==================== DASHBOARD ==================== */
+[data-theme="dark"] .teacher-dashboard h2,
+[data-theme="dark"] .parent-dashboard h2,
+[data-theme="dark"] .student-dashboard h2 {
+  color: var(--text-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+[data-theme="dark"] .dashboard-actions {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .dashboard-actions h3 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .dashboard-actions a {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .dashboard-actions a:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+[data-theme="dark"] .halaqa-card,
+[data-theme="dark"] .child-card,
+[data-theme="dark"] .student-card {
+  border-right-color: var(--color-primary);
+}
+
+[data-theme="dark"] .halaqa-name,
+[data-theme="dark"] .child-name,
+[data-theme="dark"] .student-name {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .halaqa-students,
+[data-theme="dark"] .child-halaqa {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .dashboard-records .item-list li {
+  background: var(--bg-card);
+  border-right-color: var(--border-color);
+}
+
+[data-theme="dark"] .dashboard-records .item-list li:hover {
+  border-right-color: var(--color-primary);
+}
+
+/* ==================== EVALUATION & PROGRESS ==================== */
+[data-theme="dark"] .evaluation-summary,
+[data-theme="dark"] .student-performance,
+[data-theme="dark"] .recent-sessions {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .evaluation-summary h3,
+[data-theme="dark"] .student-performance h3,
+[data-theme="dark"] .recent-sessions h3 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .evaluation-summary .item-list li {
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .recent-sessions .item-list li {
+  background: var(--bg-tertiary);
+}
+
+/* ==================== MOTIVATION BOX ==================== */
+[data-theme="dark"] .student-motivation {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+[data-theme="dark"] .motivation-text {
+  color: #fbbf24;
+}
+
+/* ==================== FORMS ==================== */
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="email"],
+[data-theme="dark"] input[type="password"],
+[data-theme="dark"] input[type="number"],
+[data-theme="dark"] input[type="date"],
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background: var(--bg-input);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="dark"] select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-50);
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] label {
+  color: var(--text-secondary);
+}
+
+/* ==================== BUTTONS ==================== */
+[data-theme="dark"] .button,
+[data-theme="dark"] .btn {
+  background: var(--color-primary);
+  color: white;
+}
+
+[data-theme="dark"] .button:hover,
+[data-theme="dark"] .btn:hover {
+  background: var(--color-primary-light);
+}
+
+[data-theme="dark"] .button--secondary,
+[data-theme="dark"] .btn-secondary {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .button--secondary:hover,
+[data-theme="dark"] .btn-secondary:hover {
+  background: var(--bg-hover);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ==================== TABLES ==================== */
+[data-theme="dark"] table {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] th {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] td {
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] tr:hover td {
+  background: var(--bg-tertiary);
+}
+
+/* ==================== BADGES ==================== */
+[data-theme="dark"] .badge {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .badge--success {
+  background: var(--color-success-light);
+  color: var(--color-success);
+}
+
+[data-theme="dark"] .badge--warning {
+  background: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+[data-theme="dark"] .badge--error {
+  background: var(--color-error-light);
+  color: var(--color-error);
+}
+
+/* ==================== MESSAGES ==================== */
+[data-theme="dark"] .messages {
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .messages--status {
+  background: var(--color-success-light);
+  color: var(--color-success);
+}
+
+[data-theme="dark"] .messages--warning {
+  background: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+[data-theme="dark"] .messages--error {
+  background: var(--color-error-light);
+  color: var(--color-error);
+}
+
+/* ==================== BREADCRUMB ==================== */
+[data-theme="dark"] .breadcrumb li {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .breadcrumb a {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .breadcrumb a:hover {
+  color: var(--color-primary-light);
+}
+
+/* ==================== TABS ==================== */
+[data-theme="dark"] .tabs ul {
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .tabs a {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .tabs a:hover {
+  color: var(--color-primary-light);
+}
+
+[data-theme="dark"] .tabs a.is-active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* ==================== FOOTER ==================== */
+[data-theme="dark"] footer,
+[data-theme="dark"] .region-footer {
+  background: var(--bg-header);
+  border-top: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .footer-inner {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .footer-inner a {
+  color: var(--color-primary-light);
+}
+
+[data-theme="dark"] .footer-inner a:hover {
+  color: var(--color-primary);
+}
+
+/* ==================== HERO SECTION ==================== */
+[data-theme="dark"] .hero-section {
+  background: linear-gradient(135deg, #0f766e 0%, #0d9488 40%, #14b8a6 100%);
+}
+
+/* ==================== STATS SECTION ==================== */
+[data-theme="dark"] .stats-section {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+}
+
+/* ==================== FEATURES SECTION ==================== */
+[data-theme="dark"] .features-section {
+  background: var(--bg-primary);
+}
+
+[data-theme="dark"] .features-title,
+[data-theme="dark"] .section-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .features-subtitle,
+[data-theme="dark"] .section-subtitle {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .feature-icon {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.2) 0%, rgba(45, 212, 191, 0.2) 100%);
+}
+
+[data-theme="dark"] .feature-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .feature-description {
+  color: var(--text-secondary);
+}
+
+/* ==================== HOW IT WORKS ==================== */
+[data-theme="dark"] .how-it-works-section {
+  background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .step-card {
+  background: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .step-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .step-description {
+  color: var(--text-secondary);
+}
+
+/* ==================== TESTIMONIALS ==================== */
+[data-theme="dark"] .testimonials-section {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+[data-theme="dark"] .testimonial-text {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .author-name {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .author-role {
+  color: var(--color-primary-light);
+}
+
+[data-theme="dark"] .author-avatar {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.2) 0%, rgba(45, 212, 191, 0.2) 100%);
+}
+
+/* ==================== CTA SECTION ==================== */
+[data-theme="dark"] .cta-section {
+  background: linear-gradient(135deg, var(--bg-header) 0%, var(--bg-primary) 100%);
+}
+
+[data-theme="dark"] .cta-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .cta-subtitle {
+  color: var(--text-secondary);
+}
+
+/* ==================== SCROLLBAR ==================== */
+[data-theme="dark"] ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 5px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ==================== SELECTION ==================== */
+[data-theme="dark"] ::selection {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* ==================== LINKS ==================== */
+[data-theme="dark"] a {
+  color: var(--color-primary-light);
+}
+
+[data-theme="dark"] a:hover {
+  color: var(--color-primary);
+}
+
+/* ==================== DRUPAL ADMIN TOOLBAR ==================== */
+[data-theme="dark"] .toolbar-bar {
+  background: var(--bg-header);
+}
+
+/* ==================== THEME TOGGLE BUTTON ==================== */
+.theme-toggle {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  border-radius: 13px;
+  background: #e5e7eb;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  padding: 0;
+}
+
+[data-theme="dark"] .theme-toggle {
+  background: var(--bg-tertiary);
+}
+
+.theme-toggle-track {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.theme-toggle-track::before {
+  content: '☀️';
+}
+
+[data-theme="dark"] .theme-toggle-track {
+  left: 27px;
+  background: var(--color-primary);
+}
+
+[data-theme="dark"] .theme-toggle-track::before {
+  content: '🌙';
+}
+
+/* Theme toggle hover effect */
+.theme-toggle:hover {
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
+}
+
+.theme-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.3);
+}
+
+/* ==================== NO TRANSITION ON FIRST LOAD ==================== */
+.no-transition,
+.no-transition * {
+  transition: none !important;
+}
+

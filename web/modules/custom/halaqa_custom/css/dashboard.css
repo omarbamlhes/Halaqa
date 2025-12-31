@@ -656,35 +656,195 @@
   border-left-color: #0d9488;
 }
 
-/* ==================== RESPONSIVE ==================== */
-@media (max-width: 768px) {
-  .dashboard-stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .progress-stats {
-    grid-template-columns: 1fr;
-  }
-  
-  .student-info-cards {
-    grid-template-columns: 1fr;
-  }
-  
-  .halaqa-card,
-  .student-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-  
-  .stat-number {
-    font-size: 2.5rem;
+/* ==================== RESPONSIVE - TABLET ==================== */
+@media (max-width: 1024px) {
+  .teacher-dashboard,
+  .parent-dashboard,
+  .student-dashboard,
+  .student-progress-dashboard,
+  .halaqa-students-page {
+    padding: 16px;
   }
 }
 
-@media (max-width: 480px) {
+/* ==================== RESPONSIVE - MOBILE ==================== */
+@media (max-width: 768px) {
+  /* Dashboard headers */
+  .teacher-dashboard h2,
+  .parent-dashboard h2,
+  .student-dashboard h2 {
+    font-size: 1.5rem !important;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+  }
+  
+  /* Stats Grid */
   .dashboard-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  
+  .stat-card {
+    padding: 18px !important;
+    border-radius: 14px;
+  }
+  
+  .stat-number {
+    font-size: 2rem !important;
+    margin-bottom: 4px;
+  }
+  
+  .stat-label {
+    font-size: 0.85rem !important;
+  }
+  
+  /* Progress Stats */
+  .progress-stats {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px;
+  }
+  
+  /* Student Info Cards */
+  .student-info-cards {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px;
+  }
+  
+  .info-card {
+    padding: 16px;
+  }
+  
+  .info-value {
+    font-size: 1.1rem;
+  }
+  
+  /* Actions */
+  .dashboard-actions {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-actions h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .dashboard-actions .item-list ul {
+    gap: 10px;
+  }
+  
+  .dashboard-actions a,
+  .button--action {
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Cards */
+  .halaqa-card,
+  .child-card,
+  .student-card {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 12px;
+    padding: 18px;
+    border-radius: 14px;
+    margin-bottom: 12px;
+  }
+  
+  .halaqa-name,
+  .child-name,
+  .student-name {
+    font-size: 1.05rem;
+  }
+  
+  .halaqa-link,
+  .progress-link {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 16px;
+  }
+  
+  /* Child Stats */
+  .child-stats {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .child-stat {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  
+  /* Evaluation & Performance */
+  .evaluation-summary,
+  .student-performance,
+  .recent-sessions {
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .evaluation-summary h3,
+  .student-performance h3,
+  .recent-sessions h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  /* Motivation */
+  .student-motivation {
+    padding: 20px;
+    border-radius: 14px;
+  }
+  
+  .motivation-text {
+    font-size: 1rem;
+  }
+  
+  /* Student Actions */
+  .student-actions {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .student-link {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background: #f3f4f6;
+    border-radius: 8px;
+  }
+  
+  /* Records */
+  .dashboard-records .item-list li,
+  .memorization-records .item-list li,
+  .recent-sessions .item-list li {
+    padding: 14px 16px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ==================== RESPONSIVE - SMALL PHONES ==================== */
+@media (max-width: 480px) {
+  .dashboard-stats,
+  .progress-stats {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .student-info-cards {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .stat-card {
+    padding: 16px !important;
+  }
+  
+  .stat-number {
+    font-size: 1.75rem !important;
   }
   
   .dashboard-actions .item-list ul {
@@ -694,6 +854,39 @@
   .dashboard-actions a {
     width: 100%;
     justify-content: center;
+  }
+  
+  .child-stats {
+    justify-content: center;
+  }
+  
+  /* Not setup message */
+  .student-dashboard-not-setup {
+    margin: 20px;
+    padding: 30px 20px;
+  }
+  
+  .no-children-message {
+    padding: 30px 20px;
+  }
+}
+
+/* ==================== RESPONSIVE - VERY SMALL ==================== */
+@media (max-width: 360px) {
+  .teacher-dashboard,
+  .parent-dashboard,
+  .student-dashboard {
+    padding: 12px;
+  }
+  
+  .stat-number {
+    font-size: 1.5rem !important;
+  }
+  
+  .halaqa-card,
+  .child-card,
+  .student-card {
+    padding: 14px;
   }
 }
 

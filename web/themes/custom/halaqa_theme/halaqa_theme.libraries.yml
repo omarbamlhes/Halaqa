@@ -12,12 +12,29 @@ global-styling:
       css/hero.css: {}
       css/landing.css: {}
       css/animations.css: {}
+      css/charts.css: {}
       css/rtl.css: {}
+      css/dark-mode.css: { weight: 90 }
+      css/mobile.css: { weight: 100 }
   js:
     js/main.js: {}
+    js/mobile-menu.js: {}
+    js/dark-mode.js: {}
+    js/charts.js: {}
   dependencies:
     - core/drupal
     - core/once
+
+charts:
+  version: 1.0
+  js:
+    https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js: { type: external, minified: true }
+    js/charts.js: {}
+  css:
+    theme:
+      css/charts.css: {}
+  dependencies:
+    - core/drupal
 
 hero:
   version: 1.0

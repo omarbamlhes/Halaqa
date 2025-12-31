@@ -575,5 +575,276 @@ class HalaqaStudentService {
     ];
   }
 
+  /**
+   * Get global statistics for charts display.
+   *
+   * @return array
+   *   Array with global statistics.
+   */
+  public function getGlobalChartStats(): array {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    $total_records = 0;
+    $total_students = 0;
+    $total_halaqas = 0;
+    $total_teachers = 0;
+
+    try {
+      // Count total memorization records.
+      $records_query = $storage->getQuery()
+        ->condition('type', 'memorization_record')
+        ->condition('status', 1)
+        ->accessCheck(TRUE);
+      $total_records = count($records_query->execute());
+    }
+    catch (\Exception $e) {
+      // Content type may not exist.
+    }
+
+    try {
+      // Count total students.
+      $students_query = $storage->getQuery()
+        ->condition('type', 'student')
+        ->condition('status', 1)
+        ->accessCheck(TRUE);
+      $total_students = count($students_query->execute());
+    }
+    catch (\Exception $e) {
+      // Content type may not exist.
+    }
+
+    try {
+      // Count total halaqas.
+      $halaqas_query = $storage->getQuery()
+        ->condition('type', 'halaqa')
+        ->condition('status', 1)
+        ->accessCheck(TRUE);
+      $total_halaqas = count($halaqas_query->execute());
+    }
+    catch (\Exception $e) {
+      // Content type may not exist.
+    }
+
+    try {
+      // Count total teachers.
+      $teachers_query = $storage->getQuery()
+        ->condition('type', 'teacher')
+        ->condition('status', 1)
+        ->accessCheck(TRUE);
+      $total_teachers = count($teachers_query->execute());
+    }
+    catch (\Exception $e) {
+      // Content type may not exist.
+    }
+
+    $evaluations = [
+      'excellent' => 0,
+      'very_good' => 0,
+      'good' => 0,
+      'acceptable' => 0,
+      'needs_improvement' => 0,
+    ];
+
+    $total_ayahs = 0;
+    $surahs_touched = [];
+
+    try {
+      // Get all evaluations and calculate ayahs.
+      $all_records_nids = $storage->getQuery()
+        ->condition('type', 'memorization_record')
+        ->condition('status', 1)
+        ->accessCheck(TRUE)
+        ->execute();
+
+      if (!empty($all_records_nids)) {
+        $records = $storage->loadMultiple($all_records_nids);
+
+        foreach ($records as $record) {
+          // Count evaluations.
+          if ($record->hasField('field_evaluation') && !$record->get('field_evaluation')->isEmpty()) {
+            $eval = $record->get('field_evaluation')->value;
+            if (isset($evaluations[$eval])) {
+              $evaluations[$eval]++;
+            }
+          }
+
+          // Calculate ayahs.
+          $from_ayah = 0;
+          $to_ayah = 0;
+          if ($record->hasField('field_from_ayah') && !$record->get('field_from_ayah')->isEmpty()) {
+            $from_ayah = (int) $record->get('field_from_ayah')->value;
+          }
+          if ($record->hasField('field_to_ayah') && !$record->get('field_to_ayah')->isEmpty()) {
+            $to_ayah = (int) $record->get('field_to_ayah')->value;
+          }
+          if ($to_ayah >= $from_ayah && $from_ayah > 0) {
+            $total_ayahs += ($to_ayah - $from_ayah + 1);
+          }
+
+          // Track surahs.
+          if ($record->hasField('field_from_surah') && !$record->get('field_from_surah')->isEmpty()) {
+            $surah = $record->get('field_from_surah')->value;
+            if (!in_array($surah, $surahs_touched)) {
+              $surahs_touched[] = $surah;
+            }
+          }
+        }
+      }
+    }
+    catch (\Exception $e) {
+      // Content type or fields may not exist.
+    }
+
+    return [
+      'total_records' => $total_records,
+      'total_students' => $total_students,
+      'total_halaqas' => $total_halaqas,
+      'total_teachers' => $total_teachers,
+      'total_ayahs' => $total_ayahs,
+      'surahs_count' => count($surahs_touched),
+      'evaluations' => $evaluations,
+      'excellent_count' => $evaluations['excellent'],
+    ];
+  }
+
+  /**
+   * Get weekly activity (records per day for the current week).
+   *
+   * @return array
+   *   Array with daily record counts (Sat-Fri).
+   */
+  public function getWeeklyActivity(): array {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    // Get start of week (Saturday).
+    $now = new \DateTime();
+    $day_of_week = (int) $now->format('w'); // 0 = Sunday, 6 = Saturday
+    // Adjust to make Saturday = 0.
+    $adjusted_day = ($day_of_week + 1) % 7;
+    $start_of_week = (clone $now)->modify("-{$adjusted_day} days")->setTime(0, 0, 0);
+
+    $weekly_data = [0, 0, 0, 0, 0, 0, 0]; // Sat, Sun, Mon, Tue, Wed, Thu, Fri
+
+    for ($i = 0; $i < 7; $i++) {
+      $day_start = (clone $start_of_week)->modify("+{$i} days");
+      $day_end = (clone $day_start)->modify('+1 day');
+
+      $query = $storage->getQuery()
+        ->condition('type', 'memorization_record')
+        ->condition('status', 1)
+        ->condition('created', $day_start->getTimestamp(), '>=')
+        ->condition('created', $day_end->getTimestamp(), '<')
+        ->accessCheck(TRUE);
+
+      $weekly_data[$i] = count($query->execute());
+    }
+
+    return $weekly_data;
+  }
+
+  /**
+   * Get Juz progress statistics.
+   *
+   * @return array
+   *   Array with Juz progress data.
+   */
+  public function getJuzProgress(): array {
+    // Juz boundaries (approximate ayah numbers).
+    $juz_info = [
+      'juz_amma' => ['start' => 78, 'end' => 114, 'name' => 'Juz Amma', 'total_ayahs' => 564],
+      'juz_tabarak' => ['start' => 67, 'end' => 77, 'name' => 'Juz Tabarak', 'total_ayahs' => 431],
+      'juz_qad_samia' => ['start' => 58, 'end' => 66, 'name' => 'Juz Qad Samia', 'total_ayahs' => 451],
+    ];
+
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    // Get all memorization records.
+    $records_nids = $storage->getQuery()
+      ->condition('type', 'memorization_record')
+      ->condition('status', 1)
+      ->accessCheck(TRUE)
+      ->execute();
+
+    $juz_ayahs = [
+      'juz_amma' => 0,
+      'juz_tabarak' => 0,
+      'juz_qad_samia' => 0,
+    ];
+
+    if (!empty($records_nids)) {
+      $records = $storage->loadMultiple($records_nids);
+
+      foreach ($records as $record) {
+        $from_surah = 0;
+        $from_ayah = 0;
+        $to_ayah = 0;
+
+        if ($record->hasField('field_from_surah') && !$record->get('field_from_surah')->isEmpty()) {
+          $from_surah = (int) $record->get('field_from_surah')->value;
+        }
+        if ($record->hasField('field_from_ayah') && !$record->get('field_from_ayah')->isEmpty()) {
+          $from_ayah = (int) $record->get('field_from_ayah')->value;
+        }
+        if ($record->hasField('field_to_ayah') && !$record->get('field_to_ayah')->isEmpty()) {
+          $to_ayah = (int) $record->get('field_to_ayah')->value;
+        }
+
+        $ayahs_count = ($to_ayah >= $from_ayah && $from_ayah > 0) ? ($to_ayah - $from_ayah + 1) : 0;
+
+        // Categorize by Juz.
+        if ($from_surah >= 78 && $from_surah <= 114) {
+          $juz_ayahs['juz_amma'] += $ayahs_count;
+        }
+        elseif ($from_surah >= 67 && $from_surah <= 77) {
+          $juz_ayahs['juz_tabarak'] += $ayahs_count;
+        }
+        elseif ($from_surah >= 58 && $from_surah <= 66) {
+          $juz_ayahs['juz_qad_samia'] += $ayahs_count;
+        }
+      }
+    }
+
+    // Calculate percentages.
+    return [
+      [
+        'name' => 'Juz Amma',
+        'value' => min(100, round(($juz_ayahs['juz_amma'] / $juz_info['juz_amma']['total_ayahs']) * 100)),
+        'ayahs' => $juz_ayahs['juz_amma'],
+        'total' => $juz_info['juz_amma']['total_ayahs'],
+      ],
+      [
+        'name' => 'Juz Tabarak',
+        'value' => min(100, round(($juz_ayahs['juz_tabarak'] / $juz_info['juz_tabarak']['total_ayahs']) * 100)),
+        'ayahs' => $juz_ayahs['juz_tabarak'],
+        'total' => $juz_info['juz_tabarak']['total_ayahs'],
+      ],
+      [
+        'name' => 'Juz Qad Samia',
+        'value' => min(100, round(($juz_ayahs['juz_qad_samia'] / $juz_info['juz_qad_samia']['total_ayahs']) * 100)),
+        'ayahs' => $juz_ayahs['juz_qad_samia'],
+        'total' => $juz_info['juz_qad_samia']['total_ayahs'],
+      ],
+    ];
+  }
+
+  /**
+   * Calculate overall progress percentage.
+   *
+   * @return int
+   *   Progress percentage (0-100).
+   */
+  public function getOverallProgress(): int {
+    $stats = $this->getGlobalChartStats();
+
+    // Total Quran ayahs = 6236.
+    $total_quran_ayahs = 6236;
+
+    if ($stats['total_ayahs'] <= 0) {
+      return 0;
+    }
+
+    return min(100, round(($stats['total_ayahs'] / $total_quran_ayahs) * 100));
+  }
+
 }
 

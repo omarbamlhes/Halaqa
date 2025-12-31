@@ -1,0 +1,846 @@
+/**
+ * @file
+ * Mobile Responsive Styles for Halaqa Theme
+ * Comprehensive mobile-first responsive design
+ */
+
+/* ==================== BASE MOBILE RESET ==================== */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+  
+  body {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Prevent horizontal scroll */
+  .layout-container {
+    overflow-x: hidden;
+    width: 100%;
+  }
+}
+
+/* ==================== MOBILE HEADER ==================== */
+@media (max-width: 768px) {
+  .header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+  }
+  
+  .header-inner {
+    padding: 12px 16px !important;
+    gap: 12px !important;
+  }
+  
+  /* Logo on mobile */
+  .site-logo img {
+    height: 40px !important;
+  }
+  
+  .site-name a {
+    font-size: 1.2rem !important;
+  }
+  
+  .site-slogan {
+    display: none;
+  }
+  
+  /* Mobile menu toggle button */
+  .mobile-menu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    order: 3;
+    flex-shrink: 0;
+  }
+  
+  /* Hide navigation by default on mobile */
+  .main-navigation {
+    display: none !important;
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    z-index: 9998;
+    padding: 20px;
+    overflow-y: auto;
+    animation: slideInFromRight 0.3s ease;
+  }
+  
+  .main-navigation.is-open {
+    display: block !important;
+  }
+  
+  @keyframes slideInFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Mobile menu items */
+  .main-navigation .menu {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }
+  
+  .main-navigation .menu-item a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 16px 20px !important;
+    font-size: 1.1rem !important;
+    border-radius: 16px !important;
+    background: #f8fafc;
+    margin: 0;
+  }
+  
+  .main-navigation .menu-item a:hover,
+  .main-navigation .menu-item a.is-active {
+    background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+    color: white;
+  }
+  
+  /* Hide search on mobile header */
+  .header-search {
+    display: none !important;
+  }
+  
+  /* User menu on mobile */
+  .secondary-navigation {
+    gap: 8px !important;
+  }
+  
+  .user-avatar,
+  .notification-bell {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  
+  /* User dropdown on mobile */
+  .user-dropdown-menu {
+    position: fixed !important;
+    top: 65px !important;
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    border-radius: 20px !important;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+  
+  [dir="rtl"] .user-dropdown-menu {
+    left: 10px !important;
+    right: 10px !important;
+  }
+}
+
+/* ==================== MOBILE BODY SPACING ==================== */
+@media (max-width: 768px) {
+  /* Account for fixed header */
+  body {
+    padding-top: 65px;
+  }
+  
+  /* Main content padding */
+  main,
+  .region-content {
+    padding: 16px !important;
+  }
+  
+  .main-content {
+    padding: 0;
+  }
+}
+
+/* ==================== MOBILE TYPOGRAPHY ==================== */
+@media (max-width: 768px) {
+  h1, .page-title {
+    font-size: 1.75rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 16px !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  h3 {
+    font-size: 1.25rem !important;
+  }
+  
+  p {
+    font-size: 1rem !important;
+    line-height: 1.7 !important;
+  }
+}
+
+/* ==================== MOBILE CARDS ==================== */
+@media (max-width: 768px) {
+  .card,
+  .dashboard-card,
+  .feature-card,
+  .testimonial-card,
+  .step-card {
+    padding: 20px !important;
+    border-radius: 16px !important;
+    margin-bottom: 16px;
+  }
+  
+  /* Stack cards vertically */
+  .dashboard-cards,
+  .features-grid,
+  .testimonials-grid,
+  .grid-3,
+  .grid-4 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+}
+
+/* ==================== MOBILE DASHBOARD ==================== */
+@media (max-width: 768px) {
+  /* Dashboard stats */
+  .dashboard-stats {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  
+  .stat-card {
+    padding: 16px !important;
+    text-align: center;
+  }
+  
+  .stat-card .stat-number {
+    font-size: 1.75rem !important;
+  }
+  
+  .stat-card .stat-label {
+    font-size: 0.85rem !important;
+  }
+  
+  /* Quick actions */
+  .quick-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  
+  .quick-actions .btn,
+  .quick-actions a {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 14px 20px !important;
+  }
+  
+  /* Student cards */
+  .student-card,
+  .halaqa-card,
+  .child-card {
+    padding: 16px !important;
+  }
+  
+  .student-card .student-name,
+  .halaqa-card .halaqa-name {
+    font-size: 1.1rem !important;
+  }
+}
+
+/* ==================== MOBILE TABLES ==================== */
+@media (max-width: 768px) {
+  /* Responsive tables - card style */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  table {
+    min-width: 100%;
+  }
+  
+  /* Card-style table on mobile */
+  .mobile-card-table thead {
+    display: none;
+  }
+  
+  .mobile-card-table tbody tr {
+    display: block;
+    background: white;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+  
+  .mobile-card-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  
+  .mobile-card-table tbody td:last-child {
+    border-bottom: none;
+  }
+  
+  .mobile-card-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #6b7280;
+    font-size: 0.9rem;
+  }
+}
+
+/* ==================== MOBILE FORMS ==================== */
+@media (max-width: 768px) {
+  form {
+    width: 100%;
+  }
+  
+  .form-item {
+    margin-bottom: 20px;
+  }
+  
+  .form-item label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  select {
+    width: 100% !important;
+    padding: 14px 16px !important;
+    font-size: 16px !important; /* Prevents iOS zoom */
+    border-radius: 12px !important;
+    border: 2px solid #e5e7eb !important;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  
+  input:focus,
+  textarea:focus,
+  select:focus {
+    border-color: #0d9488 !important;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1) !important;
+  }
+  
+  /* Form buttons */
+  .form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  
+  .form-actions .button,
+  .form-actions input[type="submit"] {
+    width: 100% !important;
+    padding: 16px 24px !important;
+    font-size: 1rem !important;
+    justify-content: center;
+  }
+  
+  /* Select dropdown arrow */
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 14px center;
+    padding-left: 40px !important;
+  }
+  
+  [dir="rtl"] select {
+    background-position: right 14px center;
+    padding-left: 16px !important;
+    padding-right: 40px !important;
+  }
+}
+
+/* ==================== MOBILE BUTTONS ==================== */
+@media (max-width: 768px) {
+  .button,
+  .btn,
+  a.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 24px !important;
+    font-size: 1rem !important;
+    border-radius: 12px !important;
+    min-height: 48px; /* Touch target */
+  }
+  
+  /* Full width buttons */
+  .btn-block,
+  .button-block {
+    width: 100%;
+  }
+  
+  /* Button group on mobile */
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .button-group .button {
+    width: 100%;
+  }
+}
+
+/* ==================== MOBILE BREADCRUMB ==================== */
+@media (max-width: 768px) {
+  .breadcrumb {
+    padding: 12px 16px !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .breadcrumb ol {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+  
+  .breadcrumb li {
+    font-size: 0.85rem;
+  }
+}
+
+/* ==================== MOBILE MESSAGES ==================== */
+@media (max-width: 768px) {
+  .messages {
+    padding: 16px !important;
+    margin: 12px 0 !important;
+    border-radius: 12px !important;
+    font-size: 0.95rem;
+  }
+}
+
+/* ==================== MOBILE TABS ==================== */
+@media (max-width: 768px) {
+  .tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 20px;
+  }
+  
+  .tabs ul {
+    display: flex;
+    flex-wrap: nowrap;
+    min-width: max-content;
+    gap: 4px;
+  }
+  
+  .tabs a {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+}
+
+/* ==================== MOBILE FOOTER ==================== */
+@media (max-width: 768px) {
+  footer,
+  .region-footer {
+    padding: 40px 16px !important;
+  }
+  
+  .footer-inner {
+    text-align: center;
+  }
+  
+  .footer-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .footer-column {
+    text-align: center;
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .footer-social {
+    justify-content: center;
+  }
+}
+
+/* ==================== MOBILE HERO SECTION ==================== */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 20px 50px !important;
+    min-height: auto !important;
+  }
+  
+  .hero-content {
+    text-align: center;
+  }
+  
+  .hero-badge {
+    font-size: 0.85rem;
+    padding: 8px 20px;
+    margin-bottom: 25px;
+  }
+  
+  .hero-title {
+    font-size: 1.75rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 20px;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem !important;
+    margin-bottom: 30px;
+    line-height: 1.7;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  
+  .hero-btn {
+    width: 100%;
+    padding: 16px 24px !important;
+    font-size: 1rem !important;
+  }
+  
+  .hero-verse {
+    padding: 20px !important;
+    margin-top: 40px;
+  }
+  
+  .hero-verse-text {
+    font-size: 1.3rem !important;
+    line-height: 1.8 !important;
+  }
+  
+  .hero-shapes {
+    display: none;
+  }
+  
+  .scroll-indicator {
+    bottom: 20px;
+  }
+}
+
+/* ==================== MOBILE STATS SECTION ==================== */
+@media (max-width: 768px) {
+  .stats-section {
+    padding: 50px 16px !important;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+  
+  .stat-item .stat-number {
+    font-size: 2rem !important;
+  }
+  
+  .stat-item .stat-label {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ==================== MOBILE FEATURES SECTION ==================== */
+@media (max-width: 768px) {
+  .features-section,
+  .how-it-works-section,
+  .testimonials-section {
+    padding: 60px 16px !important;
+  }
+  
+  .features-title,
+  .section-title {
+    font-size: 1.75rem !important;
+    margin-bottom: 16px;
+  }
+  
+  .features-subtitle,
+  .section-subtitle {
+    font-size: 1rem !important;
+    margin-bottom: 40px;
+  }
+  
+  .feature-card {
+    padding: 30px 24px !important;
+  }
+  
+  .feature-icon {
+    width: 70px !important;
+    height: 70px !important;
+    font-size: 2rem !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .feature-title {
+    font-size: 1.2rem !important;
+  }
+  
+  .feature-description {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* ==================== MOBILE HOW IT WORKS ==================== */
+@media (max-width: 768px) {
+  .steps-grid {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  
+  .step-card {
+    width: 100% !important;
+    padding: 30px 24px !important;
+  }
+  
+  .step-connector {
+    display: none !important;
+  }
+  
+  .step-icon {
+    font-size: 2.5rem !important;
+  }
+  
+  .step-title {
+    font-size: 1.15rem !important;
+  }
+}
+
+/* ==================== MOBILE TESTIMONIALS ==================== */
+@media (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  
+  .testimonial-card {
+    padding: 24px !important;
+  }
+  
+  .testimonial-text {
+    font-size: 1rem !important;
+    margin-bottom: 20px;
+  }
+  
+  .author-avatar {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 1.2rem !important;
+  }
+}
+
+/* ==================== MOBILE CTA SECTION ==================== */
+@media (max-width: 768px) {
+  .cta-section {
+    padding: 60px 16px !important;
+  }
+  
+  .cta-title {
+    font-size: 1.5rem !important;
+    margin-bottom: 16px;
+  }
+  
+  .cta-subtitle {
+    font-size: 1rem !important;
+    margin-bottom: 30px;
+  }
+  
+  .cta-btn {
+    width: 100%;
+    padding: 16px 32px !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* ==================== MOBILE MODALS & DIALOGS ==================== */
+@media (max-width: 768px) {
+  .modal,
+  .dialog,
+  .ui-dialog {
+    width: calc(100% - 32px) !important;
+    max-width: none !important;
+    margin: 16px !important;
+    border-radius: 20px !important;
+  }
+  
+  .modal-content,
+  .dialog-content {
+    padding: 24px 20px !important;
+  }
+}
+
+/* ==================== MOBILE SCROLLBAR ==================== */
+@media (max-width: 768px) {
+  /* Hide scrollbar but keep functionality */
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  
+  /* Smooth scrolling on iOS */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ==================== MOBILE UTILITY CLASSES ==================== */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+  
+  .show-mobile {
+    display: block !important;
+  }
+  
+  .text-center-mobile {
+    text-align: center !important;
+  }
+  
+  .full-width-mobile {
+    width: 100% !important;
+  }
+  
+  .no-padding-mobile {
+    padding: 0 !important;
+  }
+  
+  .small-padding-mobile {
+    padding: 16px !important;
+  }
+}
+
+/* Show mobile-only elements */
+.show-mobile {
+  display: none;
+}
+
+/* ==================== TOUCH INTERACTIONS ==================== */
+@media (max-width: 768px) {
+  /* Better touch targets */
+  a, button, .btn, input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Remove hover effects on touch */
+  @media (hover: none) {
+    .button:hover,
+    .btn:hover,
+    a:hover {
+      transform: none;
+    }
+  }
+  
+  /* Active state for touch */
+  .button:active,
+  .btn:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+}
+
+/* ==================== LANDSCAPE MOBILE ==================== */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-section {
+    min-height: auto;
+    padding: 40px 20px;
+  }
+  
+  .hero-title {
+    font-size: 1.5rem !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* ==================== SMALL PHONES ==================== */
+@media (max-width: 360px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .header-inner {
+    padding: 10px 12px !important;
+  }
+  
+  .site-logo img {
+    height: 35px !important;
+  }
+  
+  .site-name a {
+    font-size: 1rem !important;
+  }
+  
+  .hero-title {
+    font-size: 1.5rem !important;
+  }
+  
+  .dashboard-stats {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ==================== PRINT STYLES ==================== */
+@media print {
+  .header,
+  .mobile-menu-toggle,
+  .footer,
+  .hero-section {
+    display: none !important;
+  }
+  
+  body {
+    padding: 0 !important;
+  }
+  
+  .main-content {
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
+

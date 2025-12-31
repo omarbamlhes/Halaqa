@@ -5,6 +5,9 @@ package: Custom
 core_version_requirement: ^10 || ^11
 base theme: false
 
+logo: images/logo.svg
+favicon: images/favicon.svg
+
 libraries:
   - halaqa_theme/global-styling
 

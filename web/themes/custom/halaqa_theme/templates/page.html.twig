@@ -14,22 +14,7 @@
       {# Logo & Branding #}
       <div class="site-branding">
         <a href="{{ path('<front>') }}" class="site-logo" rel="home" aria-label="{{ 'Home'|t }}">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="45" height="45">
-            <defs>
-              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#0d9488"/>
-                <stop offset="100%" style="stop-color:#14b8a6"/>
-              </linearGradient>
-            </defs>
-            <circle cx="25" cy="25" r="24" fill="url(#logoGrad)"/>
-            <g fill="#ffffff" transform="translate(25, 25) scale(0.4) translate(-50, -50)">
-              <path d="M25 30 Q25 65 50 70 Q25 65 25 30" opacity="0.9"/>
-              <path d="M75 30 Q75 65 50 70 Q75 65 75 30" opacity="0.9"/>
-              <line x1="50" y1="25" x2="50" y2="70" stroke="#ffffff" stroke-width="3" opacity="0.7"/>
-            </g>
-            <path d="M25 8 L26.5 12 L31 12 L27.5 15 L29 19 L25 16 L21 19 L22.5 15 L19 12 L23.5 12 Z" 
-                  fill="#fbbf24" transform="scale(0.5) translate(25, 5)"/>
-          </svg>
+          <img src="/themes/custom/halaqa_theme/images/favicon.svg" alt="Halaqa Logo" width="45" height="45" class="site-logo-img">
         </a>
         <div class="site-name-wrapper">
           <h1 class="site-name">
@@ -170,13 +155,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <div class="footer-logo">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="40" height="40">
-              <circle cx="25" cy="25" r="24" fill="#0d9488"/>
-              <g fill="#ffffff" transform="translate(25, 25) scale(0.4) translate(-50, -50)">
-                <path d="M25 30 Q25 65 50 70 Q25 65 25 30" opacity="0.9"/>
-                <path d="M75 30 Q75 65 50 70 Q75 65 75 30" opacity="0.9"/>
-              </g>
-            </svg>
+            <img src="/themes/custom/halaqa_theme/images/favicon.svg" alt="Halaqa Logo" width="40" height="40">
             <span>{{ site_name|default('حلقة') }}</span>
           </div>
           <p class="footer-description">

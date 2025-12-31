@@ -1,41 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 50">
   <defs>
-    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="logoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#0d9488;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
     </linearGradient>
   </defs>
   
-  <!-- Icon -->
-  <g transform="translate(5, 5)">
-    <circle cx="25" cy="25" r="23" fill="url(#logoGrad)"/>
-    <!-- Book -->
-    <g fill="#ffffff" transform="translate(25, 25) scale(0.45) translate(-50, -50)">
-      <path d="M25 30 Q25 65 50 70 Q25 65 25 30" opacity="0.9"/>
-      <path d="M75 30 Q75 65 50 70 Q75 65 75 30" opacity="0.9"/>
-      <line x1="50" y1="25" x2="50" y2="70" stroke="#ffffff" stroke-width="3" opacity="0.7"/>
+  <!-- Icon Circle -->
+  <g transform="translate(25, 25)">
+    <circle cx="0" cy="0" r="22" fill="url(#logoGrad1)"/>
+    <circle cx="0" cy="0" r="19" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+    
+    <!-- Mini Book -->
+    <g transform="scale(0.42)">
+      <path d="M-22 -18 Q-22 18 0 22 L0 -22 Q-22 -18 -22 -18" fill="#ffffff" opacity="0.95"/>
+      <path d="M22 -18 Q22 18 0 22 L0 -22 Q22 -18 22 -18" fill="#ffffff" opacity="0.95"/>
+      <rect x="-1" y="-22" width="2" height="44" fill="#0d9488" opacity="0.3" rx="1"/>
+      
+      <path d="M-16 -8 Q-10 -6 -5 -8" stroke="#0d9488" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
+      <path d="M-14 0 Q-9 2 -5 0" stroke="#0d9488" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
+      <path d="M16 -8 Q10 -6 5 -8" stroke="#0d9488" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
+      <path d="M14 0 Q9 2 5 0" stroke="#0d9488" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
     </g>
-    <!-- Star -->
-    <path d="M25 6 L26.5 10 L31 10 L27.5 13 L29 17 L25 14 L21 17 L22.5 13 L19 10 L23.5 10 Z" 
-          fill="#fbbf24" opacity="0.9" transform="scale(0.6) translate(16, 5)"/>
+    
+    <!-- Mini Star -->
+    <g transform="translate(0, -14) scale(0.5)">
+      <path d="M0 -8 L2 -2.5 L8 -2.5 L3 1.5 L5 8 L0 4 L-5 8 L-3 1.5 L-8 -2.5 L-2 -2.5 Z" 
+            fill="url(#goldGrad1)" opacity="0.95"/>
+    </g>
   </g>
   
-  <!-- Text: حلقة -->
-  <text x="60" y="40" 
-        font-family="Tajawal, Cairo, sans-serif" 
-        font-size="28" 
+  <!-- Arabic Text: حلقة -->
+  <text x="55" y="32" 
+        font-family="'Amiri', 'Scheherazade New', 'Tajawal', serif" 
+        font-size="26" 
         font-weight="700" 
-        fill="#0d9488">
+        fill="#0d9488"
+        direction="rtl">
     حلقة
   </text>
   
   <!-- Tagline -->
-  <text x="60" y="54" 
-        font-family="Tajawal, Cairo, sans-serif" 
-        font-size="10" 
+  <text x="55" y="45" 
+        font-family="'Tajawal', 'Cairo', sans-serif" 
+        font-size="9" 
         font-weight="400" 
-        fill="#6b7280">
+        fill="#64748b"
+        direction="rtl">
     منصة تحفيظ القرآن الكريم
   </text>
 </svg>
-
