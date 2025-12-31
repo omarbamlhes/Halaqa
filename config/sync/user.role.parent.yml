@@ -1,9 +1,19 @@
 uuid: 3f1a6400-c6c1-4fbb-983e-dc238e22b088
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - node.type.student
+  module:
+    - node
 id: parent
 label: Parent
 weight: 6
 is_admin: null
-permissions: {  }
+permissions:
+  - 'create student content'
+  - 'delete own student content'
+  - 'delete student revisions'
+  - 'edit any student content'
+  - 'edit own student content'
+  - 'revert student revisions'

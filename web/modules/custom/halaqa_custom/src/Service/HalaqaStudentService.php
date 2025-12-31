@@ -508,5 +508,72 @@ class HalaqaStudentService {
     return (int) $student->getOwnerId() === $uid;
   }
 
+  /**
+   * Get student node for current user.
+   *
+   * @return \Drupal\node\NodeInterface|null
+   *   The student node or NULL.
+   */
+  public function getStudentForCurrentUser(): ?NodeInterface {
+    $uid = $this->currentUser->id();
+
+    $storage = $this->entityTypeManager->getStorage('node');
+    $query = $storage->getQuery()
+      ->condition('type', 'student')
+      ->condition('status', 1)
+      ->condition('uid', $uid)
+      ->accessCheck(TRUE)
+      ->range(0, 1);
+
+    $nids = $query->execute();
+
+    if (empty($nids)) {
+      return NULL;
+    }
+
+    return $storage->load(reset($nids));
+  }
+
+  /**
+   * Get student dashboard data.
+   *
+   * @return array
+   *   Array with dashboard data.
+   */
+  public function getStudentDashboardData(): array {
+    $student = $this->getStudentForCurrentUser();
+
+    if (!$student) {
+      return [
+        'student' => NULL,
+        'halaqa' => NULL,
+        'teacher' => NULL,
+        'progress' => NULL,
+      ];
+    }
+
+    // Get progress.
+    $progress = $this->getStudentProgress((int) $student->id());
+
+    // Get halaqa.
+    $halaqa = NULL;
+    $teacher = NULL;
+    if ($student->hasField('field_halaqa') && !$student->get('field_halaqa')->isEmpty()) {
+      $halaqa = $student->get('field_halaqa')->entity;
+
+      // Get teacher from halaqa.
+      if ($halaqa && $halaqa->hasField('field_teacher') && !$halaqa->get('field_teacher')->isEmpty()) {
+        $teacher = $halaqa->get('field_teacher')->entity;
+      }
+    }
+
+    return [
+      'student' => $student,
+      'halaqa' => $halaqa,
+      'teacher' => $teacher,
+      'progress' => $progress,
+    ];
+  }
+
 }
 

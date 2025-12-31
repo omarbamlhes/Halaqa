@@ -895,4 +895,270 @@ class HalaqaCustomController extends ControllerBase {
     return $this->studentProgress($student_nid);
   }
 
+  /**
+   * Student Dashboard page.
+   *
+   * @return array
+   *   A render array.
+   */
+  public function studentDashboard(): array {
+    $data = $this->halaqaStudentService->getStudentDashboardData();
+
+    $build = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['student-dashboard']],
+    ];
+
+    // Check if student profile exists.
+    if (!$data['student']) {
+      $build['no_profile'] = [
+        '#markup' => '<div class="no-profile-message">
+          <h2>' . $this->t('Welcome!') . '</h2>
+          <p>' . $this->t('Your student profile has not been set up yet.') . '</p>
+          <p>' . $this->t('Please contact your teacher or administrator.') . '</p>
+        </div>',
+      ];
+
+      $build['#attached']['html_head'][] = [
+        [
+          '#tag' => 'style',
+          '#value' => '
+            .student-dashboard { max-width: 600px; margin: 50px auto; padding: 20px; }
+            .no-profile-message { background: #fff3e0; padding: 30px; border-radius: 12px; text-align: center; }
+            .no-profile-message h2 { color: #e65100; }
+          ',
+        ],
+        'student_dashboard_no_profile_styles',
+      ];
+
+      return $build;
+    }
+
+    $student = $data['student'];
+    $progress = $data['progress'];
+    $halaqa = $data['halaqa'];
+    $teacher = $data['teacher'];
+    $surah_names = $this->getSurahNames();
+
+    // Welcome header.
+    $build['header'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['dashboard-header']],
+      'welcome' => [
+        '#markup' => '<h2>' . $this->t('Welcome, @name!', ['@name' => $student->label()]) . '</h2>',
+      ],
+    ];
+
+    // Info cards.
+    $build['info'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['info-cards']],
+    ];
+
+    if ($halaqa) {
+      $build['info']['halaqa'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['info-card']],
+        'icon' => ['#markup' => '<div class="info-icon">🕌</div>'],
+        'label' => ['#markup' => '<div class="info-label">' . $this->t('My Halaqa') . '</div>'],
+        'value' => ['#markup' => '<div class="info-value">' . $halaqa->label() . '</div>'],
+      ];
+    }
+
+    if ($teacher) {
+      $build['info']['teacher'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['info-card']],
+        'icon' => ['#markup' => '<div class="info-icon">👨‍🏫</div>'],
+        'label' => ['#markup' => '<div class="info-label">' . $this->t('My Teacher') . '</div>'],
+        'value' => ['#markup' => '<div class="info-value">' . $teacher->label() . '</div>'],
+      ];
+    }
+
+    // Statistics.
+    $build['stats'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['dashboard-stats']],
+    ];
+
+    $build['stats']['records'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['stat-card', 'stat-blue']],
+      'count' => ['#markup' => '<div class="stat-number">' . $progress['total_records'] . '</div>'],
+      'label' => ['#markup' => '<div class="stat-label">' . $this->t('Sessions') . '</div>'],
+    ];
+
+    $build['stats']['ayahs'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['stat-card', 'stat-green']],
+      'count' => ['#markup' => '<div class="stat-number">' . $progress['total_ayahs'] . '</div>'],
+      'label' => ['#markup' => '<div class="stat-label">' . $this->t('Ayahs') . '</div>'],
+    ];
+
+    $build['stats']['surahs'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['stat-card', 'stat-purple']],
+      'count' => ['#markup' => '<div class="stat-number">' . count($progress['surahs_touched']) . '</div>'],
+      'label' => ['#markup' => '<div class="stat-label">' . $this->t('Surahs') . '</div>'],
+    ];
+
+    // Evaluation summary.
+    $total_evals = array_sum($progress['evaluations']);
+    if ($total_evals > 0) {
+      $build['evaluation'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['evaluation-section']],
+        'title' => ['#markup' => '<h3>' . $this->t('My Performance') . '</h3>'],
+      ];
+
+      $eval_labels = [
+        'excellent' => ['label' => $this->t('Excellent'), 'emoji' => '⭐'],
+        'very_good' => ['label' => $this->t('Very Good'), 'emoji' => '👍'],
+        'good' => ['label' => $this->t('Good'), 'emoji' => '👌'],
+        'acceptable' => ['label' => $this->t('Acceptable'), 'emoji' => '📝'],
+        'needs_improvement' => ['label' => $this->t('Needs Work'), 'emoji' => '💪'],
+      ];
+
+      foreach ($progress['evaluations'] as $key => $count) {
+        if ($count > 0 && isset($eval_labels[$key])) {
+          $percent = round(($count / $total_evals) * 100);
+          $build['evaluation']['eval_' . $key] = [
+            '#markup' => '<div class="eval-item">
+              <span class="eval-emoji">' . $eval_labels[$key]['emoji'] . '</span>
+              <span class="eval-name">' . $eval_labels[$key]['label'] . '</span>
+              <span class="eval-bar-container"><span class="eval-bar" style="width: ' . $percent . '%"></span></span>
+              <span class="eval-percent">' . $percent . '%</span>
+            </div>',
+          ];
+        }
+      }
+    }
+
+    // Recent records.
+    if (!empty($progress['records'])) {
+      $build['records'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['records-section']],
+        'title' => ['#markup' => '<h3>' . $this->t('Recent Sessions') . '</h3>'],
+      ];
+
+      $recent = array_slice($progress['records'], 0, 5);
+      foreach ($recent as $index => $record) {
+        $date = '';
+        $from_surah = '';
+        $to_surah = '';
+        $from_ayah = '';
+        $to_ayah = '';
+        $eval = '';
+        $eval_emoji = '';
+
+        if ($record->hasField('field_date') && !$record->get('field_date')->isEmpty()) {
+          $date = $record->get('field_date')->value;
+        }
+        if ($record->hasField('field_from_surah') && !$record->get('field_from_surah')->isEmpty()) {
+          $surah_num = $record->get('field_from_surah')->value;
+          $from_surah = $surah_names[$surah_num] ?? $surah_num;
+        }
+        if ($record->hasField('field_to_surah') && !$record->get('field_to_surah')->isEmpty()) {
+          $surah_num = $record->get('field_to_surah')->value;
+          $to_surah = $surah_names[$surah_num] ?? $surah_num;
+        }
+        if ($record->hasField('field_from_ayah') && !$record->get('field_from_ayah')->isEmpty()) {
+          $from_ayah = $record->get('field_from_ayah')->value;
+        }
+        if ($record->hasField('field_to_ayah') && !$record->get('field_to_ayah')->isEmpty()) {
+          $to_ayah = $record->get('field_to_ayah')->value;
+        }
+        if ($record->hasField('field_evaluation') && !$record->get('field_evaluation')->isEmpty()) {
+          $eval_key = $record->get('field_evaluation')->value;
+          $eval_data = [
+            'excellent' => ['⭐', $this->t('Excellent')],
+            'very_good' => ['👍', $this->t('Very Good')],
+            'good' => ['👌', $this->t('Good')],
+            'acceptable' => ['📝', $this->t('Acceptable')],
+            'needs_improvement' => ['💪', $this->t('Needs Work')],
+          ];
+          if (isset($eval_data[$eval_key])) {
+            $eval_emoji = $eval_data[$eval_key][0];
+            $eval = $eval_data[$eval_key][1];
+          }
+        }
+
+        $range = $from_surah . ' (' . $from_ayah . ')';
+        if ($from_surah !== $to_surah || $from_ayah !== $to_ayah) {
+          $range .= ' → ' . $to_surah . ' (' . $to_ayah . ')';
+        }
+
+        $build['records']['record_' . $index] = [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['record-item']],
+          'content' => [
+            '#markup' => '
+              <div class="record-date">' . $date . '</div>
+              <div class="record-range">' . $range . '</div>
+              <div class="record-eval">' . $eval_emoji . ' ' . $eval . '</div>
+            ',
+          ],
+        ];
+      }
+    }
+
+    // Motivational message.
+    $build['motivation'] = [
+      '#markup' => '<div class="motivation-message">
+        <span class="motivation-icon">📖</span>
+        <span class="motivation-text">' . $this->t('Keep up the great work! Every ayah you memorize brings you closer to Allah.') . '</span>
+      </div>',
+    ];
+
+    // Add styles.
+    $build['#attached']['html_head'][] = [
+      [
+        '#tag' => 'style',
+        '#value' => '
+          .student-dashboard { max-width: 800px; margin: 0 auto; padding: 20px; }
+          .dashboard-header { text-align: center; margin-bottom: 30px; }
+          .dashboard-header h2 { color: #1565c0; margin: 0; font-size: 1.8em; }
+          .info-cards { display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; justify-content: center; }
+          .info-card { background: #f5f5f5; padding: 15px 25px; border-radius: 12px; text-align: center; }
+          .info-icon { font-size: 2em; }
+          .info-label { color: #666; font-size: 0.85em; margin-top: 5px; }
+          .info-value { font-weight: bold; color: #333; margin-top: 3px; }
+          .dashboard-stats { display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; justify-content: center; }
+          .stat-card { padding: 20px 30px; border-radius: 12px; text-align: center; color: #fff; min-width: 100px; }
+          .stat-blue { background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%); }
+          .stat-green { background: linear-gradient(135deg, #43a047 0%, #1b5e20 100%); }
+          .stat-purple { background: linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%); }
+          .stat-number { font-size: 2.2em; font-weight: bold; }
+          .stat-label { opacity: 0.9; font-size: 0.9em; }
+          .evaluation-section { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; margin-bottom: 25px; }
+          .evaluation-section h3 { margin: 0 0 15px 0; color: #333; }
+          .eval-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+          .eval-emoji { font-size: 1.3em; }
+          .eval-name { width: 100px; }
+          .eval-bar-container { flex: 1; background: #e0e0e0; border-radius: 10px; height: 10px; overflow: hidden; }
+          .eval-bar { background: linear-gradient(90deg, #4caf50, #8bc34a); height: 100%; border-radius: 10px; }
+          .eval-percent { width: 45px; text-align: right; font-weight: bold; }
+          .records-section { margin-bottom: 25px; }
+          .records-section h3 { margin-bottom: 15px; color: #333; }
+          .record-item { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+          .record-date { color: #666; font-size: 0.9em; }
+          .record-range { font-weight: 500; flex: 1; }
+          .record-eval { background: #e8f5e9; padding: 4px 10px; border-radius: 15px; font-size: 0.9em; }
+          .motivation-message { background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-radius: 12px; padding: 20px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 15px; }
+          .motivation-icon { font-size: 2em; }
+          .motivation-text { color: #5d4037; font-style: italic; }
+        ',
+      ],
+      'student_dashboard_styles',
+    ];
+
+    $build['#cache'] = [
+      'tags' => ['node_list:memorization_record', 'node:' . $student->id()],
+      'contexts' => ['user'],
+    ];
+
+    return $build;
+  }
+
 }
