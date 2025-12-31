@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Halaqa Theme's implementation of html.html.twig.
+ *
+ * Professional HTML template with proper meta tags and RTL support.
+ */
+#}
+{%
+  set body_classes = [
+    logged_in ? 'user-logged-in',
+    not root_path ? 'path-frontpage' : 'path-' ~ root_path|clean_class,
+    node_type ? 'page-node-type-' ~ node_type|clean_class,
+    db_offline ? 'db-offline',
+    language.direction == 'rtl' ? 'is-rtl' : 'is-ltr',
+  ]
+%}
+<!DOCTYPE html>
+<html{{ html_attributes.addClass('no-js') }}>
+  <head>
+    <head-placeholder token="{{ placeholder_token }}">
+    <title>{{ head_title|safe_join(' | ') }}</title>
+    
+    {# Meta Tags #}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#0d9488">
+    
+    {# Favicons #}
+    <link rel="icon" type="image/svg+xml" href="/{{ directory }}/images/favicon.svg">
+    
+    <css-placeholder token="{{ placeholder_token }}">
+    <js-placeholder token="{{ placeholder_token }}">
+    
+    {# Preconnect to Google Fonts #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  </head>
+  
+  <body{{ attributes.addClass(body_classes) }}>
+    {# Skip Link #}
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      {{ 'Skip to main content'|t }}
+    </a>
+    
+    {{ page_top }}
+    {{ page }}
+    {{ page_bottom }}
+    
+    <js-bottom-placeholder token="{{ placeholder_token }}">
+    
+    {# No-JS fallback #}
+    <script>
+      document.documentElement.classList.remove('no-js');
+      document.documentElement.classList.add('js');
+    </script>
+  </body>
+</html>
+

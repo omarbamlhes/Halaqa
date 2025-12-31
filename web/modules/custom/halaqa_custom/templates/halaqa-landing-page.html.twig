@@ -1,0 +1,249 @@
+{#
+/**
+ * @file
+ * Landing page template for Halaqa platform.
+ */
+#}
+
+<div class="landing-page-wrapper">
+
+  {# ==================== HERO SECTION ==================== #}
+  <section class="hero-section">
+    {# Animated Background Shapes #}
+    <div class="hero-shapes">
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+    </div>
+    
+    {# Floating Particles #}
+    <div class="hero-particles">
+      <span class="particle">✨</span>
+      <span class="particle">⭐</span>
+      <span class="particle">🌟</span>
+      <span class="particle">✨</span>
+      <span class="particle">⭐</span>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-icon">🕌</span>
+        <span>{{ 'The #1 Quran Memorization Platform'|t }}</span>
+      </div>
+      
+      <h1 class="hero-title">
+        {{ 'Memorize the Quran'|t }}<br>
+        <span class="hero-title-highlight">{{ 'With Excellence'|t }}</span>
+      </h1>
+      
+      <p class="hero-subtitle">
+        {{ 'A comprehensive platform connecting teachers, students, and parents to track Quran memorization progress, manage study circles, and achieve memorization goals.'|t }}
+      </p>
+      
+      <div class="hero-buttons">
+        {% if logged_in %}
+          <a href="/teacher/dashboard" class="hero-btn hero-btn-primary">
+            <span>🎯</span> {{ 'Go to Dashboard'|t }}
+          </a>
+        {% else %}
+          <a href="/user/register" class="hero-btn hero-btn-primary">
+            <span>🚀</span> {{ 'Start Free'|t }}
+          </a>
+          <a href="#features" class="hero-btn hero-btn-secondary">
+            <span>📖</span> {{ 'Learn More'|t }}
+          </a>
+        {% endif %}
+      </div>
+      
+      {# Quran Verse #}
+      <div class="hero-verse">
+        <p class="hero-verse-text">وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ</p>
+        <span class="hero-verse-ref">{{ 'Surah Al-Qamar, Verse 17'|t }}</span>
+      </div>
+    </div>
+    
+    {# Scroll Indicator #}
+    <a href="#features" class="scroll-indicator">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M19 12l-7 7-7-7"/>
+      </svg>
+    </a>
+  </section>
+
+  {# ==================== STATS SECTION ==================== #}
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">1000+</div>
+        <div class="stat-label">{{ 'Active Students'|t }}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">{{ 'Expert Teachers'|t }}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">100+</div>
+        <div class="stat-label">{{ 'Study Circles'|t }}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">5000+</div>
+        <div class="stat-label">{{ 'Memorization Records'|t }}</div>
+      </div>
+    </div>
+  </section>
+
+  {# ==================== FEATURES SECTION ==================== #}
+  <section class="features-section" id="features">
+    <div class="features-header">
+      <h2 class="features-title">{{ 'Everything You Need'|t }}</h2>
+      <p class="features-subtitle">{{ 'Powerful features to help teachers, students, and parents track and manage Quran memorization effectively.'|t }}</p>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">👨‍🏫</div>
+        <h3 class="feature-title">{{ 'Teacher Dashboard'|t }}</h3>
+        <p class="feature-description">{{ 'Manage your study circles, track student progress, and record memorization sessions with ease.'|t }}</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">👨‍🎓</div>
+        <h3 class="feature-title">{{ 'Student Progress'|t }}</h3>
+        <p class="feature-description">{{ 'Students can view their memorization journey, see evaluations, and track their achievements.'|t }}</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">👨‍👩‍👧</div>
+        <h3 class="feature-title">{{ 'Parent Dashboard'|t }}</h3>
+        <p class="feature-description">{{ "Parents stay connected with their children's progress and receive updates on their memorization."|t }}</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3 class="feature-title">{{ 'Detailed Reports'|t }}</h3>
+        <p class="feature-description">{{ 'Comprehensive reports and analytics to understand progress and identify areas for improvement.'|t }}</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">📖</div>
+        <h3 class="feature-title">{{ 'Surah Tracking'|t }}</h3>
+        <p class="feature-description">{{ 'Track memorization by Surah and Ayah, with evaluation ratings for each session.'|t }}</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <h3 class="feature-title">{{ 'Notifications'|t }}</h3>
+        <p class="feature-description">{{ 'Stay updated with real-time notifications about progress, sessions, and achievements.'|t }}</p>
+      </div>
+    </div>
+  </section>
+
+  {# ==================== HOW IT WORKS ==================== #}
+  <section class="how-it-works-section" id="how-it-works">
+    <div class="section-header">
+      <h2 class="section-title">{{ 'How It Works'|t }}</h2>
+      <p class="section-subtitle">{{ 'Get started in three simple steps'|t }}</p>
+    </div>
+    
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-icon">📝</div>
+        <h3 class="step-title">{{ 'Register'|t }}</h3>
+        <p class="step-description">{{ 'Create your account as a teacher, student, or parent.'|t }}</p>
+      </div>
+      
+      <div class="step-connector">
+        <svg width="50" height="20" viewBox="0 0 50 20">
+          <path d="M0 10 L40 10 M35 5 L45 10 L35 15" fill="none" stroke="#0d9488" stroke-width="2"/>
+        </svg>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-icon">🔗</div>
+        <h3 class="step-title">{{ 'Connect'|t }}</h3>
+        <p class="step-description">{{ 'Join a study circle or create one as a teacher.'|t }}</p>
+      </div>
+      
+      <div class="step-connector">
+        <svg width="50" height="20" viewBox="0 0 50 20">
+          <path d="M0 10 L40 10 M35 5 L45 10 L35 15" fill="none" stroke="#0d9488" stroke-width="2"/>
+        </svg>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-icon">🎯</div>
+        <h3 class="step-title">{{ 'Track Progress'|t }}</h3>
+        <p class="step-description">{{ 'Record and monitor memorization progress with detailed evaluations.'|t }}</p>
+      </div>
+    </div>
+  </section>
+
+  {# ==================== TESTIMONIALS ==================== #}
+  <section class="testimonials-section" id="testimonials">
+    <div class="section-header">
+      <h2 class="section-title">{{ 'What People Say'|t }}</h2>
+      <p class="section-subtitle">{{ 'Trusted by teachers and students worldwide'|t }}</p>
+    </div>
+    
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"{{ 'This platform has transformed how I manage my Halaqa. Tracking student progress has never been easier!'|t }}"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👨‍🏫</div>
+          <div class="author-info">
+            <div class="author-name">{{ 'Sheikh Ahmad'|t }}</div>
+            <div class="author-role">{{ 'Teacher'|t }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"{{ 'I love seeing my progress visually. It motivates me to memorize more every day!'|t }}"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👨‍🎓</div>
+          <div class="author-info">
+            <div class="author-name">{{ 'Omar'|t }}</div>
+            <div class="author-role">{{ 'Student'|t }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"{{ "As a parent, I can now follow my child's Quran memorization journey closely. Wonderful platform!"|t }}"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👩</div>
+          <div class="author-info">
+            <div class="author-name">{{ 'Fatima'|t }}</div>
+            <div class="author-role">{{ 'Parent'|t }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# ==================== CTA SECTION ==================== #}
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2 class="cta-title">{{ 'Start Your Memorization Journey Today'|t }}</h2>
+      <p class="cta-subtitle">{{ 'Join thousands of students and teachers already using Halaqa to memorize the Quran.'|t }}</p>
+      {% if logged_in %}
+        <a href="/teacher/dashboard" class="cta-btn">
+          <span>🎯</span> {{ 'Go to Dashboard'|t }}
+        </a>
+      {% else %}
+        <a href="/user/register" class="cta-btn">
+          <span>🚀</span> {{ 'Get Started Free'|t }}
+        </a>
+      {% endif %}
+    </div>
+  </section>
+
+</div>
+

@@ -1,3 +1,11 @@
+halaqa_custom.front:
+  path: '/welcome'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\LandingPageController::frontPage'
+    _title: 'Welcome to Halaqa'
+  requirements:
+    _permission: 'access content'
+
 halaqa_custom.example:
   path: '/halaqa-custom/example'
   defaults:

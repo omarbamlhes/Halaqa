@@ -1,0 +1,24 @@
+name: Halaqa Theme
+type: theme
+description: 'Modern, professional theme for Halaqa Quran memorization platform'
+package: Custom
+core_version_requirement: ^10 || ^11
+base theme: false
+
+libraries:
+  - halaqa_theme/global-styling
+
+regions:
+  header: Header
+  primary_menu: Primary Menu
+  secondary_menu: Secondary Menu
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  sidebar_first: Sidebar First
+  sidebar_second: Sidebar Second
+  footer: Footer
+  page_top: Page Top
+  page_bottom: Page Bottom
+

@@ -20,6 +20,20 @@ function halaqa_custom_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function halaqa_custom_theme($existing, $type, $theme, $path) {
+  return [
+    'halaqa_landing_page' => [
+      'variables' => [
+        'logged_in' => FALSE,
+      ],
+      'template' => 'halaqa-landing-page',
+    ],
+  ];
+}
+
+/**
  * Implements hook_locale_translation_projects_alter().
  */
 function halaqa_custom_locale_translation_projects_alter(&$projects) {

@@ -1,0 +1,375 @@
+{#
+/**
+ * @file
+ * Halaqa Theme - Landing Page (Front Page)
+ * Beautiful Hero Section with Features
+ */
+#}
+
+<div class="layout-container landing-page">
+  
+  {# ==================== HEADER ==================== #}
+  <header class="header header-transparent" role="banner">
+    <div class="header-inner">
+      
+      {# Logo & Branding #}
+      <div class="site-branding">
+        <a href="{{ path('<front>') }}" class="site-logo" rel="home" aria-label="{{ 'Home'|t }}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="45" height="45">
+            <defs>
+              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#0d9488"/>
+                <stop offset="100%" style="stop-color:#14b8a6"/>
+              </linearGradient>
+            </defs>
+            <circle cx="25" cy="25" r="24" fill="url(#logoGrad)"/>
+            <g fill="#ffffff" transform="translate(25, 25) scale(0.4) translate(-50, -50)">
+              <path d="M25 30 Q25 65 50 70 Q25 65 25 30" opacity="0.9"/>
+              <path d="M75 30 Q75 65 50 70 Q75 65 75 30" opacity="0.9"/>
+              <line x1="50" y1="25" x2="50" y2="70" stroke="#ffffff" stroke-width="3" opacity="0.7"/>
+            </g>
+            <path d="M25 8 L26.5 12 L31 12 L27.5 15 L29 19 L25 16 L21 19 L22.5 15 L19 12 L23.5 12 Z" 
+                  fill="#fbbf24" transform="scale(0.5) translate(25, 5)"/>
+          </svg>
+        </a>
+        <div class="site-name-wrapper">
+          <h1 class="site-name">
+            <a href="{{ path('<front>') }}" rel="home">{{ site_name|default('حلقة') }}</a>
+          </h1>
+        </div>
+      </div>
+      
+      {# Main Navigation #}
+      <nav class="main-navigation" role="navigation" aria-label="{{ 'Main navigation'|t }}">
+        <ul class="menu">
+          <li class="menu-item"><a href="#features">{{ 'Features'|t }}</a></li>
+          <li class="menu-item"><a href="#how-it-works">{{ 'How it Works'|t }}</a></li>
+          <li class="menu-item"><a href="#testimonials">{{ 'Testimonials'|t }}</a></li>
+        </ul>
+      </nav>
+      
+      {# Auth Buttons #}
+      <div class="header-right">
+        {% if logged_in %}
+          <a href="/teacher/dashboard" class="btn-dashboard">{{ 'Dashboard'|t }}</a>
+        {% else %}
+          <div class="auth-buttons">
+            <a href="/user/login" class="btn-login">{{ 'Login'|t }}</a>
+            <a href="/user/register" class="btn-register">{{ 'Get Started'|t }}</a>
+          </div>
+        {% endif %}
+        
+        <button class="mobile-menu-toggle" aria-label="{{ 'Toggle menu'|t }}">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      
+    </div>
+  </header>
+
+  {# ==================== HERO SECTION ==================== #}
+  <section class="hero-section">
+    {# Animated Background Shapes #}
+    <div class="hero-shapes">
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+    </div>
+    
+    {# Floating Particles #}
+    <div class="hero-particles">
+      <span class="particle">✨</span>
+      <span class="particle">⭐</span>
+      <span class="particle">🌟</span>
+      <span class="particle">✨</span>
+      <span class="particle">⭐</span>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-icon">🕌</span>
+        <span>{{ 'The #1 Quran Memorization Platform'|t }}</span>
+      </div>
+      
+      <h1 class="hero-title">
+        {{ 'Memorize the Quran'|t }}<br>
+        <span class="hero-title-highlight">{{ 'With Excellence'|t }}</span>
+      </h1>
+      
+      <p class="hero-subtitle">
+        {{ 'A comprehensive platform connecting teachers, students, and parents to track Quran memorization progress, manage study circles, and achieve memorization goals.'|t }}
+      </p>
+      
+      <div class="hero-buttons">
+        {% if logged_in %}
+          <a href="/teacher/dashboard" class="hero-btn hero-btn-primary">
+            <span>🎯</span> {{ 'Go to Dashboard'|t }}
+          </a>
+        {% else %}
+          <a href="/user/register" class="hero-btn hero-btn-primary">
+            <span>🚀</span> {{ 'Start Free'|t }}
+          </a>
+          <a href="#features" class="hero-btn hero-btn-secondary">
+            <span>📖</span> {{ 'Learn More'|t }}
+          </a>
+        {% endif %}
+      </div>
+      
+      {# Quran Verse #}
+      <div class="hero-verse">
+        <p class="hero-verse-text">وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ</p>
+        <span class="hero-verse-ref">{{ 'Surah Al-Qamar, Verse 17'|t }}</span>
+      </div>
+    </div>
+    
+    {# Scroll Indicator #}
+    <div class="scroll-indicator">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M19 12l-7 7-7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  {# ==================== STATS SECTION ==================== #}
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number" data-count="1000">1000+</div>
+        <div class="stat-label">{{ 'Active Students'|t }}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-count="50">50+</div>
+        <div class="stat-label">{{ 'Expert Teachers'|t }}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-count="100">100+</div>
+        <div class="stat-label">{{ 'Study Circles'|t }}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-count="5000">5000+</div>
+        <div class="stat-label">{{ 'Memorization Records'|t }}</div>
+      </div>
+    </div>
+  </section>
+
+  {# ==================== FEATURES SECTION ==================== #}
+  <section class="features-section" id="features">
+    <div class="features-header">
+      <h2 class="features-title">{{ 'Everything You Need'|t }}</h2>
+      <p class="features-subtitle">{{ 'Powerful features to help teachers, students, and parents track and manage Quran memorization effectively.'|t }}</p>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">👨‍🏫</div>
+        <h3 class="feature-title">{{ 'Teacher Dashboard'|t }}</h3>
+        <p class="feature-description">{{ 'Manage your study circles, track student progress, and record memorization sessions with ease.'|t }}</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">👨‍🎓</div>
+        <h3 class="feature-title">{{ 'Student Progress'|t }}</h3>
+        <p class="feature-description">{{ 'Students can view their memorization journey, see evaluations, and track their achievements.'|t }}</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">👨‍👩‍👧</div>
+        <h3 class="feature-title">{{ 'Parent Dashboard'|t }}</h3>
+        <p class="feature-description">{{ 'Parents stay connected with their children\'s progress and receive updates on their memorization.'|t }}</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3 class="feature-title">{{ 'Detailed Reports'|t }}</h3>
+        <p class="feature-description">{{ 'Comprehensive reports and analytics to understand progress and identify areas for improvement.'|t }}</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">📖</div>
+        <h3 class="feature-title">{{ 'Surah Tracking'|t }}</h3>
+        <p class="feature-description">{{ 'Track memorization by Surah and Ayah, with evaluation ratings for each session.'|t }}</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <h3 class="feature-title">{{ 'Notifications'|t }}</h3>
+        <p class="feature-description">{{ 'Stay updated with real-time notifications about progress, sessions, and achievements.'|t }}</p>
+      </div>
+    </div>
+  </section>
+
+  {# ==================== HOW IT WORKS ==================== #}
+  <section class="how-it-works-section" id="how-it-works">
+    <div class="section-header">
+      <h2 class="section-title">{{ 'How It Works'|t }}</h2>
+      <p class="section-subtitle">{{ 'Get started in three simple steps'|t }}</p>
+    </div>
+    
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-icon">📝</div>
+        <h3 class="step-title">{{ 'Register'|t }}</h3>
+        <p class="step-description">{{ 'Create your account as a teacher, student, or parent.'|t }}</p>
+      </div>
+      
+      <div class="step-connector">
+        <svg width="50" height="20" viewBox="0 0 50 20">
+          <path d="M0 10 L40 10 M35 5 L45 10 L35 15" fill="none" stroke="#0d9488" stroke-width="2"/>
+        </svg>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-icon">🔗</div>
+        <h3 class="step-title">{{ 'Connect'|t }}</h3>
+        <p class="step-description">{{ 'Join a study circle or create one as a teacher.'|t }}</p>
+      </div>
+      
+      <div class="step-connector">
+        <svg width="50" height="20" viewBox="0 0 50 20">
+          <path d="M0 10 L40 10 M35 5 L45 10 L35 15" fill="none" stroke="#0d9488" stroke-width="2"/>
+        </svg>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-icon">🎯</div>
+        <h3 class="step-title">{{ 'Track Progress'|t }}</h3>
+        <p class="step-description">{{ 'Record and monitor memorization progress with detailed evaluations.'|t }}</p>
+      </div>
+    </div>
+  </section>
+
+  {# ==================== TESTIMONIALS ==================== #}
+  <section class="testimonials-section" id="testimonials">
+    <div class="section-header">
+      <h2 class="section-title">{{ 'What People Say'|t }}</h2>
+      <p class="section-subtitle">{{ 'Trusted by teachers and students worldwide'|t }}</p>
+    </div>
+    
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"{{ 'This platform has transformed how I manage my Halaqa. Tracking student progress has never been easier!'|t }}"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👨‍🏫</div>
+          <div class="author-info">
+            <div class="author-name">{{ 'Sheikh Ahmad'|t }}</div>
+            <div class="author-role">{{ 'Teacher'|t }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"{{ 'I love seeing my progress visually. It motivates me to memorize more every day!'|t }}"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👨‍🎓</div>
+          <div class="author-info">
+            <div class="author-name">{{ 'Omar'|t }}</div>
+            <div class="author-role">{{ 'Student'|t }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        <p class="testimonial-text">"{{ 'As a parent, I can now follow my child\'s Quran memorization journey closely. Wonderful platform!'|t }}"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">👩</div>
+          <div class="author-info">
+            <div class="author-name">{{ 'Fatima'|t }}</div>
+            <div class="author-role">{{ 'Parent'|t }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# ==================== CTA SECTION ==================== #}
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2 class="cta-title">{{ 'Start Your Memorization Journey Today'|t }}</h2>
+      <p class="cta-subtitle">{{ 'Join thousands of students and teachers already using Halaqa to memorize the Quran.'|t }}</p>
+      {% if logged_in %}
+        <a href="/teacher/dashboard" class="cta-btn">
+          <span>🎯</span> {{ 'Go to Dashboard'|t }}
+        </a>
+      {% else %}
+        <a href="/user/register" class="cta-btn">
+          <span>🚀</span> {{ 'Get Started Free'|t }}
+        </a>
+      {% endif %}
+    </div>
+  </section>
+
+  {# ==================== FOOTER ==================== #}
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="40" height="40">
+              <circle cx="25" cy="25" r="24" fill="#0d9488"/>
+              <g fill="#ffffff" transform="translate(25, 25) scale(0.4) translate(-50, -50)">
+                <path d="M25 30 Q25 65 50 70 Q25 65 25 30" opacity="0.9"/>
+                <path d="M75 30 Q75 65 50 70 Q75 65 75 30" opacity="0.9"/>
+              </g>
+            </svg>
+            <span>{{ site_name|default('حلقة') }}</span>
+          </div>
+          <p class="footer-description">
+            {{ 'A smart platform for Quran memorization management connecting teachers, students, and parents.'|t }}
+          </p>
+        </div>
+        
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>{{ 'Quick Links'|t }}</h4>
+            <ul>
+              <li><a href="/teacher/dashboard">{{ 'Teacher Dashboard'|t }}</a></li>
+              <li><a href="/student/dashboard">{{ 'Student Dashboard'|t }}</a></li>
+              <li><a href="/parent/dashboard">{{ 'Parent Dashboard'|t }}</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>{{ 'Support'|t }}</h4>
+            <ul>
+              <li><a href="/help">{{ 'Help Center'|t }}</a></li>
+              <li><a href="/contact">{{ 'Contact Us'|t }}</a></li>
+              <li><a href="/privacy">{{ 'Privacy Policy'|t }}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="footer-verse quran-text">
+          ﴿ وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ ﴾
+        </div>
+        <div class="footer-copyright">
+          <p>&copy; {{ 'now'|date('Y') }} {{ site_name|default('حلقة') }}. {{ 'All rights reserved.'|t }}</p>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="Twitter" class="social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook" class="social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube" class="social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
+      </div>
+      
+    </div>
+  </footer>
+
+</div>
+

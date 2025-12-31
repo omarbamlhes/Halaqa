@@ -1,0 +1,171 @@
+/**
+ * @file
+ * RTL (Right-to-Left) styles for Halaqa Theme
+ * Arabic Language Support
+ */
+
+/* Base RTL */
+html[dir="rtl"],
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Typography */
+[dir="rtl"] body {
+  font-family: var(--font-family-ar);
+}
+
+/* Lists */
+[dir="rtl"] ul,
+[dir="rtl"] ol {
+  padding-right: var(--spacing-6);
+  padding-left: 0;
+}
+
+/* Forms */
+[dir="rtl"] select {
+  background-position: right var(--spacing-3) center;
+  padding-right: var(--spacing-10);
+  padding-left: var(--spacing-4);
+}
+
+[dir="rtl"] .form-item label {
+  text-align: right;
+}
+
+/* Borders */
+[dir="rtl"] .halaqa-card,
+[dir="rtl"] .child-card {
+  border-right: none;
+  border-left: 4px solid var(--color-primary);
+}
+
+[dir="rtl"] .record-card,
+[dir="rtl"] .record-item {
+  border-right: none;
+  border-left: 3px solid var(--color-gray-200);
+}
+
+[dir="rtl"] .record-card:hover,
+[dir="rtl"] .record-item:hover {
+  border-left-color: var(--color-primary);
+}
+
+[dir="rtl"] .messages {
+  border-right: none;
+}
+
+[dir="rtl"] .messages--status {
+  border-left: 4px solid var(--color-success);
+}
+
+[dir="rtl"] .messages--warning {
+  border-left: 4px solid var(--color-warning);
+}
+
+[dir="rtl"] .messages--error {
+  border-left: 4px solid var(--color-error);
+}
+
+[dir="rtl"] .alert {
+  border-right: none;
+}
+
+[dir="rtl"] .alert--success { border-left: 4px solid var(--color-success); }
+[dir="rtl"] .alert--warning { border-left: 4px solid var(--color-warning); }
+[dir="rtl"] .alert--error { border-left: 4px solid var(--color-error); }
+[dir="rtl"] .alert--info { border-left: 4px solid var(--color-info); }
+
+/* Navigation */
+[dir="rtl"] .breadcrumb li:not(:last-child)::after {
+  content: '\\';
+}
+
+/* Hover Effects */
+[dir="rtl"] .halaqa-card:hover,
+[dir="rtl"] .child-card:hover {
+  transform: translateX(4px);
+}
+
+[dir="rtl"] .student-card:hover {
+  transform: translateX(4px);
+}
+
+/* Text Alignment */
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* Tables */
+[dir="rtl"] th {
+  text-align: right;
+}
+
+/* Evaluation */
+[dir="rtl"] .eval-percent,
+[dir="rtl"] .eval-count {
+  text-align: right;
+}
+
+/* Progress Bar Direction */
+[dir="rtl"] .eval-bar-container .eval-bar {
+  background: linear-gradient(270deg, var(--color-primary), var(--color-primary-light));
+}
+
+/* Menu */
+[dir="rtl"] .menu {
+  flex-direction: row-reverse;
+}
+
+/* Dashboard specific */
+[dir="rtl"] .dashboard-actions h3::before { margin-left: var(--spacing-2); margin-right: 0; }
+[dir="rtl"] .dashboard-halaqas h3::before { margin-left: var(--spacing-2); margin-right: 0; }
+[dir="rtl"] .children-section h3::before { margin-left: var(--spacing-2); margin-right: 0; }
+[dir="rtl"] .evaluation-breakdown h3::before { margin-left: var(--spacing-2); margin-right: 0; }
+[dir="rtl"] .records-list h3::before { margin-left: var(--spacing-2); margin-right: 0; }
+[dir="rtl"] .students-list h3::before { margin-left: var(--spacing-2); margin-right: 0; }
+
+/* Card Stat Decoration */
+[dir="rtl"] .stat-card::before {
+  right: auto;
+  left: 0;
+  transform: translate(-30%, -30%);
+}
+
+/* Arrow Icons */
+[dir="rtl"] .halaqa-link::after,
+[dir="rtl"] a[href*="students"]::after {
+  content: ' ←';
+}
+
+/* Quran Text */
+[dir="rtl"] .quran-text {
+  direction: rtl;
+  text-align: right;
+  font-family: var(--font-family-quran);
+}
+
+/* Fix for some icons */
+[dir="rtl"] .dashboard-header::before {
+  order: 1;
+}
+
+/* Modal/Dialog RTL */
+[dir="rtl"] .ui-dialog {
+  direction: rtl;
+}
+
+[dir="rtl"] .ui-dialog-titlebar {
+  text-align: right;
+}
+
+[dir="rtl"] .ui-dialog-titlebar-close {
+  left: 0.3em;
+  right: auto;
+}
+

@@ -1,0 +1,26 @@
+global-styling:
+  version: 1.0
+  css:
+    theme:
+      css/variables.css: {}
+      css/base.css: {}
+      css/layout.css: {}
+      css/header.css: {}
+      css/footer.css: {}
+      css/components.css: {}
+      css/dashboard.css: {}
+      css/hero.css: {}
+      css/landing.css: {}
+      css/animations.css: {}
+      css/rtl.css: {}
+  js:
+    js/main.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+hero:
+  version: 1.0
+  css:
+    theme:
+      css/hero.css: {}
