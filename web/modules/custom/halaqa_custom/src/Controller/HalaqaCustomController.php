@@ -135,11 +135,24 @@ class HalaqaCustomController extends ControllerBase {
           'name' => [
             '#markup' => '<div class="student-name">' . $student->label() . '</div>',
           ],
-          'link' => [
-            '#type' => 'link',
-            '#title' => $this->t('View Details'),
-            '#url' => $student->toUrl(),
-            '#attributes' => ['class' => ['student-link']],
+          'actions' => [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['student-actions']],
+            'progress' => [
+              '#type' => 'link',
+              '#title' => $this->t('📊 Progress'),
+              '#url' => Url::fromRoute('halaqa_custom.student_progress', ['student_nid' => $student->id()]),
+              '#attributes' => ['class' => ['student-link']],
+            ],
+            'separator' => [
+              '#markup' => ' | ',
+            ],
+            'view' => [
+              '#type' => 'link',
+              '#title' => $this->t('View'),
+              '#url' => $student->toUrl(),
+              '#attributes' => ['class' => ['student-link']],
+            ],
           ],
         ];
       }
@@ -399,6 +412,279 @@ class HalaqaCustomController extends ControllerBase {
     ];
 
     return $build;
+  }
+
+  /**
+   * Display student progress page.
+   *
+   * @param string|int $student_nid
+   *   The student node ID.
+   *
+   * @return array
+   *   A render array.
+   */
+  public function studentProgress($student_nid): array {
+    $student_nid = (int) $student_nid;
+
+    // Load the student.
+    $student = $this->halaqaStudentService->loadStudent($student_nid);
+
+    if (!$student) {
+      throw new NotFoundHttpException('Student not found.');
+    }
+
+    // Check access.
+    $current_user = $this->currentUser();
+    $is_admin = in_array('administrator', $current_user->getRoles());
+    if (!$is_admin && !$this->halaqaStudentService->userHasAccessToStudent($student_nid)) {
+      throw new AccessDeniedHttpException('You do not have access to this student.');
+    }
+
+    // Get progress statistics.
+    $progress = $this->halaqaStudentService->getStudentProgress($student_nid);
+
+    // Surah names for display.
+    $surah_names = $this->getSurahNames();
+
+    $build = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['student-progress-page']],
+    ];
+
+    // Student info header.
+    $build['header'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['student-header']],
+      'name' => [
+        '#markup' => '<h2>' . $student->label() . '</h2>',
+      ],
+    ];
+
+    // Statistics cards.
+    $build['stats'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['progress-stats']],
+    ];
+
+    $build['stats']['records'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['stat-card']],
+      'count' => [
+        '#markup' => '<div class="stat-number">' . $progress['total_records'] . '</div>',
+      ],
+      'label' => [
+        '#markup' => '<div class="stat-label">' . $this->t('Total Records') . '</div>',
+      ],
+    ];
+
+    $build['stats']['ayahs'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['stat-card']],
+      'count' => [
+        '#markup' => '<div class="stat-number">' . $progress['total_ayahs'] . '</div>',
+      ],
+      'label' => [
+        '#markup' => '<div class="stat-label">' . $this->t('Total Ayahs') . '</div>',
+      ],
+    ];
+
+    $build['stats']['surahs'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['stat-card']],
+      'count' => [
+        '#markup' => '<div class="stat-number">' . count($progress['surahs_touched']) . '</div>',
+      ],
+      'label' => [
+        '#markup' => '<div class="stat-label">' . $this->t('Surahs Covered') . '</div>',
+      ],
+    ];
+
+    // Evaluation breakdown.
+    $build['evaluations'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['evaluation-breakdown']],
+      'title' => [
+        '#markup' => '<h3>' . $this->t('Evaluation Summary') . '</h3>',
+      ],
+    ];
+
+    $eval_labels = [
+      'excellent' => $this->t('Excellent'),
+      'very_good' => $this->t('Very Good'),
+      'good' => $this->t('Good'),
+      'acceptable' => $this->t('Acceptable'),
+      'needs_improvement' => $this->t('Needs Improvement'),
+    ];
+
+    $eval_colors = [
+      'excellent' => '#4CAF50',
+      'very_good' => '#8BC34A',
+      'good' => '#FFC107',
+      'acceptable' => '#FF9800',
+      'needs_improvement' => '#f44336',
+    ];
+
+    foreach ($progress['evaluations'] as $key => $count) {
+      if ($count > 0) {
+        $build['evaluations']['eval_' . $key] = [
+          '#markup' => '<div class="eval-bar"><span class="eval-label">' . $eval_labels[$key] . '</span><span class="eval-count" style="background: ' . $eval_colors[$key] . '">' . $count . '</span></div>',
+        ];
+      }
+    }
+
+    // Records list.
+    $build['records'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['records-list']],
+      'title' => [
+        '#markup' => '<h3>' . $this->t('Memorization Records') . '</h3>',
+      ],
+    ];
+
+    if (empty($progress['records'])) {
+      $build['records']['empty'] = [
+        '#markup' => '<p>' . $this->t('No memorization records yet.') . '</p>',
+      ];
+    }
+    else {
+      foreach ($progress['records'] as $index => $record) {
+        $from_surah = '';
+        $to_surah = '';
+        $from_ayah = '';
+        $to_ayah = '';
+        $date = '';
+        $eval = '';
+
+        if ($record->hasField('field_from_surah') && !$record->get('field_from_surah')->isEmpty()) {
+          $surah_num = $record->get('field_from_surah')->value;
+          $from_surah = $surah_names[$surah_num] ?? $surah_num;
+        }
+        if ($record->hasField('field_to_surah') && !$record->get('field_to_surah')->isEmpty()) {
+          $surah_num = $record->get('field_to_surah')->value;
+          $to_surah = $surah_names[$surah_num] ?? $surah_num;
+        }
+        if ($record->hasField('field_from_ayah') && !$record->get('field_from_ayah')->isEmpty()) {
+          $from_ayah = $record->get('field_from_ayah')->value;
+        }
+        if ($record->hasField('field_to_ayah') && !$record->get('field_to_ayah')->isEmpty()) {
+          $to_ayah = $record->get('field_to_ayah')->value;
+        }
+        if ($record->hasField('field_date') && !$record->get('field_date')->isEmpty()) {
+          $date = $record->get('field_date')->value;
+        }
+        if ($record->hasField('field_evaluation') && !$record->get('field_evaluation')->isEmpty()) {
+          $eval_key = $record->get('field_evaluation')->value;
+          $eval = isset($eval_labels[$eval_key]) ? $eval_labels[$eval_key] : $eval_key;
+        }
+
+        $range_text = $from_surah . ' (' . $from_ayah . ')';
+        if ($from_surah !== $to_surah || $from_ayah !== $to_ayah) {
+          $range_text .= ' → ' . $to_surah . ' (' . $to_ayah . ')';
+        }
+
+        $build['records']['record_' . $index] = [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['record-card']],
+          'date' => [
+            '#markup' => '<div class="record-date">' . $date . '</div>',
+          ],
+          'range' => [
+            '#markup' => '<div class="record-range">' . $range_text . '</div>',
+          ],
+          'eval' => [
+            '#markup' => '<div class="record-eval">' . $eval . '</div>',
+          ],
+        ];
+      }
+    }
+
+    // Add styles.
+    $build['#attached']['html_head'][] = [
+      [
+        '#tag' => 'style',
+        '#value' => '
+          .student-progress-page { max-width: 900px; margin: 0 auto; padding: 20px; }
+          .student-header { margin-bottom: 30px; }
+          .student-header h2 { margin: 0; color: #333; }
+          .progress-stats { display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; }
+          .stat-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 12px; text-align: center; min-width: 120px; color: #fff; }
+          .stat-number { font-size: 2.5em; font-weight: bold; }
+          .stat-label { opacity: 0.9; margin-top: 5px; }
+          .evaluation-breakdown { margin-bottom: 30px; background: #f9f9f9; padding: 20px; border-radius: 12px; }
+          .evaluation-breakdown h3 { margin-top: 0; margin-bottom: 15px; }
+          .eval-bar { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee; }
+          .eval-label { font-weight: 500; }
+          .eval-count { padding: 4px 12px; border-radius: 20px; color: #fff; font-weight: bold; }
+          .records-list { margin-bottom: 30px; }
+          .records-list h3 { margin-bottom: 15px; }
+          .record-card { background: #fff; border: 1px solid #e0e0e0; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+          .record-date { color: #666; font-size: 0.9em; }
+          .record-range { font-weight: bold; flex: 1; }
+          .record-eval { background: #e3f2fd; padding: 4px 12px; border-radius: 20px; font-size: 0.9em; }
+        ',
+      ],
+      'student_progress_styles',
+    ];
+
+    $build['#cache'] = [
+      'tags' => ['node:' . $student_nid, 'node_list:memorization_record'],
+      'contexts' => ['user'],
+    ];
+
+    return $build;
+  }
+
+  /**
+   * Title callback for student progress page.
+   *
+   * @param string|int $student_nid
+   *   The student node ID.
+   *
+   * @return string
+   *   The page title.
+   */
+  public function studentProgressTitle($student_nid): string {
+    $student = $this->halaqaStudentService->loadStudent((int) $student_nid);
+
+    if ($student) {
+      return $this->t('Progress - @name', ['@name' => $student->label()]);
+    }
+
+    return $this->t('Student Progress');
+  }
+
+  /**
+   * Get Surah names array.
+   *
+   * @return array
+   *   Array of surah names keyed by number.
+   */
+  protected function getSurahNames(): array {
+    return [
+      1 => 'الفاتحة', 2 => 'البقرة', 3 => 'آل عمران', 4 => 'النساء', 5 => 'المائدة',
+      6 => 'الأنعام', 7 => 'الأعراف', 8 => 'الأنفال', 9 => 'التوبة', 10 => 'يونس',
+      11 => 'هود', 12 => 'يوسف', 13 => 'الرعد', 14 => 'إبراهيم', 15 => 'الحجر',
+      16 => 'النحل', 17 => 'الإسراء', 18 => 'الكهف', 19 => 'مريم', 20 => 'طه',
+      21 => 'الأنبياء', 22 => 'الحج', 23 => 'المؤمنون', 24 => 'النور', 25 => 'الفرقان',
+      26 => 'الشعراء', 27 => 'النمل', 28 => 'القصص', 29 => 'العنكبوت', 30 => 'الروم',
+      31 => 'لقمان', 32 => 'السجدة', 33 => 'الأحزاب', 34 => 'سبأ', 35 => 'فاطر',
+      36 => 'يس', 37 => 'الصافات', 38 => 'ص', 39 => 'الزمر', 40 => 'غافر',
+      41 => 'فصلت', 42 => 'الشورى', 43 => 'الزخرف', 44 => 'الدخان', 45 => 'الجاثية',
+      46 => 'الأحقاف', 47 => 'محمد', 48 => 'الفتح', 49 => 'الحجرات', 50 => 'ق',
+      51 => 'الذاريات', 52 => 'الطور', 53 => 'النجم', 54 => 'القمر', 55 => 'الرحمن',
+      56 => 'الواقعة', 57 => 'الحديد', 58 => 'المجادلة', 59 => 'الحشر', 60 => 'الممتحنة',
+      61 => 'الصف', 62 => 'الجمعة', 63 => 'المنافقون', 64 => 'التغابن', 65 => 'الطلاق',
+      66 => 'التحريم', 67 => 'الملك', 68 => 'القلم', 69 => 'الحاقة', 70 => 'المعارج',
+      71 => 'نوح', 72 => 'الجن', 73 => 'المزمل', 74 => 'المدثر', 75 => 'القيامة',
+      76 => 'الإنسان', 77 => 'المرسلات', 78 => 'النبأ', 79 => 'النازعات', 80 => 'عبس',
+      81 => 'التكوير', 82 => 'الانفطار', 83 => 'المطففين', 84 => 'الانشقاق', 85 => 'البروج',
+      86 => 'الطارق', 87 => 'الأعلى', 88 => 'الغاشية', 89 => 'الفجر', 90 => 'البلد',
+      91 => 'الشمس', 92 => 'الليل', 93 => 'الضحى', 94 => 'الشرح', 95 => 'التين',
+      96 => 'العلق', 97 => 'القدر', 98 => 'البينة', 99 => 'الزلزلة', 100 => 'العاديات',
+      101 => 'القارعة', 102 => 'التكاثر', 103 => 'العصر', 104 => 'الهمزة', 105 => 'الفيل',
+      106 => 'قريش', 107 => 'الماعون', 108 => 'الكوثر', 109 => 'الكافرون', 110 => 'النصر',
+      111 => 'المسد', 112 => 'الإخلاص', 113 => 'الفلق', 114 => 'الناس',
+    ];
   }
 
 }

@@ -47,3 +47,12 @@ halaqa_custom.add_memorization_record_halaqa:
   requirements:
     _role: 'teacher+administrator'
     halaqa_nid: '\d+'
+
+halaqa_custom.student_progress:
+  path: '/student/{student_nid}/progress'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\HalaqaCustomController::studentProgress'
+    _title_callback: '\Drupal\halaqa_custom\Controller\HalaqaCustomController::studentProgressTitle'
+  requirements:
+    _role: 'teacher+administrator'
+    student_nid: '\d+'

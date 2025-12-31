@@ -143,8 +143,9 @@ class HalaqaStudentService {
     $uid = $uid ?? $this->currentUser->id();
 
     // Administrators always have access.
+    /** @var \Drupal\user\UserInterface|null $user */
     $user = $this->entityTypeManager->getStorage('user')->load($uid);
-    if ($user && $user->hasRole('administrator')) {
+    if ($user && in_array('administrator', $user->getRoles())) {
       return TRUE;
     }
 
@@ -277,6 +278,137 @@ class HalaqaStudentService {
     }
 
     return NULL;
+  }
+
+  /**
+   * Get memorization records for a specific student.
+   *
+   * @param int $student_nid
+   *   The student node ID.
+   *
+   * @return \Drupal\node\NodeInterface[]
+   *   Array of memorization record nodes.
+   */
+  public function getStudentMemorizationRecords(int $student_nid): array {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    $query = $storage->getQuery()
+      ->condition('type', 'memorization_record')
+      ->condition('status', 1)
+      ->condition('field_student', $student_nid)
+      ->accessCheck(TRUE)
+      ->sort('field_date', 'DESC');
+
+    $nids = $query->execute();
+
+    if (empty($nids)) {
+      return [];
+    }
+
+    return $storage->loadMultiple($nids);
+  }
+
+  /**
+   * Get student progress statistics.
+   *
+   * @param int $student_nid
+   *   The student node ID.
+   *
+   * @return array
+   *   Array with progress statistics.
+   */
+  public function getStudentProgress(int $student_nid): array {
+    $records = $this->getStudentMemorizationRecords($student_nid);
+
+    $stats = [
+      'total_records' => count($records),
+      'records' => $records,
+      'evaluations' => [
+        'excellent' => 0,
+        'very_good' => 0,
+        'good' => 0,
+        'acceptable' => 0,
+        'needs_improvement' => 0,
+      ],
+      'total_ayahs' => 0,
+      'surahs_touched' => [],
+    ];
+
+    foreach ($records as $record) {
+      // Count evaluations.
+      if ($record->hasField('field_evaluation') && !$record->get('field_evaluation')->isEmpty()) {
+        $eval = $record->get('field_evaluation')->value;
+        if (isset($stats['evaluations'][$eval])) {
+          $stats['evaluations'][$eval]++;
+        }
+      }
+
+      // Calculate ayahs (approximate).
+      $from_ayah = 0;
+      $to_ayah = 0;
+      if ($record->hasField('field_from_ayah') && !$record->get('field_from_ayah')->isEmpty()) {
+        $from_ayah = (int) $record->get('field_from_ayah')->value;
+      }
+      if ($record->hasField('field_to_ayah') && !$record->get('field_to_ayah')->isEmpty()) {
+        $to_ayah = (int) $record->get('field_to_ayah')->value;
+      }
+      if ($to_ayah >= $from_ayah) {
+        $stats['total_ayahs'] += ($to_ayah - $from_ayah + 1);
+      }
+
+      // Track surahs.
+      if ($record->hasField('field_from_surah') && !$record->get('field_from_surah')->isEmpty()) {
+        $surah = $record->get('field_from_surah')->value;
+        if (!in_array($surah, $stats['surahs_touched'])) {
+          $stats['surahs_touched'][] = $surah;
+        }
+      }
+      if ($record->hasField('field_to_surah') && !$record->get('field_to_surah')->isEmpty()) {
+        $surah = $record->get('field_to_surah')->value;
+        if (!in_array($surah, $stats['surahs_touched'])) {
+          $stats['surahs_touched'][] = $surah;
+        }
+      }
+    }
+
+    return $stats;
+  }
+
+  /**
+   * Check if current user has access to view a student.
+   *
+   * @param int $student_nid
+   *   The student node ID.
+   *
+   * @return bool
+   *   TRUE if user has access.
+   */
+  public function userHasAccessToStudent(int $student_nid): bool {
+    $uid = $this->currentUser->id();
+
+    // Administrators always have access.
+    /** @var \Drupal\user\UserInterface|null $user */
+    $user = $this->entityTypeManager->getStorage('user')->load($uid);
+    if ($user && in_array('administrator', $user->getRoles())) {
+      return TRUE;
+    }
+
+    // Load the student.
+    /** @var \Drupal\node\NodeInterface|null $student */
+    $student = $this->loadStudent($student_nid);
+    if (!$student) {
+      return FALSE;
+    }
+
+    // Get the student's halaqa.
+    if (!$student->hasField('field_halaqa') || $student->get('field_halaqa')->isEmpty()) {
+      return FALSE;
+    }
+
+    $halaqa_id = (int) $student->get('field_halaqa')->target_id;
+
+    // Check if teacher has access to this halaqa.
+    return $this->userHasAccessToHalaqa($halaqa_id, $uid);
   }
 
 }
