@@ -12,12 +12,8 @@ halaqa_custom.halaqa_students:
     _controller: '\Drupal\halaqa_custom\Controller\HalaqaCustomController::students'
     _title_callback: '\Drupal\halaqa_custom\Controller\HalaqaCustomController::studentsTitle'
   requirements:
-    _custom_access: '\Drupal\halaqa_custom\Access\HalaqaAccessCheck::access'
+    _role: 'teacher+administrator'
     nid: '\d+'
-  options:
-    parameters:
-      nid:
-        type: 'integer'
 
 halaqa_custom.my_halaqas:
   path: '/my-halaqas'
@@ -26,3 +22,28 @@ halaqa_custom.my_halaqas:
     _title: 'My Halaqas'
   requirements:
     _role: 'teacher+administrator'
+
+halaqa_custom.teacher_dashboard:
+  path: '/teacher/dashboard'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\HalaqaCustomController::dashboard'
+    _title: 'Teacher Dashboard'
+  requirements:
+    _role: 'teacher+administrator'
+
+halaqa_custom.add_memorization_record:
+  path: '/teacher/add-record'
+  defaults:
+    _form: '\Drupal\halaqa_custom\Form\MemorizationRecordForm'
+    _title: 'Add Memorization Record'
+  requirements:
+    _role: 'teacher+administrator'
+
+halaqa_custom.add_memorization_record_halaqa:
+  path: '/halaqa/{halaqa_nid}/add-record'
+  defaults:
+    _form: '\Drupal\halaqa_custom\Form\MemorizationRecordForm'
+    _title: 'Add Memorization Record'
+  requirements:
+    _role: 'teacher+administrator'
+    halaqa_nid: '\d+'

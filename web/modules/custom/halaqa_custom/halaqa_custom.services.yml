@@ -2,9 +2,3 @@ services:
   halaqa_custom.student_service:
     class: Drupal\halaqa_custom\Service\HalaqaStudentService
     arguments: ['@entity_type.manager', '@current_user']
-
-  halaqa_custom.access_check:
-    class: Drupal\halaqa_custom\Access\HalaqaAccessCheck
-    arguments: ['@halaqa_custom.student_service']
-    tags:
-      - { name: access_check, applies_to: _custom_access }

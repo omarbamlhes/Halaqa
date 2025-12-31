@@ -188,5 +188,96 @@ class HalaqaStudentService {
     return NULL;
   }
 
+  /**
+   * Get statistics for current teacher's dashboard.
+   *
+   * @return array
+   *   Array with statistics.
+   */
+  public function getTeacherDashboardStats(): array {
+    $halaqas = $this->getHalaqasByCurrentTeacher();
+    $halaqa_count = count($halaqas);
+
+    $total_students = 0;
+    $halaqas_with_students = [];
+
+    foreach ($halaqas as $halaqa) {
+      $students = $this->getStudentsByHalaqa((int) $halaqa->id());
+      $student_count = count($students);
+      $total_students += $student_count;
+
+      $halaqas_with_students[] = [
+        'halaqa' => $halaqa,
+        'students' => $students,
+        'student_count' => $student_count,
+      ];
+    }
+
+    // Get recent memorization records.
+    $recent_records = $this->getRecentMemorizationRecords();
+
+    return [
+      'halaqa_count' => $halaqa_count,
+      'total_students' => $total_students,
+      'halaqas' => $halaqas_with_students,
+      'recent_records' => $recent_records,
+    ];
+  }
+
+  /**
+   * Get recent memorization records for current teacher.
+   *
+   * @param int $limit
+   *   Number of records to return.
+   *
+   * @return \Drupal\node\NodeInterface[]
+   *   Array of memorization record nodes.
+   */
+  public function getRecentMemorizationRecords(int $limit = 5): array {
+    $teacher_nodes = $this->getTeacherNodesByUser($this->currentUser->id());
+
+    if (empty($teacher_nodes)) {
+      return [];
+    }
+
+    $teacher_nids = array_keys($teacher_nodes);
+
+    $storage = $this->entityTypeManager->getStorage('node');
+    $query = $storage->getQuery()
+      ->condition('type', 'memorization_record')
+      ->condition('status', 1)
+      ->condition('field_teacher', $teacher_nids, 'IN')
+      ->accessCheck(TRUE)
+      ->sort('created', 'DESC')
+      ->range(0, $limit);
+
+    $nids = $query->execute();
+
+    if (empty($nids)) {
+      return [];
+    }
+
+    return $storage->loadMultiple($nids);
+  }
+
+  /**
+   * Load a student node.
+   *
+   * @param int $nid
+   *   The node ID.
+   *
+   * @return \Drupal\node\NodeInterface|null
+   *   The student node or NULL.
+   */
+  public function loadStudent(int $nid): ?NodeInterface {
+    $node = $this->entityTypeManager->getStorage('node')->load($nid);
+
+    if ($node && $node->bundle() === 'student') {
+      return $node;
+    }
+
+    return NULL;
+  }
+
 }
 

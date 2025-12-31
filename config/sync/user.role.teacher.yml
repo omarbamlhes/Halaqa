@@ -1,9 +1,59 @@
 uuid: 6a0bbf1a-3569-4228-b803-05ae08f459f5
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - node.type.halaqa
+    - node.type.memorization_record
+    - node.type.student
+    - node.type.teacher
+  module:
+    - config_translation
+    - content_translation
+    - node
+    - system
+    - toolbar
+    - views_ui
 id: teacher
 label: Teacher
 weight: 4
 is_admin: null
-permissions: {  }
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access toolbar'
+  - 'administer content translation'
+  - 'administer nodes'
+  - 'administer site configuration'
+  - 'administer views'
+  - 'create content translations'
+  - 'create halaqa content'
+  - 'create memorization_record content'
+  - 'create student content'
+  - 'create teacher content'
+  - 'delete any student content'
+  - 'delete any teacher content'
+  - 'delete content translations'
+  - 'delete halaqa revisions'
+  - 'delete own student content'
+  - 'delete own teacher content'
+  - 'delete student revisions'
+  - 'delete teacher revisions'
+  - 'edit any halaqa content'
+  - 'edit any student content'
+  - 'edit any teacher content'
+  - 'edit own student content'
+  - 'revert halaqa revisions'
+  - 'revert teacher revisions'
+  - 'translate any entity'
+  - 'translate configuration'
+  - 'translate editable entities'
+  - 'translate halaqa node'
+  - 'translate memorization_record node'
+  - 'translate student node'
+  - 'translate teacher node'
+  - 'update content translations'
+  - 'view memorization_record revisions'
+  - 'view own unpublished content'
+  - 'view student revisions'
+  - 'view teacher revisions'
