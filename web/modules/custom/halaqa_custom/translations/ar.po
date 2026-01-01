@@ -1231,3 +1231,139 @@ msgstr "ليس لديك حساب؟ سجل الآن"
 
 msgid "We will send a secure link to your email"
 msgstr "سنرسل رابطاً آمناً إلى بريدك الإلكتروني"
+
+# ==================== PROFILE PAGE ====================
+msgid "My Profile"
+msgstr "ملفي الشخصي"
+
+msgid "Edit Profile"
+msgstr "تعديل الملف الشخصي"
+
+msgid "View Public"
+msgstr "عرض عام"
+
+msgid "Statistics"
+msgstr "الإحصائيات"
+
+msgid "Account Information"
+msgstr "معلومات الحساب"
+
+msgid "Member Since"
+msgstr "عضو منذ"
+
+msgid "Account Age"
+msgstr "عمر الحساب"
+
+msgid "Last Login"
+msgstr "آخر تسجيل دخول"
+
+msgid "Timezone"
+msgstr "المنطقة الزمنية"
+
+msgid "Language"
+msgstr "اللغة"
+
+msgid "Arabic"
+msgstr "العربية"
+
+msgid "English"
+msgstr "الإنجليزية"
+
+msgid "Quick Links"
+msgstr "روابط سريعة"
+
+msgid "Account Settings"
+msgstr "إعدادات الحساب"
+
+msgid "My Halaqa"
+msgstr "حلقتي"
+
+msgid "My Children"
+msgstr "أطفالي"
+
+msgid "Recent Activity"
+msgstr "النشاط الأخير"
+
+msgid "Progress Overview"
+msgstr "نظرة عامة على التقدم"
+
+msgid "Complete"
+msgstr "مكتمل"
+
+msgid "Ayahs memorized out of 6,236 total"
+msgstr "آيات محفوظة من إجمالي 6,236 آية"
+
+msgid "Achievements"
+msgstr "الإنجازات"
+
+msgid "First Step"
+msgstr "الخطوة الأولى"
+
+msgid "Created account"
+msgstr "أنشأ حساب"
+
+msgid "Starter"
+msgstr "البداية"
+
+msgid "First session"
+msgstr "الجلسة الأولى"
+
+msgid "Century"
+msgstr "المئوية"
+
+msgid "100 Ayahs"
+msgstr "100 آية"
+
+msgid "Excellence"
+msgstr "التميز"
+
+msgid "10 Excellent"
+msgstr "10 ممتاز"
+
+msgid "Juz Master"
+msgstr "ماهر الجزء"
+
+msgid "Complete 1 Juz"
+msgstr "إكمال جزء واحد"
+
+msgid "Hafiz"
+msgstr "حافظ"
+
+msgid "Complete Quran"
+msgstr "إكمال القرآن"
+
+msgid "Today"
+msgstr "اليوم"
+
+msgid "1 day"
+msgstr "يوم واحد"
+
+msgid "@days days"
+msgstr "@days يوم"
+
+msgid "1 month"
+msgstr "شهر واحد"
+
+msgid "@months months"
+msgstr "@months شهر"
+
+msgid "1 year"
+msgstr "سنة واحدة"
+
+msgid "@years years"
+msgstr "@years سنة"
+
+msgid "User not found."
+msgstr "المستخدم غير موجود."
+
+msgid "Memorization session - @eval"
+msgstr "جلسة حفظ - @eval"
+
+msgid "Never"
+msgstr "أبداً"
+
+msgid "Active"
+msgstr "نشط"
+
+msgid "Blocked"
+msgstr "محظور"

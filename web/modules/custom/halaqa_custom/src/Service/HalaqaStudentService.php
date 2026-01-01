@@ -535,6 +535,71 @@ class HalaqaStudentService {
   }
 
   /**
+   * Get student nodes by user ID.
+   *
+   * @param int $uid
+   *   The user ID.
+   *
+   * @return array
+   *   Array of student node IDs.
+   */
+  public function getStudentNodesByUser(int $uid): array {
+    $storage = $this->entityTypeManager->getStorage('node');
+    $query = $storage->getQuery()
+      ->condition('type', 'student')
+      ->condition('status', 1)
+      ->condition('uid', $uid)
+      ->accessCheck(TRUE);
+
+    return $query->execute();
+  }
+
+  /**
+   * Get halaqa and teacher info for a student.
+   *
+   * @param int $student_nid
+   *   The student node ID.
+   *
+   * @return array|null
+   *   Array with halaqa and teacher info, or NULL.
+   */
+  public function getStudentHalaqaAndTeacher(int $student_nid): ?array {
+    $storage = $this->entityTypeManager->getStorage('node');
+    $student = $storage->load($student_nid);
+
+    if (!$student || $student->bundle() !== 'student') {
+      return NULL;
+    }
+
+    $result = [
+      'halaqa_name' => '',
+      'halaqa_nid' => NULL,
+      'teacher_name' => '',
+      'teacher_nid' => NULL,
+    ];
+
+    // Get halaqa.
+    if ($student->hasField('field_halaqa') && !$student->get('field_halaqa')->isEmpty()) {
+      $halaqa = $student->get('field_halaqa')->entity;
+      if ($halaqa) {
+        $result['halaqa_name'] = $halaqa->label();
+        $result['halaqa_nid'] = $halaqa->id();
+
+        // Get teacher from halaqa.
+        if ($halaqa->hasField('field_teacher') && !$halaqa->get('field_teacher')->isEmpty()) {
+          $teacher = $halaqa->get('field_teacher')->entity;
+          if ($teacher) {
+            $result['teacher_name'] = $teacher->label();
+            $result['teacher_nid'] = $teacher->id();
+          }
+        }
+      }
+    }
+
+    return $result;
+  }
+
+  /**
    * Get student dashboard data.
    *
    * @return array

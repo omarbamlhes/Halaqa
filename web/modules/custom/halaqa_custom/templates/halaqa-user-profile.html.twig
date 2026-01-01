@@ -1,0 +1,299 @@
+{#
+/**
+ * @file
+ * Template for user profile page.
+ *
+ * Variables:
+ * - user_data: User information array.
+ * - role_data: Role-specific data array.
+ */
+#}
+
+<div class="profile-page">
+  {# Profile Header #}
+  <div class="profile-header">
+    <div class="profile-header-bg">
+      <div class="profile-pattern"></div>
+    </div>
+    <div class="profile-header-content">
+      <div class="profile-avatar-wrapper">
+        {% if user_data.picture_url %}
+          <img src="{{ user_data.picture_url }}" alt="{{ user_data.name }}" class="profile-avatar">
+        {% else %}
+          <div class="profile-avatar profile-avatar-placeholder">
+            <span class="avatar-initial">{{ user_data.name|first|upper }}</span>
+          </div>
+        {% endif %}
+        <span class="profile-status {{ user_data.status == 'Active' ? 'status-active' : 'status-blocked' }}"></span>
+      </div>
+      
+      <div class="profile-info">
+        <h1 class="profile-name">{{ user_data.name }}</h1>
+        <p class="profile-email">
+          <span class="email-icon">📧</span>
+          {{ user_data.email }}
+        </p>
+        <div class="profile-roles">
+          {% for role in user_data.roles %}
+            <span class="role-badge role-{{ role|lower|replace({' ': '-'}) }}">
+              {% if 'teacher' in role|lower %}👨‍🏫{% elseif 'student' in role|lower %}👨‍🎓{% elseif 'parent' in role|lower %}👨‍👩‍👧{% elseif 'admin' in role|lower %}👑{% else %}👤{% endif %}
+              {{ role }}
+            </span>
+          {% endfor %}
+        </div>
+      </div>
+      
+      <div class="profile-actions">
+        <a href="/profile/edit" class="btn-profile-edit">
+          <span class="btn-icon">✏️</span>
+          {{ 'Edit Profile'|t }}
+        </a>
+        <a href="/user/{{ user_data.uid }}" class="btn-profile-view">
+          <span class="btn-icon">👁️</span>
+          {{ 'View Public'|t }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {# Main Content #}
+  <div class="profile-content">
+    {# Stats Cards #}
+    {% if role_data.stats %}
+      <div class="profile-section stats-section">
+        <h2 class="section-title">
+          <span class="section-icon">📊</span>
+          {{ 'Statistics'|t }}
+        </h2>
+        <div class="stats-grid">
+          {% for stat in role_data.stats %}
+            <div class="stat-card" style="--stat-color: {{ stat.color }}">
+              <div class="stat-icon">{{ stat.icon }}</div>
+              <div class="stat-value" data-count="{{ stat.value }}">{{ stat.value }}</div>
+              <div class="stat-label">{{ stat.label }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {# Two Column Layout #}
+    <div class="profile-grid">
+      {# Left Column - Account Info #}
+      <div class="profile-column">
+        <div class="profile-card account-info-card">
+          <h3 class="card-title">
+            <span class="card-icon">ℹ️</span>
+            {{ 'Account Information'|t }}
+          </h3>
+          <div class="info-list">
+            <div class="info-item">
+              <span class="info-label">{{ 'Member Since'|t }}</span>
+              <span class="info-value">{{ user_data.created }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">{{ 'Account Age'|t }}</span>
+              <span class="info-value">{{ user_data.account_age }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">{{ 'Last Login'|t }}</span>
+              <span class="info-value">{{ user_data.last_access }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">{{ 'Status'|t }}</span>
+              <span class="info-value status-badge {{ user_data.status == 'Active' ? 'active' : 'blocked' }}">
+                {{ user_data.status }}
+              </span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">{{ 'Timezone'|t }}</span>
+              <span class="info-value">{{ user_data.timezone }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">{{ 'Language'|t }}</span>
+              <span class="info-value">
+                {% if user_data.language == 'ar' %}
+                  🇸🇦 {{ 'Arabic'|t }}
+                {% else %}
+                  🇺🇸 {{ 'English'|t }}
+                {% endif %}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {# Quick Links #}
+        <div class="profile-card quick-links-card">
+          <h3 class="card-title">
+            <span class="card-icon">🔗</span>
+            {{ 'Quick Links'|t }}
+          </h3>
+          <div class="quick-links">
+            {% if 'teacher' in user_data.role_ids %}
+              <a href="/teacher/dashboard" class="quick-link">
+                <span class="link-icon">📊</span>
+                {{ 'Teacher Dashboard'|t }}
+              </a>
+              <a href="/teacher/add-record" class="quick-link">
+                <span class="link-icon">➕</span>
+                {{ 'Add Record'|t }}
+              </a>
+              <a href="/my-halaqas" class="quick-link">
+                <span class="link-icon">🕌</span>
+                {{ 'My Halaqas'|t }}
+              </a>
+            {% elseif 'student' in user_data.role_ids %}
+              <a href="/student/dashboard" class="quick-link">
+                <span class="link-icon">📊</span>
+                {{ 'My Dashboard'|t }}
+              </a>
+            {% elseif 'parent' in user_data.role_ids %}
+              <a href="/parent/dashboard" class="quick-link">
+                <span class="link-icon">📊</span>
+                {{ 'Parent Dashboard'|t }}
+              </a>
+            {% endif %}
+            <a href="/user/{{ user_data.uid }}/edit" class="quick-link">
+              <span class="link-icon">⚙️</span>
+              {{ 'Account Settings'|t }}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {# Right Column - Role Specific #}
+      <div class="profile-column">
+        {# Halaqa Info for Students #}
+        {% if role_data.type == 'student' and role_data.halaqa %}
+          <div class="profile-card halaqa-info-card">
+            <h3 class="card-title">
+              <span class="card-icon">🕌</span>
+              {{ 'My Halaqa'|t }}
+            </h3>
+            <div class="halaqa-details">
+              <div class="halaqa-name">
+                <span class="detail-icon">📚</span>
+                {{ role_data.halaqa.halaqa_name }}
+              </div>
+              <div class="teacher-info">
+                <span class="detail-icon">👨‍🏫</span>
+                {{ 'Teacher'|t }}: {{ role_data.halaqa.teacher_name }}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        {# Children for Parents #}
+        {% if role_data.type == 'parent' and role_data.children %}
+          <div class="profile-card children-card">
+            <h3 class="card-title">
+              <span class="card-icon">👨‍👩‍👧‍👦</span>
+              {{ 'My Children'|t }}
+            </h3>
+            <div class="children-list">
+              {% for child in role_data.children %}
+                <a href="/parent/child/{{ child.nid }}/progress" class="child-item">
+                  <div class="child-avatar">{{ child.name|first|upper }}</div>
+                  <div class="child-info">
+                    <span class="child-name">{{ child.name }}</span>
+                    <span class="child-halaqa">{{ child.halaqa_name }}</span>
+                  </div>
+                  <span class="child-arrow">→</span>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {# Recent Activity #}
+        {% if role_data.recent_activity %}
+          <div class="profile-card activity-card">
+            <h3 class="card-title">
+              <span class="card-icon">📅</span>
+              {{ 'Recent Activity'|t }}
+            </h3>
+            <div class="activity-list">
+              {% for activity in role_data.recent_activity %}
+                <div class="activity-item">
+                  <span class="activity-icon">{{ activity.icon }}</span>
+                  <div class="activity-content">
+                    <span class="activity-title">{{ activity.title }}</span>
+                    <span class="activity-desc">{{ activity.description }}</span>
+                    <span class="activity-date">{{ activity.date }}</span>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {# Progress Card #}
+        {% if role_data.type == 'student' or role_data.type == 'teacher' %}
+          <div class="profile-card progress-card">
+            <h3 class="card-title">
+              <span class="card-icon">🎯</span>
+              {{ 'Progress Overview'|t }}
+            </h3>
+            <div class="progress-visual">
+              <div class="progress-circle-container">
+                <svg class="progress-ring" width="150" height="150">
+                  <circle class="progress-ring-bg" cx="75" cy="75" r="65" />
+                  <circle class="progress-ring-fill" cx="75" cy="75" r="65" 
+                    style="stroke-dasharray: 408; stroke-dashoffset: {{ 408 - (408 * (role_data.stats[1].value|default(0) / 6236)) }};" />
+                </svg>
+                <div class="progress-text">
+                  <span class="progress-percent">{{ ((role_data.stats[1].value|default(0) / 6236) * 100)|round(1) }}%</span>
+                  <span class="progress-label">{{ 'Complete'|t }}</span>
+                </div>
+              </div>
+              <div class="progress-info">
+                <p>{{ 'Ayahs memorized out of 6,236 total'|t }}</p>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {# Achievement Badges (Future Feature Preview) #}
+  <div class="profile-section achievements-section">
+    <h2 class="section-title">
+      <span class="section-icon">🏆</span>
+      {{ 'Achievements'|t }}
+    </h2>
+    <div class="achievements-grid">
+      <div class="achievement-badge earned">
+        <span class="badge-icon">🌟</span>
+        <span class="badge-name">{{ 'First Step'|t }}</span>
+        <span class="badge-desc">{{ 'Created account'|t }}</span>
+      </div>
+      <div class="achievement-badge {{ role_data.stats[0].value > 0 ? 'earned' : 'locked' }}">
+        <span class="badge-icon">📖</span>
+        <span class="badge-name">{{ 'Starter'|t }}</span>
+        <span class="badge-desc">{{ 'First session'|t }}</span>
+      </div>
+      <div class="achievement-badge {{ role_data.stats[1].value >= 100 ? 'earned' : 'locked' }}">
+        <span class="badge-icon">💯</span>
+        <span class="badge-name">{{ 'Century'|t }}</span>
+        <span class="badge-desc">{{ '100 Ayahs'|t }}</span>
+      </div>
+      <div class="achievement-badge {{ role_data.stats[3].value >= 10 ? 'earned' : 'locked' }}">
+        <span class="badge-icon">⭐</span>
+        <span class="badge-name">{{ 'Excellence'|t }}</span>
+        <span class="badge-desc">{{ '10 Excellent'|t }}</span>
+      </div>
+      <div class="achievement-badge locked">
+        <span class="badge-icon">🏅</span>
+        <span class="badge-name">{{ 'Juz Master'|t }}</span>
+        <span class="badge-desc">{{ 'Complete 1 Juz'|t }}</span>
+      </div>
+      <div class="achievement-badge locked">
+        <span class="badge-icon">👑</span>
+        <span class="badge-name">{{ 'Hafiz'|t }}</span>
+        <span class="badge-desc">{{ 'Complete Quran'|t }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+

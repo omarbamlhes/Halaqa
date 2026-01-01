@@ -97,3 +97,19 @@ halaqa_custom.charts_demo:
     _title: 'Charts Demo'
   requirements:
     _permission: 'access content'
+
+halaqa_custom.user_profile:
+  path: '/profile'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\ProfileController::userProfile'
+    _title: 'My Profile'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+halaqa_custom.user_profile_edit:
+  path: '/profile/edit'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\ProfileController::editProfile'
+    _title: 'Edit Profile'
+  requirements:
+    _user_is_logged_in: 'TRUE'
