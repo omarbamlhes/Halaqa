@@ -1,0 +1,144 @@
+{#
+/**
+ * @file
+ * Custom template for the user registration page.
+ * Professional and beautiful registration page design.
+ */
+#}
+
+<div class="login-page-wrapper register-page-wrapper">
+  {# Animated Background #}
+  <div class="login-background">
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+    <div class="floating-icons">
+      <span class="float-icon icon-1">📖</span>
+      <span class="float-icon icon-2">🕌</span>
+      <span class="float-icon icon-3">⭐</span>
+      <span class="float-icon icon-4">🌙</span>
+      <span class="float-icon icon-5">📿</span>
+      <span class="float-icon icon-6">✨</span>
+    </div>
+  </div>
+
+  {# Main Container #}
+  <div class="login-container">
+    {# Left Side - Branding & Info #}
+    <div class="login-branding">
+      <div class="branding-content">
+        <div class="logo-section">
+          <div class="logo-icon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="registerLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#00d4aa"/>
+                  <stop offset="100%" style="stop-color:#00a080"/>
+                </linearGradient>
+              </defs>
+              <circle cx="50" cy="50" r="45" fill="url(#registerLogoGradient)" opacity="0.2"/>
+              <path d="M25 70 L25 35 Q25 25 35 25 L65 25 Q75 25 75 35 L75 70" 
+                    stroke="url(#registerLogoGradient)" stroke-width="3" fill="none"/>
+              <path d="M30 70 L30 40 Q30 32 38 32 L62 32 Q70 32 70 40 L70 70" 
+                    stroke="url(#registerLogoGradient)" stroke-width="2" fill="none"/>
+              <line x1="35" y1="42" x2="65" y2="42" stroke="url(#registerLogoGradient)" stroke-width="1.5"/>
+              <line x1="35" y1="50" x2="65" y2="50" stroke="url(#registerLogoGradient)" stroke-width="1.5"/>
+              <line x1="35" y1="58" x2="55" y2="58" stroke="url(#registerLogoGradient)" stroke-width="1.5"/>
+              <polygon points="50,12 53,18 59,19 54,24 56,30 50,27 44,30 46,24 41,19 47,18" 
+                       fill="url(#registerLogoGradient)"/>
+            </svg>
+          </div>
+          <h1 class="brand-title" style="background: linear-gradient(135deg, #00d4aa, #00a080); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">{{ 'Halaqa'|t }}</h1>
+          <p class="brand-subtitle">{{ 'Start Your Quran Memorization Journey'|t }}</p>
+        </div>
+
+        <div class="features-list">
+          <div class="feature-item">
+            <span class="feature-icon">🚀</span>
+            <div class="feature-text">
+              <h4>{{ 'Quick Setup'|t }}</h4>
+              <p>{{ 'Create your account in just a few steps'|t }}</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🔐</span>
+            <div class="feature-text">
+              <h4>{{ 'Secure & Private'|t }}</h4>
+              <p>{{ 'Your data is protected with top security'|t }}</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🌟</span>
+            <div class="feature-text">
+              <h4>{{ 'Join the Community'|t }}</h4>
+              <p>{{ 'Connect with teachers and fellow students'|t }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="quranic-verse">
+          <p class="verse-arabic">وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ</p>
+          <p class="verse-translation">{{ '"And We have certainly made the Quran easy for remembrance"'|t }}</p>
+          <p class="verse-reference">{{ 'Al-Qamar: 17'|t }}</p>
+        </div>
+      </div>
+    </div>
+
+    {# Right Side - Registration Form #}
+    <div class="login-form-section">
+      <div class="form-container" style="max-width: 500px;">
+        <div class="form-header">
+          <h2 class="form-title">{{ 'Create Account'|t }} ✨</h2>
+          <p class="form-subtitle">{{ 'Join Halaqa and begin your journey'|t }}</p>
+        </div>
+
+        {# Messages #}
+        {% if page.highlighted %}
+          <div class="login-messages">
+            {{ page.highlighted }}
+          </div>
+        {% endif %}
+
+        {# Registration Form Content #}
+        <div class="login-form-wrapper register-form-wrapper">
+          {{ page.content }}
+        </div>
+
+        {# Additional Links #}
+        <div class="form-footer">
+          <div class="divider">
+            <span>{{ 'or'|t }}</span>
+          </div>
+          
+          <div class="alternative-actions">
+            <a href="/user/login" class="btn-register" style="background: linear-gradient(135deg, #00d4aa, #00a080); color: white; border: none;">
+              <span class="btn-icon">👋</span>
+              {{ 'Already have an account? Sign In'|t }}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {# Language Switcher #}
+      <div class="login-language-switch">
+        {% if language.id == 'ar' %}
+          <a href="/en/user/register" class="lang-link">
+            <span class="lang-icon">🌐</span>
+            English
+          </a>
+        {% else %}
+          <a href="/ar/user/register" class="lang-link">
+            <span class="lang-icon">🌐</span>
+            العربية
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {# Footer #}
+  <div class="login-footer">
+    <p>© {{ 'now'|date('Y') }} {{ 'Halaqa Platform'|t }}. {{ 'All rights reserved.'|t }}</p>
+  </div>
+</div>
+

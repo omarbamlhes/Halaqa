@@ -41,3 +41,14 @@ hero:
   css:
     theme:
       css/hero.css: {}
+
+login:
+  version: 1.0
+  css:
+    theme:
+      css/login.css: { weight: 100 }
+  js:
+    js/login.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

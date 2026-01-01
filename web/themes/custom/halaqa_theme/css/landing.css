@@ -9,36 +9,113 @@
   overflow-x: hidden;
 }
 
-/* Transparent Header on Landing */
-.header-transparent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: transparent;
-  box-shadow: none;
-  z-index: 100;
+/* Transparent Header on Landing - Override default header styles */
+.landing-page .header.header-transparent,
+.header.header-transparent,
+.path-frontpage .header,
+body.path-frontpage .header {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.15) 50%, transparent 100%) !important;
+  box-shadow: none !important;
+  z-index: 100 !important;
+  padding: 15px 0 !important;
+}
+
+/* Force transparent header on front page */
+.path-frontpage .header,
+.is-front .header,
+.path-welcome .header {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.15) 50%, transparent 100%) !important;
+}
+
+.path-frontpage .header .site-name a,
+.is-front .header .site-name a,
+.path-welcome .header .site-name a {
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+.path-frontpage .header .main-navigation .menu-item a,
+.is-front .header .main-navigation .menu-item a,
+.path-welcome .header .main-navigation .menu-item a {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+.header-transparent .header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header-transparent .site-name a,
-.header-transparent .menu-item a {
-  color: white;
+.landing-page .header-transparent .site-name a {
+  color: white !important;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.header-transparent .menu-item a:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+.header-transparent .main-navigation,
+.landing-page .header-transparent .main-navigation {
+  display: flex !important;
+  align-items: center;
+}
+
+.header-transparent .main-navigation .menu,
+.landing-page .header-transparent .main-navigation .menu {
+  display: flex !important;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 8px;
+}
+
+.header-transparent .menu-item a,
+.header-transparent .main-navigation .menu-item a,
+.landing-page .header-transparent .menu-item a,
+.landing-page .header-transparent .main-navigation .menu-item a,
+.landing-page .header .main-navigation .menu-item a,
+.path-frontpage .header .main-navigation .menu-item a {
+  color: white !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  padding: 12px 20px !important;
+  border-radius: 10px !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+  display: block !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(5px) !important;
+}
+
+.header-transparent .menu-item a:hover,
+.header-transparent .main-navigation .menu-item a:hover,
+.landing-page .header-transparent .menu-item a:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: white !important;
 }
 
 .header-transparent .btn-login {
   color: white;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  padding: 8px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  padding: 10px 22px;
   border-radius: 10px;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
 .header-transparent .btn-login:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   border-color: white;
 }
 
@@ -49,6 +126,8 @@
   padding: 10px 24px;
   border-radius: 10px;
   font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
 .header-transparent .btn-register:hover,
@@ -56,6 +135,19 @@
   background: #fbbf24;
   color: #78350f;
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.header-transparent .auth-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.header-transparent .header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 /* ==================== HERO SECTION ==================== */
