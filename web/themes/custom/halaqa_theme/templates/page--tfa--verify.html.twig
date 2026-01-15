@@ -1,0 +1,153 @@
+{#
+/**
+ * @file
+ * Custom template for the email TFA verification page.
+ * Beautiful verification design matching login page style.
+ * Works with email_tfa module.
+ */
+#}
+{{ attach_library('halaqa_theme/verify') }}
+
+<div class="verify-page-wrapper">
+  {# Animated Background #}
+  <div class="verify-background">
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+    <div class="floating-icons">
+      <span class="float-icon icon-1">📧</span>
+      <span class="float-icon icon-2">✅</span>
+      <span class="float-icon icon-3">🔐</span>
+      <span class="float-icon icon-4">🌙</span>
+      <span class="float-icon icon-5">⭐</span>
+      <span class="float-icon icon-6">✨</span>
+    </div>
+  </div>
+
+  {# Main Verify Container #}
+  <div class="verify-container">
+    {# Left Side - Branding & Info #}
+    <div class="verify-branding">
+      <div class="branding-content">
+        <div class="logo-section">
+          <div class="logo-icon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="verifyLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#10b981"/>
+                  <stop offset="100%" style="stop-color:#059669"/>
+                </linearGradient>
+              </defs>
+              <circle cx="50" cy="50" r="45" fill="url(#verifyLogoGradient)" opacity="0.2"/>
+              <path d="M25 70 L25 35 Q25 25 35 25 L65 25 Q75 25 75 35 L75 70"
+                    stroke="url(#verifyLogoGradient)" stroke-width="3" fill="none"/>
+              <path d="M30 70 L30 40 Q30 32 38 32 L62 32 Q70 32 70 40 L70 70"
+                    stroke="url(#verifyLogoGradient)" stroke-width="2" fill="none"/>
+              <line x1="35" y1="42" x2="65" y2="42" stroke="url(#verifyLogoGradient)" stroke-width="1.5"/>
+              <line x1="35" y1="50" x2="65" y2="50" stroke="url(#verifyLogoGradient)" stroke-width="1.5"/>
+              <line x1="35" y1="58" x2="55" y2="58" stroke="url(#verifyLogoGradient)" stroke-width="1.5"/>
+              <polygon points="50,12 53,18 59,19 54,24 56,30 50,27 44,30 46,24 41,19 47,18"
+                       fill="url(#verifyLogoGradient)"/>
+            </svg>
+          </div>
+          <h1 class="brand-title">{{ 'Halaqa'|t }}</h1>
+          <p class="brand-subtitle">{{ 'Smart Platform for Quran Memorization'|t }}</p>
+        </div>
+
+        <div class="verify-steps">
+          <div class="step-item completed">
+            <span class="step-number">1</span>
+            <div class="step-text">
+              <h4>{{ 'Enter Credentials'|t }}</h4>
+              <p>{{ 'Username and password verified'|t }}</p>
+            </div>
+            <span class="step-check">✓</span>
+          </div>
+          <div class="step-item active">
+            <span class="step-number">2</span>
+            <div class="step-text">
+              <h4>{{ 'Verify Identity'|t }}</h4>
+              <p>{{ 'Enter the code sent to your email'|t }}</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-number">3</span>
+            <div class="step-text">
+              <h4>{{ 'Access Account'|t }}</h4>
+              <p>{{ 'Start using the platform'|t }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="quranic-verse">
+          <p class="verse-arabic">إِنَّا نَحْنُ نَزَّلْنَا الذِّكْرَ وَإِنَّا لَهُ لَحَافِظُونَ</p>
+          <p class="verse-translation">{{ '"Indeed, it is We who sent down the message and indeed, We will be its guardian"'|t }}</p>
+          <p class="verse-reference">{{ 'Al-Hijr: 9'|t }}</p>
+        </div>
+      </div>
+    </div>
+
+    {# Right Side - Verification Form #}
+    <div class="verify-form-section">
+      <div class="form-container">
+        <div class="form-header">
+          <div class="email-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="email-sent-icon">
+              <rect x="2" y="4" width="20" height="16" rx="3" stroke="currentColor" stroke-width="2"/>
+              <path d="M2 7L12 13L22 7" stroke="currentColor" stroke-width="2"/>
+              <circle cx="18" cy="6" r="4" fill="#10b981"/>
+              <path d="M16.5 6L17.5 7L19.5 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h2 class="form-title">{{ 'Two-Factor Authentication'|t }} 🔐</h2>
+          <p class="form-subtitle">{{ "We've sent a verification code to your email"|t }}</p>
+        </div>
+
+        {# Messages #}
+        {% if page.highlighted %}
+          <div class="verify-messages">
+            {{ page.highlighted }}
+          </div>
+        {% endif %}
+
+        {# TFA Form Content from Drupal #}
+        <div class="verify-form-wrapper">
+          {{ page.content }}
+        </div>
+
+        {# Help Links #}
+        <div class="form-footer">
+          <p class="spam-notice">
+            {{ "Didn't receive the code? Check your spam folder"|t }}
+          </p>
+          <div class="help-links">
+            <a href="/user/login" class="help-link">
+              <span class="link-icon">←</span>
+              {{ 'Back to Login'|t }}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {# Language Switcher #}
+      <div class="verify-language-switch">
+        {% if language.id == 'ar' %}
+          <a href="/en{{ path('<current>') }}" class="lang-link">
+            <span class="lang-icon">🌐</span>
+            English
+          </a>
+        {% else %}
+          <a href="/ar{{ path('<current>') }}" class="lang-link">
+            <span class="lang-icon">🌐</span>
+            العربية
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {# Footer #}
+  <div class="verify-footer">
+    <p>© {{ 'now'|date('Y') }} {{ 'Halaqa Platform'|t }}. {{ 'All rights reserved.'|t }}</p>
+  </div>
+</div>

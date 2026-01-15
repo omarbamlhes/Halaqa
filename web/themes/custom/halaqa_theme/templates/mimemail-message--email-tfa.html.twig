@@ -1,0 +1,247 @@
+{#
+/**
+ * @file
+ * Custom email template for Email TFA verification code.
+ * Beautiful HTML email template matching Halaqa brand.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the body element of the message.
+ * - key: The message identifier (send_email_tfa).
+ * - module: The machine name of the sending module (email_tfa).
+ * - css: Internal style sheets.
+ * - recipient: The recipient of the message.
+ * - subject: The message subject.
+ * - body: The message body (contains the verification code).
+ */
+#}
+{% set classes = module ? (key ? module ~ '-' ~ key) %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{ subject }}</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style type="text/css">
+    /* Reset styles */
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+    body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #0a1628; }
+    a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; }
+
+    @media screen and (max-width: 600px) {
+      .email-container { width: 100% !important; }
+      .mobile-padding { padding: 20px !important; }
+      .otp-code { font-size: 32px !important; letter-spacing: 8px !important; }
+      .brand-title { font-size: 28px !important; }
+    }
+    {% if css %}
+    {{ css }}
+    {% endif %}
+  </style>
+</head>
+<body id="mimemail-body"{{ attributes.addClass(classes) }} style="margin: 0; padding: 0; background-color: #0a1628; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+  <!-- Preview Text -->
+  <div style="display: none; max-height: 0; overflow: hidden;">
+    Your Halaqa verification code - Complete your login securely
+  </div>
+
+  <!-- Email Body -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background: linear-gradient(135deg, #0a1628 0%, #1a2f4a 50%, #0d2137 100%);">
+    <tr>
+      <td style="padding: 40px 20px;">
+
+        <!-- Email Container -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" class="email-container" style="margin: 0 auto; max-width: 600px;">
+
+          <!-- Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 20px 20px 0 0; padding: 40px 30px; text-align: center;">
+              <!-- Logo SVG -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td style="text-align: center;">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 15px; background: rgba(255,255,255,0.2); border-radius: 50%; line-height: 80px;">
+                      <span style="font-size: 40px;">📖</span>
+                    </div>
+                    <h1 class="brand-title" style="margin: 0; font-size: 36px; font-weight: 700; color: #ffffff; font-family: Georgia, serif;">
+                      Halaqa
+                    </h1>
+                    <p style="margin: 10px 0 0; font-size: 14px; color: rgba(255,255,255,0.9);">
+                      Smart Platform for Quran Memorization
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Main Content -->
+          <tr>
+            <td style="background-color: #ffffff; padding: 50px 40px;" class="mobile-padding">
+
+              <!-- Lock Icon -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td style="text-align: center; padding-bottom: 25px;">
+                    <div style="display: inline-block; width: 70px; height: 70px; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 50%; line-height: 70px;">
+                      <span style="font-size: 32px;">🔐</span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Title -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td style="text-align: center;">
+                    <h2 style="margin: 0 0 10px; font-size: 26px; font-weight: 700; color: #1a2f4a;">
+                      Two-Factor Authentication
+                    </h2>
+                    <p style="margin: 0 0 30px; font-size: 16px; color: #6b7280; line-height: 1.6;">
+                      Use the verification code below to complete your login to Halaqa.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Verification Code Box -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td style="text-align: center; padding: 25px 0;">
+                    <div style="background: linear-gradient(135deg, #f0fdfa 0%, #d1fae5 100%); border: 2px dashed #10b981; border-radius: 16px; padding: 25px 30px; display: inline-block;">
+                      <p style="margin: 0 0 8px; font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 2px; font-weight: 600;">
+                        Your Verification Code
+                      </p>
+                      <div class="otp-code" style="margin: 0; font-size: 40px; font-weight: 700; color: #059669; letter-spacing: 12px; font-family: 'Courier New', monospace;">
+                        {{ body|raw }}
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Warning Notice -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td style="text-align: center; padding: 20px 0;">
+                    <p style="margin: 0; font-size: 14px; color: #dc2626; background-color: #fef2f2; padding: 12px 20px; border-radius: 8px; display: inline-block;">
+                      <span style="margin-right: 5px;">⏱️</span> This code will expire shortly. Please use it immediately.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Security Notice -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td style="text-align: center; padding: 15px 0;">
+                    <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 15px 20px;">
+                      <p style="margin: 0; font-size: 13px; color: #92400e; line-height: 1.5;">
+                        <span style="margin-right: 5px;">🔒</span>
+                        <strong>Security tip:</strong> Never share this code with anyone. Halaqa staff will never ask for your verification code.
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Divider -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td style="padding: 25px 0;">
+                    <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 0;">
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Help Section -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td style="text-align: center;">
+                    <p style="margin: 0 0 10px; font-size: 14px; color: #6b7280;">
+                      Didn't request this code?
+                    </p>
+                    <p style="margin: 0; font-size: 13px; color: #9ca3af;">
+                      If you did not attempt to log in, please secure your account immediately or contact our support team.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- Quranic Verse Section -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 25px 40px; text-align: center;">
+              <p style="margin: 0 0 8px; font-family: 'Traditional Arabic', 'Arial Unicode MS', serif; font-size: 20px; color: #92400e; line-height: 1.8;">
+                وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا
+              </p>
+              <p style="margin: 0 0 5px; font-size: 12px; font-style: italic; color: #78350f;">
+                "And recite the Quran with measured recitation"
+              </p>
+              <p style="margin: 0; font-size: 11px; color: #92400e;">
+                Al-Muzzammil: 4
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #1e293b; border-radius: 0 0 20px 20px; padding: 30px 40px; text-align: center;">
+
+              <!-- Social Icons -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td style="text-align: center; padding-bottom: 20px;">
+                    <span style="display: inline-block; margin: 0 5px; width: 32px; height: 32px; background-color: rgba(255,255,255,0.1); border-radius: 50%; line-height: 32px; font-size: 14px;">📘</span>
+                    <span style="display: inline-block; margin: 0 5px; width: 32px; height: 32px; background-color: rgba(255,255,255,0.1); border-radius: 50%; line-height: 32px; font-size: 14px;">🐦</span>
+                    <span style="display: inline-block; margin: 0 5px; width: 32px; height: 32px; background-color: rgba(255,255,255,0.1); border-radius: 50%; line-height: 32px; font-size: 14px;">📸</span>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Copyright -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td style="text-align: center;">
+                    <p style="margin: 0 0 8px; font-size: 14px; color: rgba(255,255,255,0.8);">
+                      Halaqa Platform
+                    </p>
+                    <p style="margin: 0 0 12px; font-size: 11px; color: rgba(255,255,255,0.5);">
+                      © {{ "now"|date("Y") }} All rights reserved.
+                    </p>
+                    <p style="margin: 0; font-size: 10px; color: rgba(255,255,255,0.4);">
+                      <a href="#" style="color: rgba(255,255,255,0.5); text-decoration: none;">Privacy Policy</a>
+                      &nbsp;•&nbsp;
+                      <a href="#" style="color: rgba(255,255,255,0.5); text-decoration: none;">Terms of Service</a>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+        </table>
+        <!-- End Email Container -->
+
+      </td>
+    </tr>
+  </table>
+  <!-- End Email Body -->
+
+</body>
+</html>
