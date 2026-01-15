@@ -53,7 +53,22 @@
             </svg>
           </button>
         </div>
-        
+
+        {# Language Switcher #}
+        <div class="language-switcher">
+          {% if language.id == 'ar' %}
+            <a href="/en" class="lang-toggle" aria-label="Switch to English">
+              <span class="lang-icon">🌐</span>
+              <span class="lang-text">EN</span>
+            </a>
+          {% else %}
+            <a href="/ar" class="lang-toggle" aria-label="التبديل للعربية">
+              <span class="lang-icon">🌐</span>
+              <span class="lang-text">ع</span>
+            </a>
+          {% endif %}
+        </div>
+
         {# User Menu #}
         {% if logged_in %}
           <div class="secondary-navigation">
