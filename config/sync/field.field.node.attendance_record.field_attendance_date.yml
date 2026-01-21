@@ -1,0 +1,24 @@
+uuid: c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_attendance_date
+    - node.type.attendance_record
+  module:
+    - datetime
+id: node.attendance_record.field_attendance_date
+field_name: field_attendance_date
+entity_type: node
+bundle: attendance_record
+label: Date
+description: 'The date of the attendance record'
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

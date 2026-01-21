@@ -1,0 +1,615 @@
+/**
+ * Attendance System Styles
+ * Styles for attendance form, records, and dashboard components
+ */
+
+/* ==========================================================================
+   Attendance Form
+   ========================================================================== */
+
+.attendance-form {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.attendance-form .attendance-halaqa-select,
+.attendance-form .attendance-date-input {
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.attendance-students-table {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.attendance-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 15px;
+  padding: 15px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  font-weight: bold;
+}
+
+.attendance-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 15px;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+}
+
+.attendance-row:last-child {
+  border-bottom: none;
+}
+
+.attendance-row:nth-child(even) {
+  background: #fafafa;
+}
+
+.attendance-student-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.attendance-status-radios {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.attendance-status-radios .form-item {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+}
+
+.attendance-status-radios label {
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9em;
+  background: #f0f0f0;
+  margin: 0;
+}
+
+.attendance-status-radios input[type="radio"] {
+  display: none;
+}
+
+.attendance-status-radios input[type="radio"]:checked + label,
+.attendance-status-radios label.is-checked {
+  color: #fff;
+}
+
+/* Status colors */
+.attendance-status-radios .form-item:nth-child(1) input:checked + label,
+.attendance-status-radios .form-item:first-child label.is-checked {
+  background: #4CAF50;
+}
+
+.attendance-status-radios .form-item:nth-child(2) input:checked + label {
+  background: #f44336;
+}
+
+.attendance-status-radios .form-item:nth-child(3) input:checked + label {
+  background: #FF9800;
+}
+
+.attendance-status-radios .form-item:nth-child(4) input:checked + label {
+  background: #9E9E9E;
+}
+
+.attendance-notes-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.attendance-actions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.attendance-submit-btn {
+  background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+  color: #fff;
+  padding: 12px 40px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.attendance-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+/* ==========================================================================
+   Attendance Page Header
+   ========================================================================== */
+
+.attendance-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.attendance-page-header h2 {
+  margin: 0;
+  color: #333;
+}
+
+.attendance-record-btn {
+  background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+  color: #fff !important;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: transform 0.2s;
+}
+
+.attendance-record-btn:hover {
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+/* ==========================================================================
+   Attendance Statistics Grid
+   ========================================================================== */
+
+.attendance-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.attendance-stat-card {
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+}
+
+.attendance-stat-card .stat-number {
+  font-size: 2.2em;
+  font-weight: bold;
+}
+
+.attendance-stat-card .stat-label {
+  opacity: 0.9;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+.stat-sessions {
+  background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+}
+
+.stat-rate {
+  background: linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%);
+}
+
+.stat-present {
+  background: linear-gradient(135deg, #4CAF50 0%, #2e7d32 100%);
+}
+
+.stat-absent {
+  background: linear-gradient(135deg, #f44336 0%, #c62828 100%);
+}
+
+.stat-total {
+  background: linear-gradient(135deg, #607d8b 0%, #37474f 100%);
+}
+
+/* ==========================================================================
+   Attendance Records Section
+   ========================================================================== */
+
+.attendance-records-section {
+  margin-bottom: 30px;
+}
+
+.attendance-records-section h3 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.attendance-day-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.day-date {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.day-summary {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.present-badge,
+.absent-badge,
+.late-badge {
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 0.85em;
+}
+
+.present-badge {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.absent-badge {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.late-badge {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.day-students {
+  padding: 10px 20px;
+}
+
+.student-attendance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.student-attendance-row:last-child {
+  border-bottom: none;
+}
+
+.student-name {
+  font-weight: 500;
+}
+
+.student-status {
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.9em;
+}
+
+.status-present {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-absent {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.status-late {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.status-excused {
+  background: #f5f5f5;
+  color: #616161;
+}
+
+/* ==========================================================================
+   Student Attendance Page
+   ========================================================================== */
+
+.student-attendance-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.student-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.student-name-large {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #1976d2;
+}
+
+.student-halaqa {
+  color: #666;
+}
+
+/* ==========================================================================
+   Attendance Breakdown
+   ========================================================================== */
+
+.attendance-breakdown {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.attendance-breakdown h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.breakdown-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 0;
+}
+
+.breakdown-label {
+  width: 80px;
+  font-weight: 500;
+}
+
+.breakdown-bar-container {
+  flex: 1;
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.breakdown-bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.5s ease;
+}
+
+.breakdown-count {
+  width: 80px;
+  text-align: right;
+  font-weight: 500;
+  color: #666;
+}
+
+/* ==========================================================================
+   Attendance History
+   ========================================================================== */
+
+.attendance-history {
+  margin-bottom: 30px;
+}
+
+.attendance-history h3 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.history-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.history-date {
+  color: #666;
+  min-width: 100px;
+}
+
+.history-status {
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.9em;
+}
+
+.history-notes {
+  flex: 1;
+  color: #888;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   No Records Message
+   ========================================================================== */
+
+.no-records {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   Halaqa Attendance Page
+   ========================================================================== */
+
+.halaqa-attendance-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ==========================================================================
+   RTL Support
+   ========================================================================== */
+
+[dir="rtl"] .attendance-header,
+[dir="rtl"] .attendance-row {
+  text-align: right;
+}
+
+[dir="rtl"] .day-header {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .student-attendance-row {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .breakdown-row {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .breakdown-count {
+  text-align: left;
+}
+
+[dir="rtl"] .history-row {
+  flex-direction: row-reverse;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .attendance-header,
+  .attendance-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .attendance-header {
+    display: none;
+  }
+
+  .attendance-row {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: #fff;
+  }
+
+  .attendance-status-radios {
+    justify-content: center;
+  }
+
+  .attendance-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .attendance-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .breakdown-row {
+    flex-wrap: wrap;
+  }
+
+  .breakdown-label {
+    width: 100%;
+  }
+
+  .breakdown-count {
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .attendance-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .attendance-stat-card {
+    padding: 15px;
+  }
+
+  .attendance-stat-card .stat-number {
+    font-size: 1.8em;
+  }
+}
+
+/* ==========================================================================
+   Dark Mode Support
+   ========================================================================== */
+
+.dark-mode .attendance-students-table,
+.dark-mode .attendance-day-card,
+.dark-mode .attendance-breakdown,
+.dark-mode .history-row {
+  background: var(--dark-card-bg, #1e1e1e);
+  border-color: var(--dark-border, #333);
+}
+
+.dark-mode .attendance-header,
+.dark-mode .day-header {
+  background: var(--dark-header-bg, #2a2a2a);
+  border-color: var(--dark-border, #333);
+}
+
+.dark-mode .attendance-row:nth-child(even) {
+  background: var(--dark-alt-bg, #252525);
+}
+
+.dark-mode .attendance-student-name,
+.dark-mode .day-date,
+.dark-mode .student-name,
+.dark-mode .attendance-breakdown h3,
+.dark-mode .attendance-history h3,
+.dark-mode .attendance-records-section h3 {
+  color: var(--dark-text, #e0e0e0);
+}
+
+.dark-mode .attendance-notes-input {
+  background: var(--dark-input-bg, #2a2a2a);
+  border-color: var(--dark-border, #444);
+  color: var(--dark-text, #e0e0e0);
+}
+
+.dark-mode .no-records {
+  background: var(--dark-alt-bg, #252525);
+  color: var(--dark-muted, #888);
+}

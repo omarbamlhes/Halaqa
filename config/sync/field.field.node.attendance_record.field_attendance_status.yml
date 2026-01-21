@@ -1,0 +1,23 @@
+uuid: d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_attendance_status
+    - node.type.attendance_record
+  module:
+    - options
+id: node.attendance_record.field_attendance_status
+field_name: field_attendance_status
+entity_type: node
+bundle: attendance_record
+label: Status
+description: 'The attendance status'
+required: true
+translatable: false
+default_value:
+  -
+    value: present
+default_value_callback: ''
+settings: {  }
+field_type: list_string

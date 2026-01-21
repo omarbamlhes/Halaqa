@@ -144,7 +144,16 @@ class HalaqaCustomController extends ControllerBase {
               '#url' => Url::fromRoute('halaqa_custom.student_progress', ['student_nid' => $student->id()]),
               '#attributes' => ['class' => ['student-link']],
             ],
-            'separator' => [
+            'separator1' => [
+              '#markup' => ' | ',
+            ],
+            'attendance' => [
+              '#type' => 'link',
+              '#title' => $this->t('📅 Attendance'),
+              '#url' => Url::fromRoute('halaqa_custom.student_attendance', ['student_nid' => $student->id()]),
+              '#attributes' => ['class' => ['student-link']],
+            ],
+            'separator2' => [
               '#markup' => ' | ',
             ],
             'view' => [
@@ -315,6 +324,46 @@ class HalaqaCustomController extends ControllerBase {
       ],
     ];
 
+    // Today's attendance section.
+    $build['attendance_today'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['dashboard-attendance-today']],
+      'title' => [
+        '#markup' => '<h3>' . $this->t("Today's Attendance") . '</h3>',
+      ],
+    ];
+
+    if (!empty($stats['halaqas'])) {
+      foreach ($stats['halaqas'] as $index => $halaqa_data) {
+        $halaqa = $halaqa_data['halaqa'];
+        $today_attendance = $this->halaqaStudentService->getTodayAttendance((int) $halaqa->id());
+
+        $attendance_status = $today_attendance['recorded']
+          ? $this->t('@present present, @absent absent', [
+              '@present' => $today_attendance['present'],
+              '@absent' => $today_attendance['absent'],
+            ])
+          : $this->t('Not recorded yet');
+
+        $build['attendance_today']['halaqa_' . $index] = [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['attendance-today-item']],
+          'info' => [
+            '#markup' => '<div class="attendance-today-info">
+              <span class="attendance-today-halaqa">' . $halaqa->label() . '</span>
+              <span class="attendance-today-status">' . $attendance_status . '</span>
+            </div>',
+          ],
+          'action' => [
+            '#type' => 'link',
+            '#title' => $today_attendance['recorded'] ? $this->t('Edit') : $this->t('Record'),
+            '#url' => Url::fromRoute('halaqa_custom.attendance_form', ['halaqa_nid' => $halaqa->id()]),
+            '#attributes' => ['class' => ['attendance-today-btn', $today_attendance['recorded'] ? 'btn-edit' : 'btn-record']],
+          ],
+        ];
+      }
+    }
+
     // Halaqas with students.
     if (!empty($stats['halaqas'])) {
       $build['halaqas'] = [
@@ -338,11 +387,33 @@ class HalaqaCustomController extends ControllerBase {
           'count' => [
             '#markup' => '<div class="halaqa-students">' . $this->t('@count students', ['@count' => $student_count]) . '</div>',
           ],
-          'link' => [
-            '#type' => 'link',
-            '#title' => $this->t('View Students →'),
-            '#url' => Url::fromRoute('halaqa_custom.halaqa_students', ['nid' => $halaqa->id()]),
-            '#attributes' => ['class' => ['halaqa-link']],
+          'links' => [
+            '#type' => 'container',
+            '#attributes' => ['class' => ['halaqa-links']],
+            'students' => [
+              '#type' => 'link',
+              '#title' => $this->t('Students'),
+              '#url' => Url::fromRoute('halaqa_custom.halaqa_students', ['nid' => $halaqa->id()]),
+              '#attributes' => ['class' => ['halaqa-link']],
+            ],
+            'separator1' => [
+              '#markup' => ' | ',
+            ],
+            'attendance' => [
+              '#type' => 'link',
+              '#title' => $this->t('Attendance'),
+              '#url' => Url::fromRoute('halaqa_custom.halaqa_attendance', ['nid' => $halaqa->id()]),
+              '#attributes' => ['class' => ['halaqa-link']],
+            ],
+            'separator2' => [
+              '#markup' => ' | ',
+            ],
+            'record_attendance' => [
+              '#type' => 'link',
+              '#title' => $this->t('Record'),
+              '#url' => Url::fromRoute('halaqa_custom.attendance_form', ['halaqa_nid' => $halaqa->id()]),
+              '#attributes' => ['class' => ['halaqa-link', 'halaqa-record-btn']],
+            ],
           ],
         ];
       }
@@ -399,15 +470,27 @@ class HalaqaCustomController extends ControllerBase {
           .halaqa-card { background: #fff; border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 8px; }
           .halaqa-name { font-weight: bold; font-size: 1.2em; }
           .halaqa-students { color: #666; margin: 5px 0; }
+          .halaqa-links { margin-top: 10px; }
           .halaqa-link { color: #2196F3; }
+          .halaqa-record-btn { background: #4CAF50; color: #fff; padding: 4px 10px; border-radius: 4px; text-decoration: none; }
+          .halaqa-record-btn:hover { background: #388E3C; color: #fff; }
           .dashboard-records h3 { margin-bottom: 15px; }
+          .dashboard-attendance-today { margin-bottom: 30px; background: #e8f5e9; padding: 20px; border-radius: 8px; }
+          .dashboard-attendance-today h3 { margin-top: 0; margin-bottom: 15px; color: #2e7d32; }
+          .attendance-today-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fff; border-radius: 6px; margin-bottom: 8px; }
+          .attendance-today-info { display: flex; flex-direction: column; }
+          .attendance-today-halaqa { font-weight: bold; }
+          .attendance-today-status { color: #666; font-size: 0.9em; }
+          .attendance-today-btn { padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 0.9em; }
+          .attendance-today-btn.btn-record { background: #4CAF50; color: #fff; }
+          .attendance-today-btn.btn-edit { background: #2196F3; color: #fff; }
         ',
       ],
       'halaqa_dashboard_styles',
     ];
 
     $build['#cache'] = [
-      'tags' => ['node_list:halaqa', 'node_list:student', 'node_list:memorization_record'],
+      'tags' => ['node_list:halaqa', 'node_list:student', 'node_list:memorization_record', 'node_list:attendance_record'],
       'contexts' => ['user'],
     ];
 
@@ -762,6 +845,9 @@ class HalaqaCustomController extends ControllerBase {
           $eval_summary = $this->t('@percent% Excellent', ['@percent' => $excellent_percent]);
         }
 
+        // Get attendance stats for child.
+        $attendance_stats = $this->halaqaStudentService->getStudentAttendanceStats((int) $child->id());
+
         $build['children']['child_' . $index] = [
           '#type' => 'container',
           '#attributes' => ['class' => ['child-card']],
@@ -787,6 +873,9 @@ class HalaqaCustomController extends ControllerBase {
             'eval' => [
               '#markup' => $eval_summary ? '<span class="child-stat child-eval">' . $eval_summary . '</span>' : '',
             ],
+            'attendance' => [
+              '#markup' => '<span class="child-stat child-attendance">' . $this->t('@rate% attendance', ['@rate' => $attendance_stats['rate']]) . '</span>',
+            ],
           ],
           'actions' => [
             '#type' => 'container',
@@ -796,6 +885,12 @@ class HalaqaCustomController extends ControllerBase {
               '#title' => $this->t('📊 View Progress'),
               '#url' => Url::fromRoute('halaqa_custom.parent_child_progress', ['student_nid' => $child->id()]),
               '#attributes' => ['class' => ['button', 'button--primary']],
+            ],
+            'attendance' => [
+              '#type' => 'link',
+              '#title' => $this->t('📅 Attendance'),
+              '#url' => Url::fromRoute('halaqa_custom.student_attendance', ['student_nid' => $child->id()]),
+              '#attributes' => ['class' => ['button', 'button--secondary', 'child-attendance-btn']],
             ],
           ],
         ];
@@ -855,7 +950,10 @@ class HalaqaCustomController extends ControllerBase {
           .child-stats { display: flex; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; }
           .child-stat { background: #e8f5e9; padding: 6px 12px; border-radius: 20px; font-size: 0.9em; }
           .child-eval { background: #fff9c4; }
-          .child-actions { margin-bottom: 15px; }
+          .child-attendance { background: #e3f2fd; }
+          .child-actions { margin-bottom: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+          .child-attendance-btn { background: #1976d2; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; display: inline-block; }
+          .child-attendance-btn:hover { background: #1565c0; color: #fff; }
           .child-recent { border-top: 1px solid #eee; padding-top: 15px; }
           .recent-title { font-weight: 500; margin-bottom: 10px; color: #666; }
           .recent-record { padding: 5px 0; color: #555; font-size: 0.9em; }
@@ -867,7 +965,7 @@ class HalaqaCustomController extends ControllerBase {
     ];
 
     $build['#cache'] = [
-      'tags' => ['node_list:student', 'node_list:memorization_record'],
+      'tags' => ['node_list:student', 'node_list:memorization_record', 'node_list:attendance_record'],
       'contexts' => ['user'],
     ];
 
@@ -975,6 +1073,9 @@ class HalaqaCustomController extends ControllerBase {
       ];
     }
 
+    // Get attendance stats for this student.
+    $attendance_stats = $this->halaqaStudentService->getStudentAttendanceStats((int) $student->id());
+
     // Statistics.
     $build['stats'] = [
       '#type' => 'container',
@@ -1000,6 +1101,13 @@ class HalaqaCustomController extends ControllerBase {
       '#attributes' => ['class' => ['stat-card', 'stat-purple']],
       'count' => ['#markup' => '<div class="stat-number">' . count($progress['surahs_touched']) . '</div>'],
       'label' => ['#markup' => '<div class="stat-label">' . $this->t('Surahs') . '</div>'],
+    ];
+
+    $build['stats']['attendance'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['stat-card', 'stat-orange']],
+      'count' => ['#markup' => '<div class="stat-number">' . $attendance_stats['rate'] . '%</div>'],
+      'label' => ['#markup' => '<div class="stat-label">' . $this->t('Attendance') . '</div>'],
     ];
 
     // Evaluation summary.
@@ -1103,6 +1211,48 @@ class HalaqaCustomController extends ControllerBase {
       }
     }
 
+    // Recent attendance records.
+    $recent_attendance = $this->halaqaStudentService->getRecentStudentAttendance((int) $student->id(), 5);
+    if (!empty($recent_attendance)) {
+      $build['attendance'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['attendance-section']],
+        'title' => ['#markup' => '<h3>' . $this->t('Recent Attendance') . '</h3>'],
+      ];
+
+      $attendance_labels = [
+        'present' => ['label' => $this->t('Present'), 'class' => 'status-present'],
+        'absent' => ['label' => $this->t('Absent'), 'class' => 'status-absent'],
+        'late' => ['label' => $this->t('Late'), 'class' => 'status-late'],
+        'excused' => ['label' => $this->t('Excused'), 'class' => 'status-excused'],
+      ];
+
+      foreach ($recent_attendance as $ai => $att_record) {
+        $att_date = '';
+        $att_status = '';
+        $att_class = '';
+
+        if ($att_record->hasField('field_attendance_date') && !$att_record->get('field_attendance_date')->isEmpty()) {
+          $att_date = $att_record->get('field_attendance_date')->value;
+        }
+
+        if ($att_record->hasField('field_attendance_status') && !$att_record->get('field_attendance_status')->isEmpty()) {
+          $status_key = $att_record->get('field_attendance_status')->value;
+          if (isset($attendance_labels[$status_key])) {
+            $att_status = $attendance_labels[$status_key]['label'];
+            $att_class = $attendance_labels[$status_key]['class'];
+          }
+        }
+
+        $build['attendance']['record_' . $ai] = [
+          '#markup' => '<div class="attendance-item">
+            <span class="attendance-date">' . $att_date . '</span>
+            <span class="attendance-status ' . $att_class . '">' . $att_status . '</span>
+          </div>',
+        ];
+      }
+    }
+
     // Motivational message.
     $build['motivation'] = [
       '#markup' => '<div class="motivation-message">
@@ -1129,6 +1279,7 @@ class HalaqaCustomController extends ControllerBase {
           .stat-blue { background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%); }
           .stat-green { background: linear-gradient(135deg, #43a047 0%, #1b5e20 100%); }
           .stat-purple { background: linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%); }
+          .stat-orange { background: linear-gradient(135deg, #ff9800 0%, #e65100 100%); }
           .stat-number { font-size: 2.2em; font-weight: bold; }
           .stat-label { opacity: 0.9; font-size: 0.9em; }
           .evaluation-section { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; margin-bottom: 25px; }
@@ -1145,6 +1296,15 @@ class HalaqaCustomController extends ControllerBase {
           .record-date { color: #666; font-size: 0.9em; }
           .record-range { font-weight: 500; flex: 1; }
           .record-eval { background: #e8f5e9; padding: 4px 10px; border-radius: 15px; font-size: 0.9em; }
+          .attendance-section { margin-bottom: 25px; }
+          .attendance-section h3 { margin-bottom: 15px; color: #333; }
+          .attendance-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 8px; }
+          .attendance-date { color: #666; }
+          .attendance-status { padding: 4px 12px; border-radius: 15px; font-size: 0.9em; }
+          .status-present { background: #e8f5e9; color: #2e7d32; }
+          .status-absent { background: #ffebee; color: #c62828; }
+          .status-late { background: #fff3e0; color: #e65100; }
+          .status-excused { background: #f5f5f5; color: #616161; }
           .motivation-message { background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-radius: 12px; padding: 20px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 15px; }
           .motivation-icon { font-size: 2em; }
           .motivation-text { color: #5d4037; font-style: italic; }
@@ -1154,7 +1314,7 @@ class HalaqaCustomController extends ControllerBase {
     ];
 
     $build['#cache'] = [
-      'tags' => ['node_list:memorization_record', 'node:' . $student->id()],
+      'tags' => ['node_list:memorization_record', 'node_list:attendance_record', 'node:' . $student->id()],
       'contexts' => ['user'],
     ];
 

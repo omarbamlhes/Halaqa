@@ -1,0 +1,17 @@
+uuid: a7b3c8d1-e2f4-4a5b-9c6d-7e8f9a0b1c2d
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Attendance Record'
+type: attendance_record
+description: 'Records student attendance for Halaqa sessions'
+help: null
+new_revision: true
+preview_mode: 0
+display_submitted: false

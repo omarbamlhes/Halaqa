@@ -113,3 +113,31 @@ halaqa_custom.user_profile_edit:
     _title: 'Edit Profile'
   requirements:
     _user_is_logged_in: 'TRUE'
+
+# Attendance routes
+halaqa_custom.attendance_form:
+  path: '/halaqa/{halaqa_nid}/attendance'
+  defaults:
+    _form: '\Drupal\halaqa_custom\Form\AttendanceForm'
+    _title: 'Record Attendance'
+  requirements:
+    _role: 'teacher+administrator'
+    halaqa_nid: '\d+'
+
+halaqa_custom.halaqa_attendance:
+  path: '/halaqa/{nid}/attendance-records'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\AttendanceController::halaqaAttendance'
+    _title_callback: '\Drupal\halaqa_custom\Controller\AttendanceController::halaqaAttendanceTitle'
+  requirements:
+    _role: 'teacher+administrator'
+    nid: '\d+'
+
+halaqa_custom.student_attendance:
+  path: '/student/{student_nid}/attendance'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\AttendanceController::studentAttendance'
+    _title_callback: '\Drupal\halaqa_custom\Controller\AttendanceController::studentAttendanceTitle'
+  requirements:
+    _role: 'teacher+administrator+parent'
+    student_nid: '\d+'

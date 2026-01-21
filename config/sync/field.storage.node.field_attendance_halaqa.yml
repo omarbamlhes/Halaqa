@@ -1,0 +1,19 @@
+uuid: c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_attendance_halaqa
+field_name: field_attendance_halaqa
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

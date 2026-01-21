@@ -1,0 +1,19 @@
+uuid: e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_attendance_notes
+    - node.type.attendance_record
+id: node.attendance_record.field_attendance_notes
+field_name: field_attendance_notes
+entity_type: node
+bundle: attendance_record
+label: Notes
+description: 'Optional notes about the attendance'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

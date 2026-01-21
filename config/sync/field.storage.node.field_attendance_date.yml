@@ -1,0 +1,20 @@
+uuid: d3e4f5a6-b7c8-4d9e-0f1a-2b3c4d5e6f7a
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+id: node.field_attendance_date
+field_name: field_attendance_date
+entity_type: node
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

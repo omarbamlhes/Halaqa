@@ -911,5 +911,439 @@ class HalaqaStudentService {
     return min(100, round(($stats['total_ayahs'] / $total_quran_ayahs) * 100));
   }
 
+  /**
+   * Get attendance records for a Halaqa on a specific date.
+   *
+   * @param int $halaqa_nid
+   *   The Halaqa node ID.
+   * @param string $date
+   *   The date in Y-m-d format.
+   *
+   * @return array
+   *   Array of attendance records keyed by student NID.
+   */
+  public function getAttendanceByHalaqaAndDate(int $halaqa_nid, string $date): array {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    $query = $storage->getQuery()
+      ->condition('type', 'attendance_record')
+      ->condition('status', 1)
+      ->condition('field_attendance_halaqa', $halaqa_nid)
+      ->condition('field_attendance_date', $date)
+      ->accessCheck(TRUE);
+
+    $nids = $query->execute();
+
+    if (empty($nids)) {
+      return [];
+    }
+
+    $records = $storage->loadMultiple($nids);
+    $result = [];
+
+    foreach ($records as $record) {
+      if ($record->hasField('field_attendance_student') && !$record->get('field_attendance_student')->isEmpty()) {
+        $student_nid = $record->get('field_attendance_student')->target_id;
+        $result[$student_nid] = $record;
+      }
+    }
+
+    return $result;
+  }
+
+  /**
+   * Get student attendance records.
+   *
+   * @param int $student_nid
+   *   The student node ID.
+   * @param string|null $from_date
+   *   Optional start date filter (Y-m-d format).
+   * @param string|null $to_date
+   *   Optional end date filter (Y-m-d format).
+   *
+   * @return \Drupal\node\NodeInterface[]
+   *   Array of attendance record nodes.
+   */
+  public function getStudentAttendance(int $student_nid, ?string $from_date = NULL, ?string $to_date = NULL): array {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    $query = $storage->getQuery()
+      ->condition('type', 'attendance_record')
+      ->condition('status', 1)
+      ->condition('field_attendance_student', $student_nid)
+      ->accessCheck(TRUE)
+      ->sort('field_attendance_date', 'DESC');
+
+    if ($from_date) {
+      $query->condition('field_attendance_date', $from_date, '>=');
+    }
+
+    if ($to_date) {
+      $query->condition('field_attendance_date', $to_date, '<=');
+    }
+
+    $nids = $query->execute();
+
+    if (empty($nids)) {
+      return [];
+    }
+
+    return $storage->loadMultiple($nids);
+  }
+
+  /**
+   * Get student attendance statistics.
+   *
+   * @param int $student_nid
+   *   The student node ID.
+   *
+   * @return array
+   *   Array with attendance statistics.
+   */
+  public function getStudentAttendanceStats(int $student_nid): array {
+    $records = $this->getStudentAttendance($student_nid);
+
+    $stats = [
+      'total' => count($records),
+      'present' => 0,
+      'absent' => 0,
+      'late' => 0,
+      'excused' => 0,
+      'rate' => 0,
+    ];
+
+    foreach ($records as $record) {
+      if ($record->hasField('field_attendance_status') && !$record->get('field_attendance_status')->isEmpty()) {
+        $status = $record->get('field_attendance_status')->value;
+        if (isset($stats[$status])) {
+          $stats[$status]++;
+        }
+      }
+    }
+
+    // Calculate attendance rate (present + late counted as attended).
+    if ($stats['total'] > 0) {
+      $attended = $stats['present'] + $stats['late'];
+      $stats['rate'] = round(($attended / $stats['total']) * 100);
+    }
+
+    return $stats;
+  }
+
+  /**
+   * Get Halaqa attendance statistics.
+   *
+   * @param int $halaqa_nid
+   *   The Halaqa node ID.
+   *
+   * @return array
+   *   Array with attendance statistics.
+   */
+  public function getHalaqaAttendanceStats(int $halaqa_nid): array {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    $query = $storage->getQuery()
+      ->condition('type', 'attendance_record')
+      ->condition('status', 1)
+      ->condition('field_attendance_halaqa', $halaqa_nid)
+      ->accessCheck(TRUE);
+
+    $nids = $query->execute();
+
+    $stats = [
+      'total' => count($nids),
+      'present' => 0,
+      'absent' => 0,
+      'late' => 0,
+      'excused' => 0,
+      'rate' => 0,
+      'unique_dates' => [],
+    ];
+
+    if (empty($nids)) {
+      return $stats;
+    }
+
+    $records = $storage->loadMultiple($nids);
+
+    foreach ($records as $record) {
+      if ($record->hasField('field_attendance_status') && !$record->get('field_attendance_status')->isEmpty()) {
+        $status = $record->get('field_attendance_status')->value;
+        if (isset($stats[$status])) {
+          $stats[$status]++;
+        }
+      }
+
+      if ($record->hasField('field_attendance_date') && !$record->get('field_attendance_date')->isEmpty()) {
+        $date = $record->get('field_attendance_date')->value;
+        if (!in_array($date, $stats['unique_dates'])) {
+          $stats['unique_dates'][] = $date;
+        }
+      }
+    }
+
+    // Calculate attendance rate.
+    if ($stats['total'] > 0) {
+      $attended = $stats['present'] + $stats['late'];
+      $stats['rate'] = round(($attended / $stats['total']) * 100);
+    }
+
+    $stats['session_count'] = count($stats['unique_dates']);
+
+    return $stats;
+  }
+
+  /**
+   * Save an attendance record.
+   *
+   * @param int $student_nid
+   *   The student node ID.
+   * @param int $halaqa_nid
+   *   The Halaqa node ID.
+   * @param string $date
+   *   The date in Y-m-d format.
+   * @param string $status
+   *   The attendance status (present, absent, late, excused).
+   * @param string|null $notes
+   *   Optional notes.
+   *
+   * @return bool
+   *   TRUE if saved successfully, FALSE otherwise.
+   */
+  public function saveAttendanceRecord(int $student_nid, int $halaqa_nid, string $date, string $status, ?string $notes = NULL): bool {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    // Check if record already exists.
+    $existing = $this->getExistingAttendanceRecord($student_nid, $halaqa_nid, $date);
+
+    if ($existing) {
+      // Update existing record.
+      $existing->set('field_attendance_status', $status);
+      if ($notes !== NULL) {
+        $existing->set('field_attendance_notes', $notes);
+      }
+      $existing->save();
+      return TRUE;
+    }
+
+    // Create new record.
+    $student = $storage->load($student_nid);
+    $student_name = $student ? $student->label() : 'Student';
+
+    $node = $storage->create([
+      'type' => 'attendance_record',
+      'title' => $this->t('Attendance - @student - @date', [
+        '@student' => $student_name,
+        '@date' => $date,
+      ]),
+      'field_attendance_student' => $student_nid,
+      'field_attendance_halaqa' => $halaqa_nid,
+      'field_attendance_date' => $date,
+      'field_attendance_status' => $status,
+      'field_attendance_notes' => $notes,
+    ]);
+
+    $node->save();
+
+    return TRUE;
+  }
+
+  /**
+   * Get existing attendance record.
+   *
+   * @param int $student_nid
+   *   The student node ID.
+   * @param int $halaqa_nid
+   *   The Halaqa node ID.
+   * @param string $date
+   *   The date in Y-m-d format.
+   *
+   * @return \Drupal\node\NodeInterface|null
+   *   The attendance record node or NULL.
+   */
+  protected function getExistingAttendanceRecord(int $student_nid, int $halaqa_nid, string $date): ?NodeInterface {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    $query = $storage->getQuery()
+      ->condition('type', 'attendance_record')
+      ->condition('field_attendance_student', $student_nid)
+      ->condition('field_attendance_halaqa', $halaqa_nid)
+      ->condition('field_attendance_date', $date)
+      ->accessCheck(TRUE)
+      ->range(0, 1);
+
+    $nids = $query->execute();
+
+    if (empty($nids)) {
+      return NULL;
+    }
+
+    return $storage->load(reset($nids));
+  }
+
+  /**
+   * Check if attendance record exists for a student on a date.
+   *
+   * @param int $student_nid
+   *   The student node ID.
+   * @param string $date
+   *   The date in Y-m-d format.
+   *
+   * @return bool
+   *   TRUE if record exists, FALSE otherwise.
+   */
+  public function attendanceRecordExists(int $student_nid, string $date): bool {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    $query = $storage->getQuery()
+      ->condition('type', 'attendance_record')
+      ->condition('field_attendance_student', $student_nid)
+      ->condition('field_attendance_date', $date)
+      ->accessCheck(TRUE)
+      ->count();
+
+    return $query->execute() > 0;
+  }
+
+  /**
+   * Get today's attendance count for a Halaqa.
+   *
+   * @param int $halaqa_nid
+   *   The Halaqa node ID.
+   *
+   * @return array
+   *   Array with today's attendance counts.
+   */
+  public function getTodayAttendance(int $halaqa_nid): array {
+    $today = date('Y-m-d');
+    $records = $this->getAttendanceByHalaqaAndDate($halaqa_nid, $today);
+
+    $counts = [
+      'total' => count($records),
+      'present' => 0,
+      'absent' => 0,
+      'late' => 0,
+      'excused' => 0,
+      'recorded' => !empty($records),
+    ];
+
+    foreach ($records as $record) {
+      if ($record->hasField('field_attendance_status') && !$record->get('field_attendance_status')->isEmpty()) {
+        $status = $record->get('field_attendance_status')->value;
+        if (isset($counts[$status])) {
+          $counts[$status]++;
+        }
+      }
+    }
+
+    return $counts;
+  }
+
+  /**
+   * Get recent attendance records for a Halaqa.
+   *
+   * @param int $halaqa_nid
+   *   The Halaqa node ID.
+   * @param int $limit
+   *   Number of unique dates to return.
+   *
+   * @return array
+   *   Array of attendance records grouped by date.
+   */
+  public function getRecentHalaqaAttendance(int $halaqa_nid, int $limit = 7): array {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    $query = $storage->getQuery()
+      ->condition('type', 'attendance_record')
+      ->condition('status', 1)
+      ->condition('field_attendance_halaqa', $halaqa_nid)
+      ->accessCheck(TRUE)
+      ->sort('field_attendance_date', 'DESC');
+
+    $nids = $query->execute();
+
+    if (empty($nids)) {
+      return [];
+    }
+
+    $records = $storage->loadMultiple($nids);
+    $grouped = [];
+
+    foreach ($records as $record) {
+      if ($record->hasField('field_attendance_date') && !$record->get('field_attendance_date')->isEmpty()) {
+        $date = $record->get('field_attendance_date')->value;
+
+        if (!isset($grouped[$date])) {
+          $grouped[$date] = [
+            'date' => $date,
+            'records' => [],
+            'present' => 0,
+            'absent' => 0,
+            'late' => 0,
+            'excused' => 0,
+          ];
+        }
+
+        $grouped[$date]['records'][] = $record;
+
+        if ($record->hasField('field_attendance_status') && !$record->get('field_attendance_status')->isEmpty()) {
+          $status = $record->get('field_attendance_status')->value;
+          if (isset($grouped[$date][$status])) {
+            $grouped[$date][$status]++;
+          }
+        }
+      }
+    }
+
+    // Return only the requested number of dates.
+    return array_slice($grouped, 0, $limit, TRUE);
+  }
+
+  /**
+   * Get recent attendance records for a student (for dashboard display).
+   *
+   * @param int $student_nid
+   *   The student node ID.
+   * @param int $limit
+   *   Number of records to return.
+   *
+   * @return \Drupal\node\NodeInterface[]
+   *   Array of attendance record nodes.
+   */
+  public function getRecentStudentAttendance(int $student_nid, int $limit = 5): array {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    $query = $storage->getQuery()
+      ->condition('type', 'attendance_record')
+      ->condition('status', 1)
+      ->condition('field_attendance_student', $student_nid)
+      ->accessCheck(TRUE)
+      ->sort('field_attendance_date', 'DESC')
+      ->range(0, $limit);
+
+    $nids = $query->execute();
+
+    if (empty($nids)) {
+      return [];
+    }
+
+    return $storage->loadMultiple($nids);
+  }
+
+  /**
+   * Translate method for service (since services don't extend ControllerBase).
+   *
+   * @param string $string
+   *   The string to translate.
+   * @param array $args
+   *   Replacement arguments.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+   *   The translated string.
+   */
+  protected function t($string, array $args = []) {
+    return new \Drupal\Core\StringTranslation\TranslatableMarkup($string, $args);
+  }
+
 }
 
