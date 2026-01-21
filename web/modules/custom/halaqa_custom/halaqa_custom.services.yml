@@ -2,3 +2,7 @@ services:
   halaqa_custom.student_service:
     class: Drupal\halaqa_custom\Service\HalaqaStudentService
     arguments: ['@entity_type.manager', '@current_user']
+
+  halaqa_custom.notification_service:
+    class: Drupal\halaqa_custom\Service\NotificationService
+    arguments: ['@entity_type.manager', '@current_user']

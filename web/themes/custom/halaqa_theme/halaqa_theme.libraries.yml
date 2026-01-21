@@ -14,6 +14,7 @@ global-styling:
       css/animations.css: {}
       css/charts.css: {}
       css/attendance.css: {}
+      css/notifications.css: {}
       css/rtl.css: {}
       css/dark-mode.css: { weight: 90 }
       css/mobile.css: { weight: 100 }
@@ -22,6 +23,7 @@ global-styling:
     js/mobile-menu.js: {}
     js/dark-mode.js: {}
     js/charts.js: {}
+    js/notifications.js: {}
   dependencies:
     - core/drupal
     - core/once
@@ -70,3 +72,14 @@ attendance:
       css/attendance.css: {}
   dependencies:
     - core/drupal
+
+notifications:
+  version: 1.0
+  css:
+    theme:
+      css/notifications.css: {}
+  js:
+    js/notifications.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings

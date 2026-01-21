@@ -1,0 +1,23 @@
+uuid: d6e7f8a9-b0c1-2d3e-4f5a-6b7c8d9e0f1a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_notification_type
+    - node.type.notification
+  module:
+    - options
+id: node.notification.field_notification_type
+field_name: field_notification_type
+entity_type: node
+bundle: notification
+label: 'Notification Type'
+description: 'The type of notification'
+required: true
+translatable: false
+default_value:
+  -
+    value: general
+default_value_callback: ''
+settings: {  }
+field_type: list_string

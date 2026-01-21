@@ -1506,3 +1506,105 @@ msgstr "حالة الحضور"
 
 msgid "Optional notes about the attendance"
 msgstr "ملاحظات اختيارية عن الحضور"
+
+# ==================== NOTIFICATIONS SYSTEM ====================
+
+# --- Page Titles ---
+msgid "Notifications"
+msgstr "الإشعارات"
+
+# --- Notification Bell ---
+msgid "Mark all read"
+msgstr "تعيين الكل كمقروء"
+
+msgid "View all notifications"
+msgstr "عرض جميع الإشعارات"
+
+msgid "No notifications"
+msgstr "لا توجد إشعارات"
+
+msgid "No notifications yet."
+msgstr "لا توجد إشعارات بعد."
+
+msgid "Error loading notifications"
+msgstr "خطأ في تحميل الإشعارات"
+
+# --- Notification Actions ---
+msgid "Mark as read"
+msgstr "تعيين كمقروء"
+
+msgid "Mark all as read"
+msgstr "تعيين الكل كمقروء"
+
+msgid "@count notifications marked as read."
+msgstr "تم تعيين @count إشعار كمقروء."
+
+# --- Notification Types ---
+msgid "Absence notification"
+msgstr "إشعار غياب"
+
+msgid "Late notification"
+msgstr "إشعار تأخر"
+
+msgid "New record notification"
+msgstr "إشعار سجل جديد"
+
+msgid "Excellent performance notification"
+msgstr "إشعار أداء ممتاز"
+
+msgid "Repeated absence notification"
+msgstr "إشعار غياب متكرر"
+
+msgid "General notification"
+msgstr "إشعار عام"
+
+# --- Notification Messages ---
+msgid "@student was marked absent on @date"
+msgstr "تم تسجيل @student غائباً بتاريخ @date"
+
+msgid "@student was marked late on @date"
+msgstr "تم تسجيل @student متأخراً بتاريخ @date"
+
+msgid "New memorization record for @student: @evaluation"
+msgstr "سجل حفظ جديد لـ @student: @evaluation"
+
+msgid "@student achieved excellent performance!"
+msgstr "@student حقق أداءً ممتازاً!"
+
+msgid "@student has been absent @count times recently. Please check on them."
+msgstr "@student تغيب @count مرات مؤخراً. يرجى الاطمئنان عليه."
+
+# --- Time Ago ---
+msgid "Just now"
+msgstr "الآن"
+
+msgid "@count min ago"
+msgstr "منذ @count دقيقة"
+
+msgid "@count hour ago"
+msgstr "منذ @count ساعة"
+
+msgid "@count day ago"
+msgstr "منذ @count يوم"
+
+# --- Content Type Description ---
+msgid "Notifications for users about various events"
+msgstr "إشعارات المستخدمين حول مختلف الأحداث"
+
+msgid "The user this notification belongs to"
+msgstr "المستخدم الذي ينتمي إليه هذا الإشعار"
+
+msgid "The type of notification"
+msgstr "نوع الإشعار"
+
+msgid "The notification message"
+msgstr "رسالة الإشعار"
+
+msgid "Link to related content"
+msgstr "رابط للمحتوى ذي الصلة"
+
+msgid "Whether this notification has been read"
+msgstr "هل تمت قراءة هذا الإشعار"
+
+msgid "The related content node"
+msgstr "عقدة المحتوى ذي الصلة"

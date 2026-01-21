@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\halaqa_custom\Service\HalaqaStudentService;
+use Drupal\halaqa_custom\Service\NotificationService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -28,14 +29,23 @@ class MemorizationRecordForm extends FormBase {
   protected HalaqaStudentService $halaqaStudentService;
 
   /**
+   * The notification service.
+   *
+   * @var \Drupal\halaqa_custom\Service\NotificationService
+   */
+  protected NotificationService $notificationService;
+
+  /**
    * Constructs a MemorizationRecordForm object.
    */
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
-    HalaqaStudentService $halaqa_student_service
+    HalaqaStudentService $halaqa_student_service,
+    NotificationService $notification_service
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->halaqaStudentService = $halaqa_student_service;
+    $this->notificationService = $notification_service;
   }
 
   /**
@@ -44,7 +54,8 @@ class MemorizationRecordForm extends FormBase {
   public static function create(ContainerInterface $container): static {
     return new static(
       $container->get('entity_type.manager'),
-      $container->get('halaqa_custom.student_service')
+      $container->get('halaqa_custom.student_service'),
+      $container->get('halaqa_custom.notification_service')
     );
   }
 
@@ -236,6 +247,11 @@ class MemorizationRecordForm extends FormBase {
     ]);
 
     $node->save();
+
+    // Send notification to parent about new memorization record.
+    $student_id = (int) $values['student'];
+    $evaluation = $values['evaluation'];
+    $this->notificationService->notifyParentOfNewRecord($student_id, $evaluation, (int) $node->id());
 
     $this->messenger()->addStatus($this->t('Memorization record saved successfully.'));
 

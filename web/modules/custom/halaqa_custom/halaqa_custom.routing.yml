@@ -141,3 +141,41 @@ halaqa_custom.student_attendance:
   requirements:
     _role: 'teacher+administrator+parent'
     student_nid: '\d+'
+
+# Notification routes
+halaqa_custom.notifications:
+  path: '/notifications'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\NotificationController::notificationsPage'
+    _title: 'Notifications'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+halaqa_custom.notifications_ajax:
+  path: '/api/notifications'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\NotificationController::getNotificationsAjax'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+halaqa_custom.notifications_unread_count:
+  path: '/api/notifications/unread-count'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\NotificationController::getUnreadCountAjax'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+
+halaqa_custom.notification_mark_read:
+  path: '/notifications/{nid}/mark-read'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\NotificationController::markAsRead'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+    nid: '\d+'
+
+halaqa_custom.notifications_mark_all_read:
+  path: '/notifications/mark-all-read'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\NotificationController::markAllAsRead'
+  requirements:
+    _user_is_logged_in: 'TRUE'

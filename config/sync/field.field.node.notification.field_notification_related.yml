@@ -1,0 +1,27 @@
+uuid: b0c1d2e3-f4a5-6b7c-8d9e-0f1a2b3c4d5e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_notification_related
+    - node.type.notification
+id: node.notification.field_notification_related
+field_name: field_notification_related
+entity_type: node
+bundle: notification
+label: 'Related Content'
+description: 'The related content node'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

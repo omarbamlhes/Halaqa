@@ -1,0 +1,17 @@
+uuid: b8c9d0e1-f2a3-4b5c-6d7e-8f9a0b1c2d3e
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Notification
+type: notification
+description: 'System notifications for users'
+help: null
+new_revision: false
+preview_mode: 0
+display_submitted: false

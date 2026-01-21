@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\halaqa_custom\Service\HalaqaStudentService;
+use Drupal\halaqa_custom\Service\NotificationService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -28,14 +29,23 @@ class AttendanceForm extends FormBase {
   protected HalaqaStudentService $halaqaStudentService;
 
   /**
+   * The notification service.
+   *
+   * @var \Drupal\halaqa_custom\Service\NotificationService
+   */
+  protected NotificationService $notificationService;
+
+  /**
    * Constructs an AttendanceForm object.
    */
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
-    HalaqaStudentService $halaqa_student_service
+    HalaqaStudentService $halaqa_student_service,
+    NotificationService $notification_service
   ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->halaqaStudentService = $halaqa_student_service;
+    $this->notificationService = $notification_service;
   }
 
   /**
@@ -44,7 +54,8 @@ class AttendanceForm extends FormBase {
   public static function create(ContainerInterface $container): static {
     return new static(
       $container->get('entity_type.manager'),
-      $container->get('halaqa_custom.student_service')
+      $container->get('halaqa_custom.student_service'),
+      $container->get('halaqa_custom.notification_service')
     );
   }
 
@@ -258,6 +269,20 @@ class AttendanceForm extends FormBase {
 
       if ($result) {
         $saved_count++;
+
+        // Send notifications based on attendance status.
+        $student_id_int = (int) $student_id;
+
+        if ($status === 'absent') {
+          // Notify parent of absence.
+          $this->notificationService->notifyParentOfAbsence($student_id_int, $date);
+          // Check for repeated absence.
+          $this->notificationService->checkAndNotifyRepeatedAbsence($student_id_int);
+        }
+        elseif ($status === 'late') {
+          // Notify parent of late arrival.
+          $this->notificationService->notifyParentOfLate($student_id_int, $date);
+        }
       }
     }
 

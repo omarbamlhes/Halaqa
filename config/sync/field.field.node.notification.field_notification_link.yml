@@ -1,0 +1,23 @@
+uuid: f8a9b0c1-d2e3-4f5a-6b7c-8d9e0f1a2b3c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_notification_link
+    - node.type.notification
+  module:
+    - link
+id: node.notification.field_notification_link
+field_name: field_notification_link
+entity_type: node
+bundle: notification
+label: Link
+description: 'Link to related content'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

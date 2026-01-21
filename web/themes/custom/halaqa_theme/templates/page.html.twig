@@ -73,12 +73,30 @@
         {% if logged_in %}
           <div class="secondary-navigation">
             {# Notifications #}
-            <div class="notification-bell" aria-label="{{ 'Notifications'|t }}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
-                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
-              </svg>
-              <span class="notification-badge">3</span>
+            <div class="notification-bell-wrapper">
+              <div class="notification-bell" aria-label="{{ 'Notifications'|t }}" data-notification-toggle>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                  <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                </svg>
+                <span class="notification-badge hidden" data-notification-count>0</span>
+              </div>
+
+              {# Notification Dropdown #}
+              <div class="notification-dropdown" data-notification-dropdown>
+                <div class="notification-dropdown-header">
+                  <span class="notification-dropdown-title">{{ 'Notifications'|t }}</span>
+                  <a href="/notifications/mark-all-read" class="notification-dropdown-link" data-mark-all-read>{{ 'Mark all read'|t }}</a>
+                </div>
+                <div class="notification-dropdown-content" data-notification-list>
+                  <div class="notification-dropdown-empty">
+                    {{ 'Loading...'|t }}
+                  </div>
+                </div>
+                <div class="notification-dropdown-footer">
+                  <a href="/notifications">{{ 'View all notifications'|t }}</a>
+                </div>
+              </div>
             </div>
             
             {# User Avatar & Dropdown #}
