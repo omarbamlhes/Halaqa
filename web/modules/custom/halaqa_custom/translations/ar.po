@@ -1367,3 +1367,142 @@ msgstr "نشط"
 
 msgid "Blocked"
 msgstr "محظور"
+
+# ==================== ATTENDANCE SYSTEM ====================
+
+# --- Page Titles ---
+msgid "Record Attendance"
+msgstr "تسجيل الحضور"
+
+msgid "Attendance Records"
+msgstr "سجلات الحضور"
+
+msgid "Attendance - @halaqa"
+msgstr "الحضور - @halaqa"
+
+msgid "Attendance - @name"
+msgstr "الحضور - @name"
+
+msgid "Student Attendance"
+msgstr "حضور الطالب"
+
+msgid "Attendance Record"
+msgstr "سجل الحضور"
+
+# --- Attendance Status ---
+msgid "Present"
+msgstr "حاضر"
+
+msgid "Absent"
+msgstr "غائب"
+
+msgid "Late"
+msgstr "متأخر"
+
+msgid "Excused"
+msgstr "مستأذن"
+
+msgid "present"
+msgstr "حاضر"
+
+msgid "absent"
+msgstr "غائب"
+
+msgid "late"
+msgstr "متأخر"
+
+msgid "excused"
+msgstr "مستأذن"
+
+# --- Attendance Form ---
+msgid "Save Attendance"
+msgstr "حفظ الحضور"
+
+msgid "Notes (optional)"
+msgstr "ملاحظات (اختياري)"
+
+msgid "Status"
+msgstr "الحالة"
+
+msgid "Attendance recorded for @count students."
+msgstr "تم تسجيل الحضور لـ @count طالب."
+
+msgid "No students found to record attendance."
+msgstr "لا يوجد طلاب لتسجيل حضورهم."
+
+msgid "Attendance - @student - @date"
+msgstr "الحضور - @student - @date"
+
+# --- Attendance Dashboard ---
+msgid "Today's Attendance"
+msgstr "حضور اليوم"
+
+msgid "Not recorded yet"
+msgstr "لم يُسجل بعد"
+
+msgid "@present present, @absent absent"
+msgstr "@present حاضر، @absent غائب"
+
+msgid "Record"
+msgstr "تسجيل"
+
+msgid "Attendance"
+msgstr "الحضور"
+
+msgid "@rate% attendance"
+msgstr "@rate% حضور"
+
+msgid "📅 Attendance"
+msgstr "📅 الحضور"
+
+# --- Attendance Statistics ---
+msgid "Attendance Rate"
+msgstr "نسبة الحضور"
+
+msgid "Total Sessions"
+msgstr "إجمالي الجلسات"
+
+msgid "Recent Sessions"
+msgstr "آخر الجلسات"
+
+msgid "Status Breakdown"
+msgstr "تفصيل الحالات"
+
+msgid "Attendance History"
+msgstr "سجل الحضور"
+
+# --- Attendance Records Page ---
+msgid "No attendance records yet."
+msgstr "لا توجد سجلات حضور بعد."
+
+msgid "No attendance records yet. Click \"Record Attendance\" to start."
+msgstr "لا توجد سجلات حضور بعد. اضغط \"تسجيل الحضور\" للبدء."
+
+msgid "Attendance Records - @halaqa"
+msgstr "سجلات الحضور - @halaqa"
+
+msgid "Recent Attendance"
+msgstr "آخر سجلات الحضور"
+
+# --- Student Attendance Page ---
+msgid "Halaqa: @name"
+msgstr "الحلقة: @name"
+
+# --- Content Type Description ---
+msgid "Records student attendance for Halaqa sessions"
+msgstr "تسجيل حضور الطلاب لجلسات الحلقة"
+
+msgid "The student this attendance record belongs to"
+msgstr "الطالب الذي ينتمي إليه سجل الحضور"
+
+msgid "The Halaqa this attendance record belongs to"
+msgstr "الحلقة التي ينتمي إليها سجل الحضور"
+
+msgid "The date of the attendance record"
+msgstr "تاريخ سجل الحضور"
+
+msgid "The attendance status"
+msgstr "حالة الحضور"
+
+msgid "Optional notes about the attendance"
+msgstr "ملاحظات اختيارية عن الحضور"
