@@ -1,0 +1,146 @@
+<div class="student-report-page">
+  <div class="report-header">
+    <h1>{{ 'تقرير الطالب الشهري'|t }}</h1>
+    <p class="report-period">{{ data.period.month_name }} {{ data.period.year }}</p>
+  </div>
+
+  <div class="report-actions">
+    <a href="{{ path('halaqa_reports.student_report_download', {'student_nid': data.student.nid, 'month': data.period.month, 'year': data.period.year}) }}" class="btn btn-primary">
+      <span class="icon">📥</span> {{ 'تحميل PDF'|t }}
+    </a>
+    <a href="{{ path('halaqa_custom.student_progress', {'student_nid': data.student.nid}) }}" class="btn btn-secondary">
+      {{ 'عرض التقدم الكامل'|t }}
+    </a>
+  </div>
+
+  <div class="report-section student-info">
+    <h2>{{ 'معلومات الطالب'|t }}</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="label">{{ 'اسم الطالب'|t }}:</span>
+        <span class="value">{{ data.student.name }}</span>
+      </div>
+      {% if data.halaqa %}
+        <div class="info-item">
+          <span class="label">{{ 'الحلقة'|t }}:</span>
+          <span class="value">{{ data.halaqa.name }}</span>
+        </div>
+      {% endif %}
+      {% if data.teacher %}
+        <div class="info-item">
+          <span class="label">{{ 'المعلم'|t }}:</span>
+          <span class="value">{{ data.teacher.name }}</span>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="report-section attendance-section">
+    <h2>{{ 'الحضور والغياب'|t }}</h2>
+
+    <div class="attendance-rate">
+      <div class="rate-circle">
+        <span class="rate-number">{{ data.attendance.rate }}%</span>
+        <span class="rate-label">{{ 'نسبة الحضور'|t }}</span>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-number">{{ data.attendance.stats.total }}</span>
+        <span class="stat-label">{{ 'إجمالي الحصص'|t }}</span>
+      </div>
+      <div class="stat-card present">
+        <span class="stat-number">{{ data.attendance.stats.present }}</span>
+        <span class="stat-label">{{ 'حاضر'|t }}</span>
+      </div>
+      <div class="stat-card absent">
+        <span class="stat-number">{{ data.attendance.stats.absent }}</span>
+        <span class="stat-label">{{ 'غائب'|t }}</span>
+      </div>
+      <div class="stat-card late">
+        <span class="stat-number">{{ data.attendance.stats.late }}</span>
+        <span class="stat-label">{{ 'متأخر'|t }}</span>
+      </div>
+      <div class="stat-card excused">
+        <span class="stat-number">{{ data.attendance.stats.excused }}</span>
+        <span class="stat-label">{{ 'معذور'|t }}</span>
+      </div>
+    </div>
+
+    {% if data.attendance.records %}
+      <table class="records-table">
+        <thead>
+          <tr>
+            <th>{{ 'التاريخ'|t }}</th>
+            <th>{{ 'الحالة'|t }}</th>
+            <th>{{ 'ملاحظات'|t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in data.attendance.records %}
+            <tr>
+              <td>{{ record.date }}</td>
+              <td class="status-{{ record.status }}">{{ pdf_generator.getStatusLabel(record.status) }}</td>
+              <td>{{ record.notes ?: '-' }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  </div>
+
+  <div class="report-section memorization-section">
+    <h2>{{ 'الحفظ والمراجعة'|t }}</h2>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-number">{{ data.memorization.stats.total_records }}</span>
+        <span class="stat-label">{{ 'عدد الحصص'|t }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">{{ data.memorization.stats.total_ayahs }}</span>
+        <span class="stat-label">{{ 'الآيات المحفوظة'|t }}</span>
+      </div>
+      <div class="stat-card excellent">
+        <span class="stat-number">{{ data.memorization.stats.excellent }}</span>
+        <span class="stat-label">{{ 'ممتاز'|t }}</span>
+      </div>
+      <div class="stat-card very-good">
+        <span class="stat-number">{{ data.memorization.stats.very_good }}</span>
+        <span class="stat-label">{{ 'جيد جداً'|t }}</span>
+      </div>
+      <div class="stat-card good">
+        <span class="stat-number">{{ data.memorization.stats.good }}</span>
+        <span class="stat-label">{{ 'جيد'|t }}</span>
+      </div>
+    </div>
+
+    {% if data.memorization.records %}
+      <table class="records-table">
+        <thead>
+          <tr>
+            <th>{{ 'التاريخ'|t }}</th>
+            <th>{{ 'من'|t }}</th>
+            <th>{{ 'إلى'|t }}</th>
+            <th>{{ 'التقييم'|t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in data.memorization.records %}
+            <tr>
+              <td>{{ record.date }}</td>
+              <td>{{ record.from_surah }} - {{ 'آية'|t }} {{ record.from_ayah }}</td>
+              <td>{{ record.to_surah }} - {{ 'آية'|t }} {{ record.to_ayah }}</td>
+              <td class="eval-{{ record.evaluation }}">{{ pdf_generator.getEvaluationLabel(record.evaluation) }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  </div>
+
+  <div class="report-footer">
+    <p>{{ 'تم إنشاء هذا التقرير بتاريخ'|t }}: {{ data.generated_date }}</p>
+  </div>
+</div>

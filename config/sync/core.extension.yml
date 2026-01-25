@@ -27,6 +27,7 @@ module:
   file: 0
   filter: 0
   halaqa_custom: 0
+  halaqa_reports: 0
   help: 0
   history: 0
   image: 0
@@ -67,4 +68,5 @@ module:
 theme:
   olivero: 0
   claro: 0
+  halaqa_theme: 0
 profile: standard

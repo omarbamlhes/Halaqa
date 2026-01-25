@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Halaqa Reports module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function halaqa_reports_theme($existing, $type, $theme, $path) {
+  return [
+    'halaqa_student_report' => [
+      'variables' => [
+        'data' => NULL,
+        'pdf_generator' => NULL,
+      ],
+      'template' => 'halaqa-student-report',
+    ],
+    'halaqa_report' => [
+      'variables' => [
+        'halaqa' => NULL,
+        'students_data' => [],
+        'month' => NULL,
+        'year' => NULL,
+        'month_name' => NULL,
+        'pdf_generator' => NULL,
+      ],
+      'template' => 'halaqa-report',
+    ],
+  ];
+}

@@ -1,0 +1,7 @@
+name: 'Halaqa Reports'
+type: module
+description: 'PDF reports generation for Halaqa students - attendance and memorization reports'
+core_version_requirement: ^10
+package: Halaqa
+dependencies:
+  - halaqa_custom:halaqa_custom

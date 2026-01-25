@@ -1,0 +1,22 @@
+uuid: 0b054404-f148-4fcb-8ea6-da26de58e15a
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - halaqa_theme
+_core:
+  default_config_hash: VhBzWb7lMRtIOg9G7VSw_0uopi-7zXeHq4vXqqV1HFE
+id: halaqa_theme_breadcrumbs
+theme: halaqa_theme
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: 'مسار التنقّل'
+  label_display: '0'
+  provider: system
+visibility: {  }

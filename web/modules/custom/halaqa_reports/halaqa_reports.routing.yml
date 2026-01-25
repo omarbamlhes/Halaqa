@@ -1,0 +1,35 @@
+halaqa_reports.student_report:
+  path: '/student/{student_nid}/report'
+  defaults:
+    _controller: '\Drupal\halaqa_reports\Controller\ReportController::studentReport'
+    _title: 'Student Report'
+  requirements:
+    _permission: 'access content'
+    student_nid: \d+
+
+halaqa_reports.student_report_download:
+  path: '/student/{student_nid}/report/download'
+  defaults:
+    _controller: '\Drupal\halaqa_reports\Controller\ReportController::downloadStudentReport'
+    _title: 'Download Student Report'
+  requirements:
+    _permission: 'access content'
+    student_nid: \d+
+
+halaqa_reports.halaqa_report:
+  path: '/halaqa/{halaqa_nid}/report'
+  defaults:
+    _controller: '\Drupal\halaqa_reports\Controller\ReportController::halaqaReport'
+    _title: 'Halaqa Report'
+  requirements:
+    _permission: 'access content'
+    halaqa_nid: \d+
+
+halaqa_reports.halaqa_report_download:
+  path: '/halaqa/{halaqa_nid}/report/download'
+  defaults:
+    _controller: '\Drupal\halaqa_reports\Controller\ReportController::downloadHalaqaReport'
+    _title: 'Download Halaqa Report'
+  requirements:
+    _permission: 'access content'
+    halaqa_nid: \d+

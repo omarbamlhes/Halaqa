@@ -1,0 +1,22 @@
+uuid: cdcef358-27d4-47cf-8318-292d927543f3
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - halaqa_theme
+_core:
+  default_config_hash: eYL19CLDyinGTWYQfBD1DswWzglEotE_kHnHx3AxTXM
+id: halaqa_theme_powered
+theme: halaqa_theme
+region: header
+weight: 0
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'يستخدم دروبال'
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -1,0 +1,64 @@
+<div class="halaqa-report-page">
+  <div class="report-header">
+    <h1>{{ 'تقرير الحلقة الشهري'|t }}</h1>
+    <p class="report-period">{{ halaqa.label }} - {{ month_name }} {{ year }}</p>
+  </div>
+
+  <div class="report-actions">
+    <a href="{{ path('halaqa_reports.halaqa_report_download', {'halaqa_nid': halaqa.id, 'month': month, 'year': year}) }}" class="btn btn-primary">
+      <span class="icon">📥</span> {{ 'تحميل PDF'|t }}
+    </a>
+    <a href="{{ path('halaqa_custom.halaqa_students', {'nid': halaqa.id}) }}" class="btn btn-secondary">
+      {{ 'عرض الطلاب'|t }}
+    </a>
+  </div>
+
+  <div class="report-section">
+    <h2>{{ 'ملخص أداء الطلاب'|t }}</h2>
+
+    {% if students_data %}
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>{{ 'اسم الطالب'|t }}</th>
+            <th>{{ 'نسبة الحضور'|t }}</th>
+            <th>{{ 'الحصص'|t }}</th>
+            <th>{{ 'الآيات'|t }}</th>
+            <th>{{ 'ممتاز'|t }}</th>
+            <th>{{ 'جيد جداً'|t }}</th>
+            <th>{{ 'جيد'|t }}</th>
+            <th>{{ 'تقرير'|t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students_data %}
+            <tr>
+              <td>{{ student.student.name }}</td>
+              <td>
+                <span class="{% if student.attendance.rate >= 80 %}status-present{% elseif student.attendance.rate >= 60 %}status-late{% else %}status-absent{% endif %}">
+                  {{ student.attendance.rate }}%
+                </span>
+              </td>
+              <td>{{ student.attendance.stats.total }}</td>
+              <td>{{ student.memorization.stats.total_ayahs }}</td>
+              <td class="eval-excellent">{{ student.memorization.stats.excellent }}</td>
+              <td class="eval-very_good">{{ student.memorization.stats.very_good }}</td>
+              <td class="eval-good">{{ student.memorization.stats.good }}</td>
+              <td>
+                <a href="{{ path('halaqa_reports.student_report', {'student_nid': student.student.nid, 'month': month, 'year': year}) }}" class="btn btn-small">
+                  {{ 'عرض'|t }}
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="empty-message">{{ 'لا يوجد طلاب في هذه الحلقة'|t }}</p>
+    {% endif %}
+  </div>
+
+  <div class="report-footer">
+    <p>{{ 'تم إنشاء هذا التقرير بتاريخ'|t }}: {{ "now"|date("Y-m-d H:i") }}</p>
+  </div>
+</div>

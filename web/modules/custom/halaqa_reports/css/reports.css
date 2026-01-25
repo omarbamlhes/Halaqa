@@ -1,0 +1,329 @@
+/* Student Report Page Styles */
+.student-report-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  direction: rtl;
+}
+
+.report-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid var(--primary-color, #2e7d32);
+}
+
+.report-header h1 {
+  color: var(--primary-color, #2e7d32);
+  font-size: 2rem;
+  margin: 0 0 10px 0;
+}
+
+.report-period {
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.report-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.report-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.report-actions .btn-primary {
+  background: var(--primary-color, #2e7d32);
+  color: white;
+}
+
+.report-actions .btn-primary:hover {
+  background: #1b5e20;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+}
+
+.report-actions .btn-secondary {
+  background: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.report-actions .btn-secondary:hover {
+  background: #e0e0e0;
+}
+
+.report-section {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.report-section h2 {
+  color: var(--primary-color, #2e7d32);
+  font-size: 1.4rem;
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e8f5e9;
+}
+
+/* Info Grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.info-item {
+  padding: 12px 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.info-item .label {
+  font-weight: 600;
+  color: #666;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.info-item .value {
+  color: #333;
+  font-size: 1.1rem;
+}
+
+/* Attendance Rate Circle */
+.attendance-rate {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.rate-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid var(--primary-color, #2e7d32);
+}
+
+.rate-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color, #2e7d32);
+}
+
+.rate-label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 20px 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+}
+
+.stat-card .stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.stat-card .stat-label {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.stat-card.present .stat-number { color: #2e7d32; }
+.stat-card.absent .stat-number { color: #c62828; }
+.stat-card.late .stat-number { color: #f57c00; }
+.stat-card.excused .stat-number { color: #1976d2; }
+.stat-card.excellent .stat-number { color: #2e7d32; }
+.stat-card.very-good .stat-number { color: #43a047; }
+.stat-card.good .stat-number { color: #1976d2; }
+
+/* Records Table */
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.records-table th {
+  background: #f5f5f5;
+  padding: 12px 15px;
+  text-align: right;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+}
+
+.records-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.records-table tr:hover {
+  background: #fafafa;
+}
+
+/* Status Colors */
+.status-present { color: #2e7d32; font-weight: 600; }
+.status-absent { color: #c62828; font-weight: 600; }
+.status-late { color: #f57c00; font-weight: 600; }
+.status-excused { color: #1976d2; font-weight: 600; }
+
+/* Evaluation Colors */
+.eval-excellent { color: #2e7d32; font-weight: 600; }
+.eval-very_good { color: #43a047; font-weight: 600; }
+.eval-good { color: #1976d2; font-weight: 600; }
+.eval-acceptable { color: #f57c00; font-weight: 600; }
+.eval-needs_improvement { color: #c62828; font-weight: 600; }
+
+/* Report Footer */
+.report-footer {
+  text-align: center;
+  padding-top: 20px;
+  margin-top: 30px;
+  border-top: 1px solid #eee;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+/* Halaqa Report Styles */
+.halaqa-report-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  direction: rtl;
+}
+
+.halaqa-report-page .report-header h1 {
+  color: #1565c0;
+}
+
+.halaqa-report-page .report-header {
+  border-bottom-color: #1565c0;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.summary-table th {
+  background: #1565c0;
+  color: white;
+  padding: 12px 15px;
+  text-align: right;
+}
+
+.summary-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.summary-table tr:nth-child(even) {
+  background: #f5f5f5;
+}
+
+.summary-table tr:hover {
+  background: #e3f2fd;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .student-report-page,
+  .halaqa-report-page {
+    padding: 15px;
+  }
+
+  .report-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .report-actions {
+    flex-direction: column;
+  }
+
+  .report-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rate-circle {
+    width: 120px;
+    height: 120px;
+  }
+
+  .rate-number {
+    font-size: 2rem;
+  }
+
+  .records-table {
+    font-size: 0.9rem;
+  }
+
+  .records-table th,
+  .records-table td {
+    padding: 8px 10px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .report-actions {
+    display: none;
+  }
+
+  .student-report-page,
+  .halaqa-report-page {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .report-section {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    page-break-inside: avoid;
+  }
+}

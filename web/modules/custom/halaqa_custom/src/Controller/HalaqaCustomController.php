@@ -156,6 +156,15 @@ class HalaqaCustomController extends ControllerBase {
             'separator2' => [
               '#markup' => ' | ',
             ],
+            'report' => [
+              '#type' => 'link',
+              '#title' => $this->t('📄 Report'),
+              '#url' => Url::fromRoute('halaqa_reports.student_report', ['student_nid' => $student->id()]),
+              '#attributes' => ['class' => ['student-link']],
+            ],
+            'separator3' => [
+              '#markup' => ' | ',
+            ],
             'view' => [
               '#type' => 'link',
               '#title' => $this->t('View'),
@@ -408,6 +417,15 @@ class HalaqaCustomController extends ControllerBase {
             'separator2' => [
               '#markup' => ' | ',
             ],
+            'report' => [
+              '#type' => 'link',
+              '#title' => $this->t('📄 Report'),
+              '#url' => Url::fromRoute('halaqa_reports.halaqa_report', ['halaqa_nid' => $halaqa->id()]),
+              '#attributes' => ['class' => ['halaqa-link', 'halaqa-report-btn']],
+            ],
+            'separator3' => [
+              '#markup' => ' | ',
+            ],
             'record_attendance' => [
               '#type' => 'link',
               '#title' => $this->t('Record'),
@@ -474,6 +492,8 @@ class HalaqaCustomController extends ControllerBase {
           .halaqa-link { color: #2196F3; }
           .halaqa-record-btn { background: #4CAF50; color: #fff; padding: 4px 10px; border-radius: 4px; text-decoration: none; }
           .halaqa-record-btn:hover { background: #388E3C; color: #fff; }
+          .halaqa-report-btn { background: #7b1fa2; color: #fff; padding: 4px 10px; border-radius: 4px; text-decoration: none; }
+          .halaqa-report-btn:hover { background: #6a1b9a; color: #fff; }
           .dashboard-records h3 { margin-bottom: 15px; }
           .dashboard-attendance-today { margin-bottom: 30px; background: #e8f5e9; padding: 20px; border-radius: 8px; }
           .dashboard-attendance-today h3 { margin-top: 0; margin-bottom: 15px; color: #2e7d32; }
@@ -892,6 +912,12 @@ class HalaqaCustomController extends ControllerBase {
               '#url' => Url::fromRoute('halaqa_custom.student_attendance', ['student_nid' => $child->id()]),
               '#attributes' => ['class' => ['button', 'button--secondary', 'child-attendance-btn']],
             ],
+            'report' => [
+              '#type' => 'link',
+              '#title' => $this->t('📄 Monthly Report'),
+              '#url' => Url::fromRoute('halaqa_reports.student_report', ['student_nid' => $child->id()]),
+              '#attributes' => ['class' => ['button', 'button--secondary', 'child-report-btn']],
+            ],
           ],
         ];
 
@@ -954,6 +980,8 @@ class HalaqaCustomController extends ControllerBase {
           .child-actions { margin-bottom: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
           .child-attendance-btn { background: #1976d2; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; display: inline-block; }
           .child-attendance-btn:hover { background: #1565c0; color: #fff; }
+          .child-report-btn { background: #7b1fa2; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; display: inline-block; }
+          .child-report-btn:hover { background: #6a1b9a; color: #fff; }
           .child-recent { border-top: 1px solid #eee; padding-top: 15px; }
           .recent-title { font-weight: 500; margin-bottom: 10px; color: #666; }
           .recent-record { padding: 5px 0; color: #555; font-size: 0.9em; }

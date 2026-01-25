@@ -1,0 +1,22 @@
+uuid: 517ffbcb-4ccc-49c3-99d9-29da0f59f303
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - halaqa_theme
+_core:
+  default_config_hash: erQSEZF2XUjNmgTl0uNRBzmg18ZGXwUcw2FhApoeuHk
+id: halaqa_theme_content
+theme: halaqa_theme
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'محتوى الصفحة الرئيسية'
+  label_display: '0'
+  provider: system
+visibility: {  }

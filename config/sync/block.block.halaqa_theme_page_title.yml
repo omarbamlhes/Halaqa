@@ -1,0 +1,20 @@
+uuid: 31a4332a-3d48-4758-8619-c7a38e9a6964
+langcode: en
+status: true
+dependencies:
+  theme:
+    - halaqa_theme
+_core:
+  default_config_hash: 6aOgWsNTXjqrDm98TXSAjP6qd2nCijD1xw45MrnbK-Y
+id: halaqa_theme_page_title
+theme: halaqa_theme
+region: header
+weight: -5
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'عنوان الصفحة'
+  label_display: '0'
+  provider: core
+visibility: {  }

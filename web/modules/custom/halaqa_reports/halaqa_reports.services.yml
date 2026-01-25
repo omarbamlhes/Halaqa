@@ -1,0 +1,4 @@
+services:
+  halaqa_reports.pdf_generator:
+    class: Drupal\halaqa_reports\Service\PdfGeneratorService
+    arguments: ['@entity_type.manager', '@date.formatter', '@renderer']

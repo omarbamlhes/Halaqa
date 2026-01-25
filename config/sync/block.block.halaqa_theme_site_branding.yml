@@ -1,0 +1,25 @@
+uuid: a87f4ce7-f483-49ac-9ca8-017fc66f7df5
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - halaqa_theme
+_core:
+  default_config_hash: n_nlgjggHVfQt2H__zvLOKB2YtjPDbQ5tHijF9LE1aM
+id: halaqa_theme_site_branding
+theme: halaqa_theme
+region: header
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'العلامة التجارية للموقع'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

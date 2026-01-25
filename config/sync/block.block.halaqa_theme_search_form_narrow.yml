@@ -1,0 +1,23 @@
+uuid: 76dd9e9e-e1c1-4cdb-8441-0c0a5a0d038c
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - halaqa_theme
+_core:
+  default_config_hash: yEBET0cqDbk8dkWzaJw-8CKft0961VBflsISoSR6Lj8
+id: halaqa_theme_search_form_narrow
+theme: halaqa_theme
+region: primary_menu
+weight: -4
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'نموذج البحث (ضيق)'
+  label_display: '0'
+  provider: search
+  page_id: ''
+visibility: {  }
