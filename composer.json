@@ -30,6 +30,7 @@
         "drupal/paragraphs": "^1.19",
         "drupal/pathauto": "^1.14",
         "drupal/smtp": "^1.4",
+        "drupal/social_auth_google": "^3.0",
         "drupal/svg_image": "^3.2",
         "drupal/svg_image_field": "^2.3",
         "drupal/twig_tweak": "^3.4",

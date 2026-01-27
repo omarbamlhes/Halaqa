@@ -1,0 +1,25 @@
+uuid: 2977bb0b-c04d-4a82-9e8f-9bdae21b1da8
+langcode: en
+status: true
+dependencies:
+  module:
+    - social_auth
+    - system
+  theme:
+    - halaqa_theme
+id: halaqa_theme_socialauthlogin
+theme: halaqa_theme
+region: content
+weight: -7
+provider: null
+plugin: social_auth_login
+settings:
+  id: social_auth_login
+  label: 'Social Auth Login'
+  label_display: '0'
+  provider: social_auth
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /user/login
