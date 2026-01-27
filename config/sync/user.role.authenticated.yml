@@ -12,6 +12,7 @@ dependencies:
     - filter
     - search
     - shortcut
+    - social_api
     - system
 _core:
   default_config_hash: cFrlqjtkTfvY3RGccjJkPf1SGIfJ942IrxTLWAO4mgA
@@ -24,6 +25,10 @@ permissions:
   - 'access content'
   - 'access shortcuts'
   - 'access site-wide contact form'
+  - 'administer social api authentication'
+  - 'administer social api autoposting'
+  - 'administer social api blocks'
+  - 'administer social api widgets'
   - 'delete own files'
   - 'post comments'
   - 'search content'

@@ -10,7 +10,7 @@ dependencies:
 id: halaqa_theme_socialauthlogin
 theme: halaqa_theme
 region: content
-weight: -7
+weight: -6
 provider: null
 plugin: social_auth_login
 settings:

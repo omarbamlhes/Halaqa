@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Custom template for social auth login buttons.
+ * Overrides social_auth/templates/login-with.html.twig
+ */
+#}
+
+{{ attach_library('social_auth/auth-icons') }}
+
+<div class="social-auth-wrapper">
+  <div class="social-auth-divider">
+    <span>{{ 'Or sign in with'|t }}</span>
+  </div>
+
+  <div class="social-auth-buttons">
+    {% for social_network in social_networks %}
+      {% if destination %}
+        <a class="social-auth-btn social-auth-btn--{{ social_network.name|lower }}" href="{{ path(social_network.route) }}?destination={{ destination | url_encode }}">
+      {% else %}
+        <a class="social-auth-btn social-auth-btn--{{ social_network.name|lower }}" href="{{ path(social_network.route) }}">
+      {% endif %}
+        <span class="social-auth-btn__icon">
+          <img src="{{ base_path }}{{ social_network.img_path }}"
+               alt="{{ social_network.name }}">
+        </span>
+        <span class="social-auth-btn__text">
+          {{ 'Continue with @social_network' | t({'@social_network': social_network.name}) }}
+        </span>
+      </a>
+    {% endfor %}
+  </div>
+</div>

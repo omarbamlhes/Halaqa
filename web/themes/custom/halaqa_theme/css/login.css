@@ -422,6 +422,129 @@
 }
 
 /* ============================================
+   Social Auth Buttons
+   ============================================ */
+.social-auth-wrapper {
+  margin-top: 25px;
+}
+
+.social-auth-divider {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.social-auth-divider::before,
+.social-auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.social-auth-divider span {
+  padding: 0 16px;
+  color: #9ca3af;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.social-auth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.social-auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.social-auth-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
+  text-decoration: none;
+}
+
+.social-auth-btn:active {
+  transform: translateY(0);
+}
+
+.social-auth-btn__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.social-auth-btn__icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.social-auth-btn__text {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Google specific styling */
+.social-auth-btn--google {
+  background: #ffffff;
+  border-color: #e5e7eb;
+  color: #374151;
+}
+
+.social-auth-btn--google:hover {
+  background: #f8fafc;
+  border-color: #4285f4;
+  box-shadow: 0 6px 20px rgba(66, 133, 244, 0.15);
+}
+
+/* Dark Mode - Social Auth */
+[data-theme="dark"] .social-auth-divider::before,
+[data-theme="dark"] .social-auth-divider::after {
+  background: #334155;
+}
+
+[data-theme="dark"] .social-auth-divider span {
+  color: #64748b;
+}
+
+[data-theme="dark"] .social-auth-btn {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .social-auth-btn:hover {
+  background: #334155;
+  border-color: #475569;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .social-auth-btn--google:hover {
+  border-color: #4285f4;
+  box-shadow: 0 6px 20px rgba(66, 133, 244, 0.2);
+}
+
+/* ============================================
    Form Footer
    ============================================ */
 .form-footer {

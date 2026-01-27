@@ -1608,3 +1608,9 @@ msgstr "هل تمت قراءة هذا الإشعار"
 
 msgid "The related content node"
 msgstr "عقدة المحتوى ذي الصلة"
+
+msgid "Or sign in with"
+msgstr "أو سجل الدخول باستخدام"
+
+msgid "Continue with @social_network"
+msgstr "باستخدام @social_network"
