@@ -53,6 +53,12 @@
       {# Main Navigation #}
       <nav class="main-navigation" role="navigation" aria-label="{{ 'Main navigation'|t }}">
         <ul class="menu">
+          <li class="menu-item menu-item--active">
+            <a href="{{ path('<front>') }}" class="is-active">{{ 'Home'|t }}</a>
+          </li>
+          <li class="menu-item">
+            <a href="/about">{{ 'About Us'|t }}</a>
+          </li>
           <li class="menu-item"><a href="#features">{{ 'Features'|t }}</a></li>
           <li class="menu-item"><a href="#how-it-works">{{ 'How it Works'|t }}</a></li>
           <li class="menu-item"><a href="#testimonials">{{ 'Testimonials'|t }}</a></li>
@@ -63,13 +69,13 @@
       <div class="header-right">
         {# Language Switcher #}
         <div class="language-switcher">
-          {% if language.id == 'ar' %}
-            <a href="/en" class="lang-toggle" aria-label="Switch to English">
+          {% if current_language_id == 'ar' or language.id == 'ar' %}
+            <a href="/en{{ current_path|default('/welcome') }}" class="lang-toggle" aria-label="Switch to English">
               <span class="lang-icon">🌐</span>
               <span class="lang-text">EN</span>
             </a>
           {% else %}
-            <a href="/ar" class="lang-toggle" aria-label="التبديل للعربية">
+            <a href="/ar{{ current_path|default('/welcome') }}" class="lang-toggle" aria-label="التبديل للعربية">
               <span class="lang-icon">🌐</span>
               <span class="lang-text">ع</span>
             </a>
@@ -376,6 +382,7 @@
           <div class="footer-column">
             <h4>{{ 'Support'|t }}</h4>
             <ul>
+              <li><a href="/about">{{ 'About Us'|t }}</a></li>
               <li><a href="/help">{{ 'Help Center'|t }}</a></li>
               <li><a href="/contact">{{ 'Contact Us'|t }}</a></li>
               <li><a href="/privacy">{{ 'Privacy Policy'|t }}</a></li>

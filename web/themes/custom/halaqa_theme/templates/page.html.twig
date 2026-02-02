@@ -5,12 +5,19 @@
  */
 #}
 
+{# Detect current page for active menu and header style #}
+{% set is_front_page = current_route == 'halaqa_custom.front' or is_front %}
+{% set is_about_page = current_route == 'halaqa_custom.about' %}
+{% set is_dashboard_page = current_route == 'halaqa_custom.teacher_dashboard' %}
+{% set is_halaqas_page = current_route == 'halaqa_custom.my_halaqas' %}
+{% set has_hero = is_front_page or is_about_page %}
+
 <div class="layout-container">
-  
+
   {# ==================== HEADER ==================== #}
-  <header class="header" role="banner">
+  <header class="header{% if has_hero %} header--transparent{% endif %}" role="banner">
     <div class="header-inner">
-      
+
       {# Logo & Branding #}
       <div class="site-branding">
         <a href="{{ path('<front>') }}" class="site-logo" rel="home" aria-label="{{ 'Home'|t }}">
@@ -23,24 +30,27 @@
           <span class="site-slogan">{{ 'Quran Memorization Platform'|t }}</span>
         </div>
       </div>
-      
+
       {# Main Navigation - Only one menu #}
       <nav class="main-navigation" role="navigation" aria-label="{{ 'Main navigation'|t }}">
         <ul class="menu">
-          <li class="menu-item">
-            <a href="{{ path('<front>') }}">{{ 'Home'|t }}</a>
+          <li class="menu-item{% if is_front_page %} menu-item--active{% endif %}">
+            <a href="{{ path('<front>') }}"{% if is_front_page %} class="is-active"{% endif %}>{{ 'Home'|t }}</a>
+          </li>
+          <li class="menu-item{% if is_about_page %} menu-item--active{% endif %}">
+            <a href="/about"{% if is_about_page %} class="is-active"{% endif %}>{{ 'About Us'|t }}</a>
           </li>
           {% if logged_in %}
-            <li class="menu-item">
-              <a href="/teacher/dashboard">{{ 'Dashboard'|t }}</a>
+            <li class="menu-item{% if is_dashboard_page %} menu-item--active{% endif %}">
+              <a href="/teacher/dashboard"{% if is_dashboard_page %} class="is-active"{% endif %}>{{ 'Dashboard'|t }}</a>
             </li>
-            <li class="menu-item">
-              <a href="/my-halaqas">{{ 'My Halaqas'|t }}</a>
+            <li class="menu-item{% if is_halaqas_page %} menu-item--active{% endif %}">
+              <a href="/my-halaqas"{% if is_halaqas_page %} class="is-active"{% endif %}>{{ 'My Halaqas'|t }}</a>
             </li>
           {% endif %}
         </ul>
       </nav>
-      
+
       {# Right Side: Search + User #}
       <div class="header-right">
         {# Single Search Box #}
@@ -54,15 +64,15 @@
           </button>
         </div>
 
-        {# Language Switcher #}
+        {# Language Switcher - preserves current page #}
         <div class="language-switcher">
-          {% if language.id == 'ar' %}
-            <a href="/en" class="lang-toggle" aria-label="Switch to English">
+          {% if current_language_id == 'ar' %}
+            <a href="/en{{ current_path }}" class="lang-toggle" aria-label="Switch to English">
               <span class="lang-icon">🌐</span>
               <span class="lang-text">EN</span>
             </a>
           {% else %}
-            <a href="/ar" class="lang-toggle" aria-label="التبديل للعربية">
+            <a href="/ar{{ current_path }}" class="lang-toggle" aria-label="التبديل للعربية">
               <span class="lang-icon">🌐</span>
               <span class="lang-text">ع</span>
             </a>
@@ -208,6 +218,7 @@
           <div class="footer-column">
             <h4>{{ 'Support'|t }}</h4>
             <ul>
+              <li><a href="/about">{{ 'About Us'|t }}</a></li>
               <li><a href="/help">{{ 'Help Center'|t }}</a></li>
               <li><a href="/contact">{{ 'Contact Us'|t }}</a></li>
               <li><a href="/privacy">{{ 'Privacy Policy'|t }}</a></li>

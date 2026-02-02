@@ -77,6 +77,17 @@ function halaqa_theme_preprocess_page(&$variables) {
   $route_match = \Drupal::routeMatch();
   $route_name = $route_match->getRouteName();
 
+  // Pass current route name and path to templates for active menu detection.
+  $variables['current_route'] = $route_name;
+  $current_path = \Drupal::service('path.current')->getPath();
+  $variables['current_path'] = $current_path;
+
+  // Get current language for language switcher.
+  $language_manager = \Drupal::languageManager();
+  $current_language = $language_manager->getCurrentLanguage();
+  $variables['current_language_id'] = $current_language->getId();
+  $variables['current_language_direction'] = $current_language->getDirection();
+
   // Attach login library for user login page.
   if ($route_name === 'user.login') {
     $variables['#attached']['library'][] = 'halaqa_theme/login';

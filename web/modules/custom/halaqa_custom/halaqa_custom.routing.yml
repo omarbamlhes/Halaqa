@@ -179,3 +179,11 @@ halaqa_custom.notifications_mark_all_read:
     _controller: '\Drupal\halaqa_custom\Controller\NotificationController::markAllAsRead'
   requirements:
     _user_is_logged_in: 'TRUE'
+
+halaqa_custom.about:
+  path: '/about'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\AboutController::aboutPage'
+    _title: 'About Us'
+  requirements:
+    _permission: 'access content'

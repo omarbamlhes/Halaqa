@@ -1614,3 +1614,138 @@ msgstr "أو سجل الدخول باستخدام"
 
 msgid "Continue with @social_network"
 msgstr "باستخدام @social_network"
+
+# ==================== ABOUT US PAGE ====================
+
+# --- Hero Section ---
+msgid "About Us"
+msgstr "من نحن"
+
+msgid "Facilitating Quran Memorization"
+msgstr "تيسير حفظ القرآن الكريم"
+
+msgid "With Modern Technology"
+msgstr "بالتقنية الحديثة"
+
+msgid "We strive to make Quran memorization easier and more organized through a smart platform that connects teachers, students, and parents in an integrated educational environment."
+msgstr "نسعى لجعل حفظ القرآن الكريم أسهل وأكثر تنظيماً من خلال منصة ذكية تربط المحفظين والطلاب وأولياء الأمور في بيئة تعليمية متكاملة."
+
+# --- Who We Are Section ---
+msgid "Who We Are"
+msgstr "من نحن"
+
+msgid "A Platform Born from a Passion for the Quran"
+msgstr "منصة وُلدت من شغف بالقرآن الكريم"
+
+msgid "Halaqa is a comprehensive digital platform designed specifically for Quran memorization circles. We provide smart tools for teachers to manage their circles, track student progress, and record evaluations efficiently."
+msgstr "حلقة هي منصة رقمية شاملة صُممت خصيصاً لحلقات تحفيظ القرآن الكريم. نوفر أدوات ذكية للمحفظين لإدارة حلقاتهم ومتابعة تقدم الطلاب وتسجيل التقييمات بكفاءة."
+
+msgid "Our platform bridges the gap between teachers, students, and parents by offering each role a tailored dashboard with the tools they need to succeed in their Quran memorization journey."
+msgstr "تربط منصتنا بين المحفظين والطلاب وأولياء الأمور من خلال توفير لوحة تحكم مخصصة لكل دور بالأدوات التي يحتاجونها للنجاح في رحلة حفظ القرآن."
+
+msgid "Easy to use for all ages"
+msgstr "سهلة الاستخدام لجميع الأعمار"
+
+msgid "Supports Arabic and English"
+msgstr "تدعم العربية والإنجليزية"
+
+msgid "Comprehensive reports and analytics"
+msgstr "تقارير وتحليلات شاملة"
+
+# --- Mission, Vision & Values Section ---
+msgid "What Drives Us"
+msgstr "ما يحركنا"
+
+msgid "Our Mission, Vision & Values"
+msgstr "رسالتنا ورؤيتنا وقيمنا"
+
+msgid "Our Mission"
+msgstr "رسالتنا"
+
+msgid "To provide a comprehensive digital environment that supports Quran memorization, facilitates progress tracking, and enhances communication between teachers and students to achieve the highest levels of memorization proficiency."
+msgstr "توفير بيئة رقمية شاملة تدعم حفظ القرآن الكريم، وتسهّل متابعة التقدم، وتعزز التواصل بين المحفظين والطلاب لتحقيق أعلى مستويات الإتقان في الحفظ."
+
+msgid "Our Vision"
+msgstr "رؤيتنا"
+
+msgid "To be the leading platform in Quran memorization management worldwide, contributing to building a generation that preserves the Book of Allah with proficiency and dedication."
+msgstr "أن نكون المنصة الرائدة في إدارة حفظ القرآن الكريم على مستوى العالم، والمساهمة في بناء جيل يحفظ كتاب الله بإتقان وتفانٍ."
+
+msgid "Our Values"
+msgstr "قيمنا"
+
+msgid "Sincerity in work, excellence in education, leveraging technology to serve the Quran, and building a supportive and motivating community for memorizers."
+msgstr "الإخلاص في العمل، والتميز في التعليم، وتوظيف التقنية لخدمة القرآن، وبناء مجتمع داعم ومحفز للحفّاظ."
+
+# --- What We Offer Section ---
+msgid "Our Services"
+msgstr "خدماتنا"
+
+msgid "What We Offer"
+msgstr "ما نقدمه"
+
+msgid "A comprehensive set of tools designed to serve the Quran memorization process"
+msgstr "مجموعة شاملة من الأدوات المصممة لخدمة عملية حفظ القرآن الكريم"
+
+msgid "Study Circle Management"
+msgstr "إدارة حلقات التحفيظ"
+
+msgid "Easily create and organize study circles, add students, and manage daily schedules and sessions."
+msgstr "أنشئ ونظّم حلقات التحفيظ بسهولة، وأضف الطلاب، وأدر الجداول اليومية والجلسات."
+
+msgid "Progress Tracking"
+msgstr "متابعة التقدم"
+
+msgid "Record memorization progress for each student with detailed evaluations by Surah and verse, and track improvement over time."
+msgstr "سجّل تقدم الحفظ لكل طالب مع تقييمات مفصلة حسب السورة والآية، وتابع التحسن مع مرور الوقت."
+
+msgid "Attendance System"
+msgstr "نظام الحضور"
+
+msgid "A comprehensive attendance system that supports recording presence, absence, tardiness, and excused absences with detailed reports."
+msgstr "نظام حضور شامل يدعم تسجيل الحضور والغياب والتأخر والأعذار مع تقارير مفصلة."
+
+msgid "Reports & Analytics"
+msgstr "التقارير والتحليلات"
+
+msgid "Detailed periodic reports with charts and statistics that help understand performance levels and identify areas for improvement."
+msgstr "تقارير دورية مفصلة مع رسوم بيانية وإحصائيات تساعد على فهم مستويات الأداء وتحديد مجالات التحسين."
+
+msgid "Parent Communication"
+msgstr "التواصل مع أولياء الأمور"
+
+msgid "A dedicated dashboard for parents to follow their children progress and stay informed about their memorization journey."
+msgstr "لوحة تحكم مخصصة لأولياء الأمور لمتابعة تقدم أبنائهم والاطلاع على مسيرة حفظهم."
+
+msgid "Instant Notifications"
+msgstr "إشعارات فورية"
+
+msgid "A real-time notification system that keeps everyone updated on new records, attendance, and important announcements."
+msgstr "نظام إشعارات فوري يُبقي الجميع على اطلاع بالسجلات الجديدة والحضور والإعلانات المهمة."
+
+# --- Verse Section ---
+msgid "Indeed, it is We who sent down the Quran and indeed, We will be its guardian."
+msgstr "إنا نحن نزلنا الذكر وإنا له لحافظون."
+
+msgid "Surah Al-Hijr, Verse 9"
+msgstr "سورة الحجر، الآية 9"
+
+# --- Stats Section ---
+msgid "Our Impact"
+msgstr "أثرنا"
+
+msgid "Numbers That Speak"
+msgstr "أرقام تتحدث"
+
+# --- CTA Section ---
+msgid "Ready to Start Your Journey?"
+msgstr "مستعد لبدء رحلتك؟"
+
+msgid "Join our community and start your Quran memorization journey with the best tools and support."
+msgstr "انضم إلى مجتمعنا وابدأ رحلة حفظ القرآن الكريم مع أفضل الأدوات والدعم."
+
+msgid "Join Now"
+msgstr "انضم الآن"
+
+msgid "Back to Home"
+msgstr "العودة للرئيسية"

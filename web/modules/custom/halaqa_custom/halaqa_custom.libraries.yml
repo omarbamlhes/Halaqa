@@ -41,3 +41,9 @@ profile_styles:
     - core/drupal
     - core/once
 
+about_page:
+  version: 1.0
+  css:
+    theme:
+      css/about.css: {}
+

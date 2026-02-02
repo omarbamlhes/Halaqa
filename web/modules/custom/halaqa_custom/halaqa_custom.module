@@ -37,6 +37,10 @@ function halaqa_custom_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'halaqa-user-profile',
     ],
+    'halaqa_about_page' => [
+      'variables' => [],
+      'template' => 'halaqa-about',
+    ],
   ];
 }
 
