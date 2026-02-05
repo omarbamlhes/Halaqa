@@ -1749,3 +1749,208 @@ msgstr "انضم الآن"
 
 msgid "Back to Home"
 msgstr "العودة للرئيسية"
+
+# ==================== PRICING PAGE ====================
+
+# --- Navigation ---
+msgid "How it Works"
+msgstr "كيف يعمل"
+
+# --- Page Title ---
+msgid "Pricing"
+msgstr "الباقات"
+
+# --- Landing Page Pricing Section ---
+msgid "Choose Your Plan"
+msgstr "اختر باقتك"
+
+msgid "Select the perfect plan for your Quran memorization journey"
+msgstr "اختر الباقة المثالية لرحلتك في حفظ القرآن الكريم"
+
+msgid "Free"
+msgstr "مجانية"
+
+msgid "Perfect for getting started"
+msgstr "مثالية للبدء"
+
+msgid "SAR"
+msgstr "ريال"
+
+msgid "month"
+msgstr "شهر"
+
+msgid "Up to 10 students"
+msgstr "حتى 10 طلاب"
+
+msgid "1 study circle"
+msgstr "حلقة واحدة"
+
+msgid "Basic progress tracking"
+msgstr "متابعة أساسية للتقدم"
+
+msgid "PDF reports"
+msgstr "تقارير PDF"
+
+msgid "Advanced analytics"
+msgstr "تحليلات متقدمة"
+
+msgid "Premium"
+msgstr "مميزة"
+
+msgid "Most Popular"
+msgstr "الأكثر طلباً"
+
+msgid "For growing study circles"
+msgstr "للحلقات المتنامية"
+
+msgid "Up to 50 students"
+msgstr "حتى 50 طالب"
+
+msgid "5 study circles"
+msgstr "5 حلقات"
+
+msgid "Parent notifications"
+msgstr "إشعارات أولياء الأمور"
+
+msgid "Subscribe Now"
+msgstr "اشترك الآن"
+
+msgid "Enterprise"
+msgstr "مؤسسات"
+
+msgid "For institutions and organizations"
+msgstr "للمؤسسات والمنظمات"
+
+msgid "Unlimited students"
+msgstr "طلاب غير محدودين"
+
+msgid "Unlimited study circles"
+msgstr "حلقات غير محدودة"
+
+msgid "All Premium features"
+msgstr "جميع مميزات الباقة المميزة"
+
+msgid "Priority support"
+msgstr "دعم فني أولوي"
+
+msgid "Custom branding"
+msgstr "تخصيص الشعار والهوية"
+
+msgid "Contact Us"
+msgstr "تواصل معنا"
+
+msgid "All plans include a 14-day free trial. No credit card required."
+msgstr "جميع الباقات تشمل فترة تجريبية مجانية 14 يوماً. لا يتطلب بطاقة ائتمان."
+
+# --- Pricing Page Hero ---
+msgid "Simple, Transparent"
+msgstr "بسيطة وشفافة"
+
+msgid "Choose the plan that fits your needs. Start free and upgrade as you grow."
+msgstr "اختر الباقة التي تناسب احتياجاتك. ابدأ مجاناً وقم بالترقية مع نموك."
+
+# --- Pricing Page Cards ---
+msgid "Perfect for individual teachers getting started with digital memorization tracking."
+msgstr "مثالية للمحفظين الأفراد الذين يبدأون بمتابعة الحفظ رقمياً."
+
+msgid "Attendance recording"
+msgstr "تسجيل الحضور"
+
+msgid "Get Started Free"
+msgstr "ابدأ مجاناً"
+
+msgid "Ideal for teachers and small institutions managing multiple study circles."
+msgstr "مثالية للمحفظين والمؤسسات الصغيرة التي تدير عدة حلقات."
+
+msgid "Full progress tracking"
+msgstr "متابعة كاملة للتقدم"
+
+msgid "Complete solution for mosques, schools, and large organizations."
+msgstr "حل متكامل للمساجد والمدارس والمنظمات الكبيرة."
+
+# --- Comparison Table ---
+msgid "Compare Plans"
+msgstr "مقارنة الباقات"
+
+msgid "A detailed comparison of all features across plans"
+msgstr "مقارنة تفصيلية لجميع المميزات عبر الباقات"
+
+msgid "Feature"
+msgstr "الميزة"
+
+msgid "Up to 10"
+msgstr "حتى 10"
+
+msgid "Up to 50"
+msgstr "حتى 50"
+
+msgid "Unlimited"
+msgstr "غير محدود"
+
+msgid "Basic"
+msgstr "أساسي"
+
+msgid "Advanced"
+msgstr "متقدم"
+
+msgid "Parent Notifications"
+msgstr "إشعارات أولياء الأمور"
+
+msgid "Priority Support"
+msgstr "دعم فني أولوي"
+
+msgid "Custom Branding"
+msgstr "تخصيص الشعار والهوية"
+
+# --- FAQ Section ---
+msgid "Frequently Asked Questions"
+msgstr "الأسئلة الشائعة"
+
+msgid "Find answers to common questions about our plans"
+msgstr "اعثر على إجابات للأسئلة الشائعة حول باقاتنا"
+
+msgid "Can I switch plans at any time?"
+msgstr "هل يمكنني تغيير الباقة في أي وقت؟"
+
+msgid "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, and billing is adjusted accordingly."
+msgstr "نعم، يمكنك ترقية أو تخفيض باقتك في أي وقت. تسري التغييرات فوراً ويتم تعديل الفواتير وفقاً لذلك."
+
+msgid "Is there a free trial for paid plans?"
+msgstr "هل هناك فترة تجريبية مجانية للباقات المدفوعة؟"
+
+msgid "Yes, all paid plans come with a 14-day free trial. No credit card is required to start the trial."
+msgstr "نعم، جميع الباقات المدفوعة تأتي مع فترة تجريبية مجانية لمدة 14 يوماً. لا يتطلب بطاقة ائتمان لبدء التجربة."
+
+msgid "What payment methods do you accept?"
+msgstr "ما طرق الدفع المقبولة لديكم؟"
+
+msgid "We accept all major credit cards, bank transfers, and digital wallets including Apple Pay and Mada."
+msgstr "نقبل جميع بطاقات الائتمان الرئيسية، والتحويل البنكي، والمحافظ الرقمية بما فيها Apple Pay ومدى."
+
+msgid "Can I cancel my subscription?"
+msgstr "هل يمكنني إلغاء اشتراكي؟"
+
+msgid "You can cancel your subscription at any time. Your access will continue until the end of the current billing period."
+msgstr "يمكنك إلغاء اشتراكك في أي وقت. سيستمر وصولك حتى نهاية فترة الفوترة الحالية."
+
+msgid "Do you offer discounts for annual payments?"
+msgstr "هل تقدمون خصومات على الدفع السنوي؟"
+
+msgid "Yes, we offer a 20% discount when you choose annual billing. Contact us for more details."
+msgstr "نعم، نقدم خصم 20% عند اختيار الفوترة السنوية. تواصل معنا لمزيد من التفاصيل."
+
+msgid "Is my data secure?"
+msgstr "هل بياناتي آمنة؟"
+
+msgid "Absolutely. We use industry-standard encryption and security practices to protect all your data and student information."
+msgstr "بالتأكيد. نستخدم تشفيراً وممارسات أمنية بمعايير عالمية لحماية جميع بياناتك ومعلومات الطلاب."
+
+# --- CTA Section ---
+msgid "Ready to Get Started?"
+msgstr "مستعد للبدء؟"
+
+msgid "Join hundreds of teachers and institutions using Halaqa to transform Quran memorization."
+msgstr "انضم لمئات المحفظين والمؤسسات الذين يستخدمون حلقة لتطوير تحفيظ القرآن الكريم."
+
+msgid "Start Free Trial"
+msgstr "ابدأ التجربة المجانية"

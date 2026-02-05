@@ -187,3 +187,11 @@ halaqa_custom.about:
     _title: 'About Us'
   requirements:
     _permission: 'access content'
+
+halaqa_custom.pricing:
+  path: '/pricing'
+  defaults:
+    _controller: '\Drupal\halaqa_custom\Controller\PricingController::pricingPage'
+    _title: 'Pricing'
+  requirements:
+    _permission: 'access content'

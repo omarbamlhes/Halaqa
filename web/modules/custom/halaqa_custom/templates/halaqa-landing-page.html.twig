@@ -182,6 +182,136 @@
     </div>
   </section>
 
+  {# ==================== PRICING SECTION ==================== #}
+  <section class="pricing-section" id="pricing">
+    <div class="section-header">
+      <h2 class="section-title">{{ 'Choose Your Plan'|t }}</h2>
+      <p class="section-subtitle">{{ 'Select the perfect plan for your Quran memorization journey'|t }}</p>
+    </div>
+
+    <div class="pricing-grid">
+      {# Free Plan #}
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="pricing-plan-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          </div>
+          <h3 class="pricing-plan-name">{{ 'Free'|t }}</h3>
+          <p class="pricing-plan-desc">{{ 'Perfect for getting started'|t }}</p>
+        </div>
+        <div class="pricing-plan-price">
+          <span class="pricing-amount">{{ '0'|t }}</span>
+          <span class="pricing-currency">{{ 'SAR'|t }}</span>
+          <span class="pricing-period">/ {{ 'month'|t }}</span>
+        </div>
+        <ul class="pricing-features-list">
+          <li class="pricing-feature-item pricing-feature-included">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ 'Up to 10 students'|t }}</span>
+          </li>
+          <li class="pricing-feature-item pricing-feature-included">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ '1 study circle'|t }}</span>
+          </li>
+          <li class="pricing-feature-item pricing-feature-included">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ 'Basic progress tracking'|t }}</span>
+          </li>
+          <li class="pricing-feature-item pricing-feature-excluded">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>{{ 'PDF reports'|t }}</span>
+          </li>
+          <li class="pricing-feature-item pricing-feature-excluded">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>{{ 'Advanced analytics'|t }}</span>
+          </li>
+        </ul>
+        <a href="/user/register" class="pricing-btn pricing-btn-outline">{{ 'Get Started'|t }}</a>
+      </div>
+
+      {# Premium Plan #}
+      <div class="pricing-card pricing-card-featured">
+        <div class="pricing-card-badge">{{ 'Most Popular'|t }}</div>
+        <div class="pricing-card-header">
+          <div class="pricing-plan-icon pricing-plan-icon--premium">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3 class="pricing-plan-name">{{ 'Premium'|t }}</h3>
+          <p class="pricing-plan-desc">{{ 'For growing study circles'|t }}</p>
+        </div>
+        <div class="pricing-plan-price">
+          <span class="pricing-amount">99</span>
+          <span class="pricing-currency">{{ 'SAR'|t }}</span>
+          <span class="pricing-period">/ {{ 'month'|t }}</span>
+        </div>
+        <ul class="pricing-features-list">
+          <li class="pricing-feature-item pricing-feature-included">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ 'Up to 50 students'|t }}</span>
+          </li>
+          <li class="pricing-feature-item pricing-feature-included">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ '5 study circles'|t }}</span>
+          </li>
+          <li class="pricing-feature-item pricing-feature-included">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ 'PDF reports'|t }}</span>
+          </li>
+          <li class="pricing-feature-item pricing-feature-included">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ 'Advanced analytics'|t }}</span>
+          </li>
+          <li class="pricing-feature-item pricing-feature-included">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ 'Parent notifications'|t }}</span>
+          </li>
+        </ul>
+        <a href="/user/register" class="pricing-btn pricing-btn-primary">{{ 'Subscribe Now'|t }}</a>
+      </div>
+
+      {# Enterprise Plan #}
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="pricing-plan-icon pricing-plan-icon--enterprise">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3 class="pricing-plan-name">{{ 'Enterprise'|t }}</h3>
+          <p class="pricing-plan-desc">{{ 'For institutions and organizations'|t }}</p>
+        </div>
+        <div class="pricing-plan-price">
+          <span class="pricing-amount">299</span>
+          <span class="pricing-currency">{{ 'SAR'|t }}</span>
+          <span class="pricing-period">/ {{ 'month'|t }}</span>
+        </div>
+        <ul class="pricing-features-list">
+          <li class="pricing-feature-item pricing-feature-included">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ 'Unlimited students'|t }}</span>
+          </li>
+          <li class="pricing-feature-item pricing-feature-included">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ 'Unlimited study circles'|t }}</span>
+          </li>
+          <li class="pricing-feature-item pricing-feature-included">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ 'All Premium features'|t }}</span>
+          </li>
+          <li class="pricing-feature-item pricing-feature-included">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ 'Priority support'|t }}</span>
+          </li>
+          <li class="pricing-feature-item pricing-feature-included">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>{{ 'Custom branding'|t }}</span>
+          </li>
+        </ul>
+        <a href="/user/register" class="pricing-btn pricing-btn-outline">{{ 'Contact Us'|t }}</a>
+      </div>
+    </div>
+
+    <p class="pricing-note">{{ 'All plans include a 14-day free trial. No credit card required.'|t }}</p>
+  </section>
+
   {# ==================== TESTIMONIALS ==================== #}
   <section class="testimonials-section" id="testimonials">
     <div class="section-header">

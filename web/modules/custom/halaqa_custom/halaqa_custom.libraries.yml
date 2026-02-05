@@ -15,6 +15,7 @@ landing_page:
   css:
     theme:
       css/landing.css: {}
+      css/pricing.css: {}
   js:
     js/landing.js: {}
   dependencies:
@@ -46,4 +47,10 @@ about_page:
   css:
     theme:
       css/about.css: {}
+
+pricing_page:
+  version: 1.0
+  css:
+    theme:
+      css/pricing.css: {}
 

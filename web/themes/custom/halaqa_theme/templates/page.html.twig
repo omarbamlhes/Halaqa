@@ -8,9 +8,10 @@
 {# Detect current page for active menu and header style #}
 {% set is_front_page = current_route == 'halaqa_custom.front' or is_front %}
 {% set is_about_page = current_route == 'halaqa_custom.about' %}
+{% set is_pricing_page = current_route == 'halaqa_custom.pricing' %}
 {% set is_dashboard_page = current_route == 'halaqa_custom.teacher_dashboard' %}
 {% set is_halaqas_page = current_route == 'halaqa_custom.my_halaqas' %}
-{% set has_hero = is_front_page or is_about_page %}
+{% set has_hero = is_front_page or is_about_page or is_pricing_page %}
 
 <div class="layout-container">
 
@@ -39,6 +40,9 @@
           </li>
           <li class="menu-item{% if is_about_page %} menu-item--active{% endif %}">
             <a href="/about"{% if is_about_page %} class="is-active"{% endif %}>{{ 'About Us'|t }}</a>
+          </li>
+          <li class="menu-item{% if is_pricing_page %} menu-item--active{% endif %}">
+            <a href="/pricing"{% if is_pricing_page %} class="is-active"{% endif %}>{{ 'Pricing'|t }}</a>
           </li>
           {% if logged_in %}
             <li class="menu-item{% if is_dashboard_page %} menu-item--active{% endif %}">

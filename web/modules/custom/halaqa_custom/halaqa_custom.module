@@ -41,6 +41,10 @@ function halaqa_custom_theme($existing, $type, $theme, $path) {
       'variables' => [],
       'template' => 'halaqa-about',
     ],
+    'halaqa_pricing_page' => [
+      'variables' => [],
+      'template' => 'halaqa-pricing',
+    ],
   ];
 }
 
