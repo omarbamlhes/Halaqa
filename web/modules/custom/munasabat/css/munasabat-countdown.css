@@ -1,0 +1,66 @@
+/**
+ * @file
+ * Styles for the Occasion Countdown block.
+ */
+
+.occasion-countdown {
+  text-align: center;
+  padding: var(--spacing-8, 2rem);
+  border-radius: var(--radius-xl, 1rem);
+  background: var(--occasion-primary, var(--color-primary, #0d9488));
+  color: #fff;
+  box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.1));
+  margin-bottom: var(--spacing-6, 1.5rem);
+}
+
+.occasion-countdown__title {
+  font-size: var(--font-size-xl, 1.25rem);
+  font-weight: var(--font-weight-semibold, 600);
+  margin: 0 0 var(--spacing-4, 1rem);
+  opacity: 0.9;
+}
+
+.occasion-countdown__timer {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-4, 1rem);
+  flex-wrap: wrap;
+}
+
+.occasion-countdown__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+}
+
+.occasion-countdown__value {
+  font-size: var(--font-size-4xl, 2.25rem);
+  font-weight: var(--font-weight-bold, 700);
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md, 0.5rem);
+  padding: var(--spacing-3, 0.75rem) var(--spacing-4, 1rem);
+  min-width: 60px;
+}
+
+.occasion-countdown__label {
+  font-size: var(--font-size-sm, 0.875rem);
+  margin-top: var(--spacing-2, 0.5rem);
+  opacity: 0.8;
+}
+
+.occasion-countdown__reached {
+  font-size: var(--font-size-2xl, 1.5rem);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+@media (min-width: 768px) {
+  .occasion-countdown__unit {
+    min-width: 90px;
+  }
+
+  .occasion-countdown__value {
+    font-size: 3rem;
+  }
+}

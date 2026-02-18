@@ -1,0 +1,47 @@
+/**
+ * @file
+ * Styles for the Munasabat admin forms.
+ */
+
+.occasion-form .form-type-color {
+  display: inline-block;
+  margin-inline-end: 1rem;
+}
+
+.occasion-form .form-type-color input[type="color"] {
+  width: 60px;
+  height: 40px;
+  padding: 2px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.occasion-form details {
+  margin-bottom: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.occasion-form details summary {
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.occasion-form .field--name-banner-images .image-preview {
+  max-width: 200px;
+  border-radius: 4px;
+}
+
+/* Status badges in list builder */
+.occasion-status--active {
+  color: #059669;
+  font-weight: 600;
+}
+
+.occasion-status--inactive {
+  color: #6b7280;
+}

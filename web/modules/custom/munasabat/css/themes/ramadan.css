@@ -1,0 +1,62 @@
+/**
+ * @file
+ * Ramadan theme - Gold #C5A028 + Purple #4A1A6B.
+ */
+
+body.occasion--ramadan {
+  --occasion-primary: #4A1A6B;
+  --occasion-secondary: #C5A028;
+}
+
+body.occasion--ramadan .occasion-banner {
+  border: 2px solid #C5A028;
+}
+
+body.occasion--ramadan .occasion-countdown {
+  background: linear-gradient(135deg, #4A1A6B, #6B2D9B);
+}
+
+body.occasion--ramadan .occasion-greeting {
+  background: linear-gradient(135deg, #4A1A6B, #2D1040);
+}
+
+body.occasion--ramadan .site-header,
+body.occasion--ramadan header[role="banner"] {
+  border-bottom: 3px solid #C5A028;
+}
+
+/* Crescent animation container */
+.occasion-crescent-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.occasion-crescent-star {
+  position: absolute;
+  opacity: 0;
+  animation: floatStar 6s ease-in-out infinite;
+  color: #C5A028;
+}
+
+@keyframes floatStar {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(0deg);
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20vh) rotate(360deg);
+  }
+}

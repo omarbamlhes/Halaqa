@@ -1,0 +1,6 @@
+entity.occasion.collection:
+  title: 'Occasions'
+  description: 'Manage seasonal and national occasions.'
+  route_name: entity.occasion.collection
+  parent: system.admin_content
+  weight: 10

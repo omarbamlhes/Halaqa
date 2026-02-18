@@ -1,0 +1,5 @@
+entity.occasion.add_form:
+  route_name: entity.occasion.add_form
+  title: 'Add Occasion'
+  appears_on:
+    - entity.occasion.collection

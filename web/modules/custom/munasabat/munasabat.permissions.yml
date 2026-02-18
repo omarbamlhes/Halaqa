@@ -1,0 +1,8 @@
+administer munasabat:
+  title: 'Administer Munasabat'
+  description: 'Create, edit, and delete occasions and manage module settings.'
+  restrict access: true
+
+view munasabat:
+  title: 'View Munasabat'
+  description: 'View active occasions and their visual elements.'

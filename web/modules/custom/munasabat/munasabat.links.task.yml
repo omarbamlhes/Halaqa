@@ -1,0 +1,15 @@
+entity.occasion.canonical:
+  route_name: entity.occasion.canonical
+  base_route: entity.occasion.canonical
+  title: 'View'
+
+entity.occasion.edit_form:
+  route_name: entity.occasion.edit_form
+  base_route: entity.occasion.canonical
+  title: 'Edit'
+
+entity.occasion.delete_form:
+  route_name: entity.occasion.delete_form
+  base_route: entity.occasion.canonical
+  title: 'Delete'
+  weight: 10

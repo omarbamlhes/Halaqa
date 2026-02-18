@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Template for the Occasion Banner block.
+ *
+ * Available variables:
+ * - occasion_name: The name of the occasion.
+ * - banners: Array of banner images with 'url' and 'alt' keys.
+ * - logo_url: URL of the occasion logo.
+ * - primary_color: Primary color hex code.
+ * - secondary_color: Secondary color hex code.
+ */
+#}
+{% if banners is not empty %}
+<div class="occasion-banner"
+  {% if primary_color %}style="--banner-primary: {{ primary_color }}; --banner-secondary: {{ secondary_color }};"{% endif %}>
+  <div class="occasion-banner__slider">
+    {% for banner in banners %}
+      <div class="occasion-banner__slide">
+        <img src="{{ banner.url }}" alt="{{ banner.alt }}" loading="lazy">
+      </div>
+    {% endfor %}
+  </div>
+  <div class="occasion-banner__overlay">
+    {% if logo_url %}
+      <img src="{{ logo_url }}" alt="{{ occasion_name }}" class="occasion-banner__logo">
+    {% endif %}
+    <h2 class="occasion-banner__name">{{ occasion_name }}</h2>
+  </div>
+  {% if banners|length > 1 %}
+    <div class="occasion-banner__dots">
+      {% for i in 0..banners|length - 1 %}
+        <button class="occasion-banner__dot{% if loop.first %} occasion-banner__dot--active{% endif %}"
+          aria-label="{{ 'Slide @num'|t({'@num': i + 1}) }}"></button>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endif %}

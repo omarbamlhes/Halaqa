@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Template for the Occasion Countdown block.
+ *
+ * Available variables:
+ * - occasion_name: The name of the upcoming occasion.
+ * - target_date: The target date string (YYYY-MM-DD).
+ */
+#}
+<div class="occasion-countdown" data-target-date="{{ target_date }}">
+  <h3 class="occasion-countdown__title">{{ occasion_name }}</h3>
+  <div class="occasion-countdown__timer">
+    <div class="occasion-countdown__unit">
+      <span class="occasion-countdown__value" data-countdown-days>--</span>
+      <span class="occasion-countdown__label">{{ 'Days'|t }}</span>
+    </div>
+    <div class="occasion-countdown__unit">
+      <span class="occasion-countdown__value" data-countdown-hours>--</span>
+      <span class="occasion-countdown__label">{{ 'Hours'|t }}</span>
+    </div>
+    <div class="occasion-countdown__unit">
+      <span class="occasion-countdown__value" data-countdown-minutes>--</span>
+      <span class="occasion-countdown__label">{{ 'Minutes'|t }}</span>
+    </div>
+    <div class="occasion-countdown__unit">
+      <span class="occasion-countdown__value" data-countdown-seconds>--</span>
+      <span class="occasion-countdown__label">{{ 'Seconds'|t }}</span>
+    </div>
+  </div>
+  <div class="occasion-countdown__reached" style="display: none;">
+    {{ 'The occasion has started!'|t }}
+  </div>
+</div>

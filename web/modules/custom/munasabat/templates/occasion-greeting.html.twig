@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Template for the Occasion Greeting block.
+ *
+ * Available variables:
+ * - occasion_name: The name of the occasion.
+ * - greeting_text: The greeting message.
+ * - logo_url: URL of the occasion logo.
+ * - primary_color: Primary color hex code.
+ * - secondary_color: Secondary color hex code.
+ */
+#}
+<div class="occasion-greeting"
+  {% if primary_color %}style="--greeting-primary: {{ primary_color }}; --greeting-secondary: {{ secondary_color }};"{% endif %}>
+  {% if logo_url %}
+    <img src="{{ logo_url }}" alt="{{ occasion_name }}" class="occasion-greeting__logo">
+  {% endif %}
+  <h3 class="occasion-greeting__name">{{ occasion_name }}</h3>
+  <p class="occasion-greeting__text">{{ greeting_text }}</p>
+</div>

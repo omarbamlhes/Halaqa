@@ -1,0 +1,26 @@
+/**
+ * @file
+ * Saudi Founding Day theme - Brown #6B4226 + Green.
+ */
+
+body.occasion--founding_day {
+  --occasion-primary: #6B4226;
+  --occasion-secondary: #006B3F;
+}
+
+body.occasion--founding_day .occasion-banner {
+  border: 2px solid #6B4226;
+}
+
+body.occasion--founding_day .occasion-countdown {
+  background: linear-gradient(135deg, #6B4226, #8B5A3A);
+}
+
+body.occasion--founding_day .occasion-greeting {
+  background: linear-gradient(135deg, #6B4226, #4A2E1A);
+}
+
+body.occasion--founding_day .site-header,
+body.occasion--founding_day header[role="banner"] {
+  border-bottom: 3px solid #6B4226;
+}

@@ -1,0 +1,42 @@
+/**
+ * @file
+ * Styles for the Occasion Greeting block.
+ */
+
+.occasion-greeting {
+  text-align: center;
+  padding: var(--spacing-10, 2.5rem) var(--spacing-6, 1.5rem);
+  border-radius: var(--radius-xl, 1rem);
+  background: linear-gradient(
+    135deg,
+    var(--occasion-primary, var(--color-primary, #0d9488)),
+    var(--occasion-secondary, var(--color-primary-dark, #0f766e))
+  );
+  color: #fff;
+  box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.1));
+  margin-bottom: var(--spacing-6, 1.5rem);
+}
+
+.occasion-greeting__logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: var(--spacing-4, 1rem);
+  border-radius: var(--radius-lg, 0.75rem);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px;
+}
+
+.occasion-greeting__name {
+  font-size: var(--font-size-2xl, 1.5rem);
+  font-weight: var(--font-weight-bold, 700);
+  margin: 0 0 var(--spacing-3, 0.75rem);
+}
+
+.occasion-greeting__text {
+  font-size: var(--font-size-lg, 1.125rem);
+  line-height: var(--line-height-relaxed, 1.75);
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.95;
+}

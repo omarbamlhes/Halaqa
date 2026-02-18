@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Munasabat module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function munasabat_install() {
+  \Drupal::messenger()->addStatus(t('Munasabat module has been installed. Visit <a href=":url">Occasions</a> to manage occasions.', [
+    ':url' => '/admin/munasabat',
+  ]));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function munasabat_uninstall() {
+  \Drupal::messenger()->addStatus(t('Munasabat module has been uninstalled.'));
+}

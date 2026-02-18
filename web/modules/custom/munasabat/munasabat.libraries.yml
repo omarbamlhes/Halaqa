@@ -1,0 +1,71 @@
+admin:
+  version: 1.0
+  css:
+    theme:
+      css/munasabat-admin.css: {}
+
+banner:
+  version: 1.0
+  css:
+    theme:
+      css/munasabat-banner.css: {}
+
+countdown:
+  version: 1.0
+  css:
+    theme:
+      css/munasabat-countdown.css: {}
+  js:
+    js/countdown.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+greeting:
+  version: 1.0
+  css:
+    theme:
+      css/munasabat-greeting.css: {}
+
+theme_national_day:
+  version: 1.0
+  css:
+    theme:
+      css/themes/national-day.css: {}
+
+theme_founding_day:
+  version: 1.0
+  css:
+    theme:
+      css/themes/founding-day.css: {}
+
+theme_ramadan:
+  version: 1.0
+  css:
+    theme:
+      css/themes/ramadan.css: {}
+
+theme_eid:
+  version: 1.0
+  css:
+    theme:
+      css/themes/eid.css: {}
+
+effects_confetti:
+  version: 1.0
+  js:
+    js/confetti.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+effects_crescent:
+  version: 1.0
+  js:
+    js/crescent.js: {}
+  css:
+    theme:
+      css/themes/ramadan.css: {}
+  dependencies:
+    - core/drupal
+    - core/once

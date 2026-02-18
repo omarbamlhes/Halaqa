@@ -1,0 +1,26 @@
+/**
+ * @file
+ * Saudi National Day theme - Green #006B3F + White.
+ */
+
+body.occasion--national_day {
+  --occasion-primary: #006B3F;
+  --occasion-secondary: #FFFFFF;
+}
+
+body.occasion--national_day .occasion-banner {
+  border: 2px solid #006B3F;
+}
+
+body.occasion--national_day .occasion-countdown {
+  background: linear-gradient(135deg, #006B3F, #008B4F);
+}
+
+body.occasion--national_day .occasion-greeting {
+  background: linear-gradient(135deg, #006B3F, #004D2E);
+}
+
+body.occasion--national_day .site-header,
+body.occasion--national_day header[role="banner"] {
+  border-bottom: 3px solid #006B3F;
+}

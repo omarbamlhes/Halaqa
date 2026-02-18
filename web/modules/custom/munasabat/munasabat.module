@@ -1,0 +1,156 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Munasabat module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function munasabat_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.munasabat':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Manage seasonal and national occasions with auto-activated visual themes, banners, and effects.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function munasabat_theme($existing, $type, $theme, $path) {
+  return [
+    'occasion_banner' => [
+      'variables' => [
+        'occasion_name' => NULL,
+        'banners' => [],
+        'logo_url' => NULL,
+        'primary_color' => NULL,
+        'secondary_color' => NULL,
+      ],
+      'template' => 'occasion-banner',
+    ],
+    'occasion_countdown' => [
+      'variables' => [
+        'occasion_name' => NULL,
+        'target_date' => NULL,
+      ],
+      'template' => 'occasion-countdown',
+    ],
+    'occasion_greeting' => [
+      'variables' => [
+        'occasion_name' => NULL,
+        'greeting_text' => NULL,
+        'logo_url' => NULL,
+        'primary_color' => NULL,
+        'secondary_color' => NULL,
+      ],
+      'template' => 'occasion-greeting',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function munasabat_preprocess_html(&$variables) {
+  /** @var \Drupal\munasabat\Service\OccasionManager $manager */
+  $manager = \Drupal::service('munasabat.occasion_manager');
+  $occasion = $manager->getActiveOccasion();
+
+  if (!$occasion) {
+    return;
+  }
+
+  // Add body classes.
+  $variables['attributes']['class'][] = 'occasion--active';
+
+  $css_theme = $occasion->getCssTheme();
+  if ($css_theme && $css_theme !== 'none') {
+    $variables['attributes']['class'][] = 'occasion--' . $css_theme;
+
+    // Attach theme-specific library.
+    $theme_library_map = [
+      'national_day' => 'munasabat/theme_national_day',
+      'founding_day' => 'munasabat/theme_founding_day',
+      'ramadan' => 'munasabat/theme_ramadan',
+      'eid' => 'munasabat/theme_eid',
+    ];
+    if (isset($theme_library_map[$css_theme])) {
+      $variables['#attached']['library'][] = $theme_library_map[$css_theme];
+    }
+  }
+
+  // Attach effects library.
+  $effects = $occasion->getEffects();
+  if ($effects && $effects !== 'none') {
+    $effects_library_map = [
+      'confetti' => 'munasabat/effects_confetti',
+      'crescent' => 'munasabat/effects_crescent',
+    ];
+    if (isset($effects_library_map[$effects])) {
+      $variables['#attached']['library'][] = $effects_library_map[$effects];
+    }
+  }
+
+  // Inject CSS custom properties via inline style.
+  $primary = $occasion->getPrimaryColor();
+  $secondary = $occasion->getSecondaryColor();
+  if ($primary || $secondary) {
+    $css_vars = ':root {';
+    if ($primary) {
+      $css_vars .= ' --occasion-primary: ' . $primary . ';';
+    }
+    if ($secondary) {
+      $css_vars .= ' --occasion-secondary: ' . $secondary . ';';
+    }
+    $css_vars .= ' }';
+
+    $variables['#attached']['html_head'][] = [
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'style',
+        '#value' => $css_vars,
+        '#attributes' => ['id' => 'munasabat-css-vars'],
+      ],
+      'munasabat_css_vars',
+    ];
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function munasabat_preprocess_page(&$variables) {
+  /** @var \Drupal\munasabat\Service\OccasionManager $manager */
+  $manager = \Drupal::service('munasabat.occasion_manager');
+  $occasion = $manager->getActiveOccasion();
+
+  if ($occasion) {
+    $variables['occasion_active'] = TRUE;
+    $variables['occasion_name'] = $occasion->getName();
+    $variables['occasion_type'] = $occasion->getType();
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function munasabat_cron() {
+  /** @var \Drupal\munasabat\Service\OccasionManager $manager */
+  $manager = \Drupal::service('munasabat.occasion_manager');
+  $manager->activateBySchedule();
+}
+
+/**
+ * Implements hook_locale_translation_projects_alter().
+ */
+function munasabat_locale_translation_projects_alter(&$projects) {
+  $module_handler = \Drupal::service('module_handler');
+  $path = $module_handler->getModule('munasabat')->getPath();
+  $projects['munasabat']['info']['interface translation server pattern'] = $path . '/translations/%language.po';
+}

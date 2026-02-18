@@ -1,0 +1,4 @@
+services:
+  munasabat.occasion_manager:
+    class: Drupal\munasabat\Service\OccasionManager
+    arguments: ['@entity_type.manager']

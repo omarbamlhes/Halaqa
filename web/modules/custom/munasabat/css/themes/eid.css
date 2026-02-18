@@ -1,0 +1,26 @@
+/**
+ * @file
+ * Eid theme - Gold #D4AF37 + White.
+ */
+
+body.occasion--eid {
+  --occasion-primary: #D4AF37;
+  --occasion-secondary: #FFFFFF;
+}
+
+body.occasion--eid .occasion-banner {
+  border: 2px solid #D4AF37;
+}
+
+body.occasion--eid .occasion-countdown {
+  background: linear-gradient(135deg, #D4AF37, #B8962E);
+}
+
+body.occasion--eid .occasion-greeting {
+  background: linear-gradient(135deg, #D4AF37, #8B7424);
+}
+
+body.occasion--eid .site-header,
+body.occasion--eid header[role="banner"] {
+  border-bottom: 3px solid #D4AF37;
+}

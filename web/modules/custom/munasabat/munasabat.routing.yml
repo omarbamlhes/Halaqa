@@ -1,0 +1,51 @@
+entity.occasion.collection:
+  path: '/admin/munasabat'
+  defaults:
+    _entity_list: 'occasion'
+    _title: 'Occasions'
+  requirements:
+    _permission: 'administer munasabat'
+
+entity.occasion.canonical:
+  path: '/admin/munasabat/{occasion}'
+  defaults:
+    _entity_view: 'occasion'
+    _title_callback: '\Drupal\Core\Entity\Controller\EntityController::title'
+  requirements:
+    _permission: 'view munasabat'
+  options:
+    parameters:
+      occasion:
+        type: entity:occasion
+
+entity.occasion.add_form:
+  path: '/admin/munasabat/add'
+  defaults:
+    _entity_form: 'occasion.add'
+    _title: 'Add Occasion'
+  requirements:
+    _permission: 'administer munasabat'
+
+entity.occasion.edit_form:
+  path: '/admin/munasabat/{occasion}/edit'
+  defaults:
+    _entity_form: 'occasion.edit'
+    _title: 'Edit Occasion'
+  requirements:
+    _permission: 'administer munasabat'
+  options:
+    parameters:
+      occasion:
+        type: entity:occasion
+
+entity.occasion.delete_form:
+  path: '/admin/munasabat/{occasion}/delete'
+  defaults:
+    _entity_form: 'occasion.delete'
+    _title: 'Delete Occasion'
+  requirements:
+    _permission: 'administer munasabat'
+  options:
+    parameters:
+      occasion:
+        type: entity:occasion

@@ -1,0 +1,5 @@
+name: Munasabat
+type: module
+description: 'Manage seasonal and national occasions with auto-activated visual themes, banners, and effects.'
+package: Custom
+core_version_requirement: ^10 || ^11
