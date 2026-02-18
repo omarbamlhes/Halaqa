@@ -55,21 +55,82 @@ function munasabat_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_page_top().
+ *
+ * Injects the active occasion banner and greeting at the top of every page.
+ * Works with any theme without requiring template modifications.
+ */
+function munasabat_page_top(array &$page_top) {
+  // Skip admin pages.
+  if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+    return;
+  }
+
+  /** @var \Drupal\munasabat\Service\OccasionManager $manager */
+  $manager = \Drupal::service('munasabat.occasion_manager');
+  $data = $manager->buildActiveOccasionRenderData();
+
+  if (!$data) {
+    return;
+  }
+
+  // Add banner if there are banner images.
+  if (!empty($data['banners'])) {
+    $page_top['munasabat_banner'] = [
+      '#theme' => 'occasion_banner',
+      '#occasion_name' => $data['name'],
+      '#banners' => $data['banners'],
+      '#logo_url' => $data['logo_url'],
+      '#primary_color' => $data['primary_color'],
+      '#secondary_color' => $data['secondary_color'],
+      '#attached' => [
+        'library' => ['munasabat/banner'],
+      ],
+      '#cache' => [
+        'max-age' => 3600,
+        'tags' => $data['cache_tags'],
+      ],
+      '#weight' => -100,
+    ];
+  }
+
+  // Add greeting if there is greeting text.
+  if (!empty($data['greeting_text'])) {
+    $page_top['munasabat_greeting'] = [
+      '#theme' => 'occasion_greeting',
+      '#occasion_name' => $data['name'],
+      '#greeting_text' => $data['greeting_text'],
+      '#logo_url' => (!empty($data['banners'])) ? NULL : $data['logo_url'],
+      '#primary_color' => $data['primary_color'],
+      '#secondary_color' => $data['secondary_color'],
+      '#attached' => [
+        'library' => ['munasabat/greeting'],
+      ],
+      '#cache' => [
+        'max-age' => 3600,
+        'tags' => $data['cache_tags'],
+      ],
+      '#weight' => -99,
+    ];
+  }
+}
+
+/**
  * Implements hook_preprocess_html().
  */
 function munasabat_preprocess_html(&$variables) {
   /** @var \Drupal\munasabat\Service\OccasionManager $manager */
   $manager = \Drupal::service('munasabat.occasion_manager');
-  $occasion = $manager->getActiveOccasion();
+  $data = $manager->buildActiveOccasionRenderData();
 
-  if (!$occasion) {
+  if (!$data) {
     return;
   }
 
   // Add body classes.
   $variables['attributes']['class'][] = 'occasion--active';
 
-  $css_theme = $occasion->getCssTheme();
+  $css_theme = $data['css_theme'];
   if ($css_theme && $css_theme !== 'none') {
     $variables['attributes']['class'][] = 'occasion--' . $css_theme;
 
@@ -86,7 +147,7 @@ function munasabat_preprocess_html(&$variables) {
   }
 
   // Attach effects library.
-  $effects = $occasion->getEffects();
+  $effects = $data['effects'];
   if ($effects && $effects !== 'none') {
     $effects_library_map = [
       'confetti' => 'munasabat/effects_confetti',
@@ -98,8 +159,8 @@ function munasabat_preprocess_html(&$variables) {
   }
 
   // Inject CSS custom properties via inline style.
-  $primary = $occasion->getPrimaryColor();
-  $secondary = $occasion->getSecondaryColor();
+  $primary = $data['primary_color'];
+  $secondary = $data['secondary_color'];
   if ($primary || $secondary) {
     $css_vars = ':root {';
     if ($primary) {
@@ -119,21 +180,6 @@ function munasabat_preprocess_html(&$variables) {
       ],
       'munasabat_css_vars',
     ];
-  }
-}
-
-/**
- * Implements hook_preprocess_page().
- */
-function munasabat_preprocess_page(&$variables) {
-  /** @var \Drupal\munasabat\Service\OccasionManager $manager */
-  $manager = \Drupal::service('munasabat.occasion_manager');
-  $occasion = $manager->getActiveOccasion();
-
-  if ($occasion) {
-    $variables['occasion_active'] = TRUE;
-    $variables['occasion_name'] = $occasion->getName();
-    $variables['occasion_type'] = $occasion->getType();
   }
 }
 

@@ -4,6 +4,7 @@ namespace Drupal\munasabat\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\munasabat\Service\OccasionManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -25,11 +26,23 @@ class OccasionBannerBlock extends BlockBase implements ContainerFactoryPluginInt
   protected OccasionManager $occasionManager;
 
   /**
+   * The file URL generator.
+   */
+  protected FileUrlGeneratorInterface $fileUrlGenerator;
+
+  /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, OccasionManager $occasion_manager) {
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    OccasionManager $occasion_manager,
+    FileUrlGeneratorInterface $file_url_generator,
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->occasionManager = $occasion_manager;
+    $this->fileUrlGenerator = $file_url_generator;
   }
 
   /**
@@ -41,6 +54,7 @@ class OccasionBannerBlock extends BlockBase implements ContainerFactoryPluginInt
       $plugin_id,
       $plugin_definition,
       $container->get('munasabat.occasion_manager'),
+      $container->get('file_url_generator'),
     );
   }
 
@@ -58,7 +72,7 @@ class OccasionBannerBlock extends BlockBase implements ContainerFactoryPluginInt
     foreach ($occasion->get('banner_images') as $item) {
       if ($item->entity) {
         $banners[] = [
-          'url' => \Drupal::service('file_url_generator')->generateAbsoluteString($item->entity->getFileUri()),
+          'url' => $this->fileUrlGenerator->generateAbsoluteString($item->entity->getFileUri()),
           'alt' => $item->alt ?? $occasion->getName(),
         ];
       }
@@ -66,7 +80,7 @@ class OccasionBannerBlock extends BlockBase implements ContainerFactoryPluginInt
 
     $logo_url = NULL;
     if (!$occasion->get('logo')->isEmpty() && $occasion->get('logo')->entity) {
-      $logo_url = \Drupal::service('file_url_generator')->generateAbsoluteString($occasion->get('logo')->entity->getFileUri());
+      $logo_url = $this->fileUrlGenerator->generateAbsoluteString($occasion->get('logo')->entity->getFileUri());
     }
 
     return [

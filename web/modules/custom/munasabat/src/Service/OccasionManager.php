@@ -4,6 +4,7 @@ namespace Drupal\munasabat\Service;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\munasabat\Entity\OccasionInterface;
 
 /**
@@ -13,16 +14,23 @@ class OccasionManager {
 
   /**
    * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
+   * The file URL generator.
+   */
+  protected FileUrlGeneratorInterface $fileUrlGenerator;
+
+  /**
    * Constructs an OccasionManager.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    FileUrlGeneratorInterface $file_url_generator,
+  ) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->fileUrlGenerator = $file_url_generator;
   }
 
   /**
@@ -133,6 +141,67 @@ class OccasionManager {
       $occasion->setActive(FALSE);
       $occasion->save();
     }
+  }
+
+  /**
+   * Builds render data for the active occasion.
+   *
+   * Used by hook_page_top() and blocks to avoid static \Drupal:: calls.
+   *
+   * @return array|null
+   *   Render data array or NULL if no active occasion.
+   */
+  public function buildActiveOccasionRenderData(): ?array {
+    $occasion = $this->getActiveOccasion();
+
+    if (!$occasion) {
+      return NULL;
+    }
+
+    $banners = [];
+    foreach ($occasion->get('banner_images') as $item) {
+      if ($item->entity) {
+        $banners[] = [
+          'url' => $this->fileUrlGenerator->generateAbsoluteString($item->entity->getFileUri()),
+          'alt' => $item->alt ?? $occasion->getName(),
+        ];
+      }
+    }
+
+    $logo_url = NULL;
+    if (!$occasion->get('logo')->isEmpty() && $occasion->get('logo')->entity) {
+      $logo_url = $this->fileUrlGenerator->generateAbsoluteString($occasion->get('logo')->entity->getFileUri());
+    }
+
+    return [
+      'occasion' => $occasion,
+      'name' => $occasion->getName(),
+      'type' => $occasion->getType(),
+      'greeting_text' => $occasion->getGreetingText(),
+      'logo_url' => $logo_url,
+      'banners' => $banners,
+      'primary_color' => $occasion->getPrimaryColor(),
+      'secondary_color' => $occasion->getSecondaryColor(),
+      'css_theme' => $occasion->getCssTheme(),
+      'effects' => $occasion->getEffects(),
+      'cache_tags' => $occasion->getCacheTags(),
+    ];
+  }
+
+  /**
+   * Validates a hex color code.
+   *
+   * @param string|null $color
+   *   The color string to validate.
+   *
+   * @return bool
+   *   TRUE if valid hex color.
+   */
+  public static function isValidHexColor(?string $color): bool {
+    if (empty($color)) {
+      return TRUE;
+    }
+    return (bool) preg_match('/^#[0-9A-Fa-f]{6}$/', $color);
   }
 
 }

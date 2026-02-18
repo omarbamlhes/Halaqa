@@ -4,11 +4,34 @@ namespace Drupal\munasabat\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\munasabat\Service\OccasionManager;
 
 /**
  * Form controller for the Occasion entity add/edit forms.
  */
 class OccasionForm extends ContentEntityForm {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    parent::validateForm($form, $form_state);
+
+    // Validate hex color codes to prevent CSS injection.
+    foreach (['primary_color', 'secondary_color'] as $field) {
+      $value = $form_state->getValue([$field, 0, 'value']);
+      if (!empty($value) && !OccasionManager::isValidHexColor($value)) {
+        $form_state->setErrorByName($field, $this->t('Invalid color format. Use hex format like #006B3F.'));
+      }
+    }
+
+    // Validate that end date is after start date.
+    $start = $form_state->getValue(['date_start', 0, 'value']);
+    $end = $form_state->getValue(['date_end', 0, 'value']);
+    if ($start && $end && $start > $end) {
+      $form_state->setErrorByName('date_end', $this->t('End date must be after start date.'));
+    }
+  }
 
   /**
    * {@inheritdoc}
